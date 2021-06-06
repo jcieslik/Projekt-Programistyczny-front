@@ -8,9 +8,15 @@ import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 })
 export class NavbarComponent implements OnInit {
  
+  expanded: boolean = false;
+
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  expandMenu(){
+    this.expanded = !this.expanded;
   }
 
 }
