@@ -4,7 +4,8 @@
     <a mat-button [routerLink]="'./messages'">Wiadomości</a>
     <a mat-button [routerLink]="'./favorites'">Ulubione</a>
     <div class="spacer"></div>
-    <mat-form-field class="example-form-field" floatLabel="never">
-        <input matInput type="text" class="search-field" [placeholder]="'Czego szukasz?'">
+    <mat-form-field class=" search-field" floatLabel="never">
+        <input matInput type="text" [placeholder]="'Czego szukasz?'">
+        <mat-icon matSuffix class="fa fa-search" aria-hidden="true"></mat-icon>
     </mat-form-field>
 </mat-toolbar>
