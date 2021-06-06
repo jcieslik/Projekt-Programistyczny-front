@@ -14,6 +14,10 @@ import { CartComponent } from './components/cart/cart.component';
 import { HomeComponent } from './components/home/home.component';
 import { AccountComponent } from './components/account/account.component';
 import { CheckboxModule, WavesModule, ButtonsModule, InputsModule, IconsModule, CardsModule } from 'angular-bootstrap-md'
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,7 +41,10 @@ import { CheckboxModule, WavesModule, ButtonsModule, InputsModule, IconsModule, 
     ButtonsModule,
     InputsModule,
     IconsModule,
-    CardsModule
+    CardsModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]
