@@ -13,7 +13,7 @@ import { SearchComponent } from './components/search/search.component';
 import { CartComponent } from './components/cart/cart.component';
 import { HomeComponent } from './components/home/home.component';
 import { AccountComponent } from './components/account/account.component';
-
+import { CheckboxModule, WavesModule, ButtonsModule, InputsModule, IconsModule, CardsModule } from 'angular-bootstrap-md'
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +31,13 @@ import { AccountComponent } from './components/account/account.component';
     AppRoutingModule,
     HttpClientModule,
     MdbModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    CheckboxModule,
+    WavesModule,
+    ButtonsModule,
+    InputsModule,
+    IconsModule,
+    CardsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
