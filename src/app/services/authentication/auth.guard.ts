@@ -8,7 +8,14 @@ export class AuthGuard implements CanActivate {
     constructor(private router: Router, private authenticationService: AuthenticationService) {}
     
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
-        throw new Error("Method not implemented.");
+        const user = this.authenticationService.userValue;
+
+        if (user) {
+            return true;
+        }
+
+        this.router.navigate(['/login']);
+        return false;
     }
 
 }

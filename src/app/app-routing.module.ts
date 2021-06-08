@@ -7,16 +7,17 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { SearchComponent } from './components/search/search.component';
+import { AuthGuard } from './services/authentication/auth.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'login', component: LoginComponent }, 
   { path: 'home', component: HomeComponent }, 
-  { path: 'cart', component: CartComponent }, 
+  { path: 'cart', component: CartComponent, canActivate: [AuthGuard] }, 
   { path: 'search', component: SearchComponent }, 
-  { path: 'messages', component: MessagesComponent }, 
-  { path: 'favorites', component: FavoritesComponent }, 
-  { path: 'account', component: AccountComponent }, 
+  { path: 'messages', component: MessagesComponent, canActivate: [AuthGuard] }, 
+  { path: 'favorites', component: FavoritesComponent, canActivate: [AuthGuard] }, 
+  { path: 'account', component: AccountComponent, canActivate: [AuthGuard] }, 
 ];
 
 @NgModule({
