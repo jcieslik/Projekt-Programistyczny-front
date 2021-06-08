@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { AuthenticationService } from '../../services/authentication/authentication.service';
 
 @Component({
   selector: 'app-navbar',
@@ -10,7 +11,7 @@ export class NavbarComponent implements OnInit {
  
   expanded: boolean = false;
 
-  constructor() { }
+  constructor(private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
   }
@@ -19,4 +20,11 @@ export class NavbarComponent implements OnInit {
     this.expanded = !this.expanded;
   }
 
+  logout(){
+    this.authenticationService.logout();
+  }
+
+  isLoggedIn(): boolean {
+    return (this.authenticationService.userValue != null);
+  }
 }

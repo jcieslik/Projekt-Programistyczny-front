@@ -17,6 +17,7 @@ import { CheckboxModule, WavesModule, ButtonsModule, InputsModule, IconsModule, 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import { MatIconModule} from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -46,6 +47,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     IconsModule,
     CardsModule,
     MatToolbarModule,
+    MatIconModule,
     MatButtonModule,
     MatInputModule,
     MatCardModule,

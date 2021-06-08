@@ -8,4 +8,15 @@
     <input matInput type="text" [placeholder]="'Czego szukasz?'">
     <mat-icon matSuffix class="fa fa-search" aria-hidden="true"></mat-icon>
   </mat-form-field>
+  <span class="example-spacer"></span>
+  <div *ngIf="isLoggedIn(); else else_block">
+  <button mat-icon-button>
+    <mat-icon [routerLink]="'./login'" class="fas fa-sign-in-alt"></mat-icon>
+  </button>
+</div>
+<ng-template #else_block>
+  <button mat-icon-button (click)="logout()">
+    <mat-icon class="fas fa-sign-out-alt"></mat-icon>
+  </button>
+</ng-template>
 </mat-toolbar>
