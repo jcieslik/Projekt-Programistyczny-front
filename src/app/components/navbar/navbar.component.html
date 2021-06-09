@@ -9,7 +9,7 @@
     <mat-icon matSuffix class="fa fa-search" aria-hidden="true"></mat-icon>
   </mat-form-field>
   <span class="example-spacer"></span>
-  <div *ngIf="isLoggedIn(); else else_block">
+  <div *ngIf="!isLoggedIn(); else else_block">
   <button mat-icon-button>
     <mat-icon [routerLink]="'./login'" class="fas fa-sign-in-alt"></mat-icon>
   </button>
