@@ -9,42 +9,42 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class CreateOfferComponent implements OnInit {
 
-  imgFile: string;
-
-   uploadForm = new FormGroup({
-    name: new FormControl('', [Validators.required]),
+  images = [];
+   myForm = new FormGroup({
+    name: new FormControl('', [Validators.required, Validators.minLength(3)]),
     file: new FormControl('', [Validators.required]),
-    imgSrc: new FormControl('', [Validators.required])
+    fileSource: new FormControl('', [Validators.required])
   });
+   
+  constructor(private http: HttpClient) { }
   
-  constructor(private httpClient: HttpClient) { }
-
   ngOnInit(): void {
-  }
     
-  get uf(){
-    return this.uploadForm.controls;
   }
    
-  onImageChange(e: any) {
-    const reader = new FileReader();
-    
-    if(e.target.files && e.target.files.length) {
-      const [file] = e.target.files;
-      reader.readAsDataURL(file);
-    
-      reader.onload = () => {
-        this.imgFile = reader.result as string;
-        this.uploadForm.patchValue({
-          imgSrc: reader.result
-        });
+  get f(){
+    return this.myForm.controls;
+  }
    
-      };
+  onFileChange(event: any) {
+    if (event.target.files && event.target.files[0]) {
+        var filesAmount = event.target.files.length;
+        for (let i = 0; i < filesAmount; i++) {
+          var reader = new FileReader();
+   
+          reader.onload = (event:any) => {
+            this.images.push(event.target.result); 
+   
+            this.myForm.patchValue({
+              fileSource: this.images
+            });
+          }
+          reader.readAsDataURL(event.target.files[i]);
+        }
     }
   }
-   
-  upload(){
-    console.log(this.uploadForm.value);
+    
+  submit(){
+    console.log(this.myForm.value);
   }
-
 }

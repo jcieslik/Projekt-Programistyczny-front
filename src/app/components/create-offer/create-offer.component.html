@@ -1,25 +1,33 @@
-<form class="image-upload" [formGroup]="uploadForm" (ngSubmit)="upload()">
-
-  <div class="preview" *ngIf="imgFile">
-    <img [src]="imgFile" style="width:400px; height:250px">
-  </div>
-
+<form class="image-upload" [formGroup]="myForm" (ngSubmit)="submit()">
+         
   <div class="form-group">
-    <label for="name">File Name</label>
-    <input class="form-control" id="file" formControlName="file" type="text">
-    <div *ngIf="uf.name.touched && uf.name.invalid" class="alert alert-danger">
-      <div *ngIf="uf.name.errors.required">Name is required.</div>
-    </div>
+      <label for="name">Name</label>
+      <input 
+          formControlName="name"
+          id="name" 
+          type="text" 
+          class="form-control">
+      <div *ngIf="f.name.touched && f.name.invalid" class="alert alert-danger">
+          <div *ngIf="f.name.errors.required">Name is required.</div>
+          <div *ngIf="f.name.errors.minlength">Name should be 3 character.</div>
+      </div>
   </div>
-
+ 
   <div class="form-group">
-    <label for="file">File</label>
-    <input type="file" class="form-control" id="file" formControlName="file" (change)="onImageChange($event)">
-    <div *ngIf="uf.file.touched && uf.file.invalid" class="alert alert-danger">
-      <div *ngIf="uf.file.errors.required">Image file is required.</div>
-    </div>
+      <label for="file">File</label>
+      <input 
+          formControlName="file"
+          id="file" 
+          type="file" 
+          class="form-control"
+          multiple="" 
+          (change)="onFileChange($event)">
+      <div *ngIf="f.file.touched && f.file.invalid" class="alert alert-danger">
+          <div *ngIf="f.file.errors.required">File is required.</div>
+      </div>
   </div>
-
-  <button class="btn btn-success" type="submit">Upload File</button>
-
+ 
+  <img *ngFor='let url of images'  [src]="url" height="150" width="200px" style="margin: 3px;"> <br/>
+     
+  <button class="btn btn-primary" type="submit">Submit</button>
 </form>

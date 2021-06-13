@@ -22,7 +22,6 @@ import { MatCardModule } from '@angular/material/card';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreateOfferComponent } from './components/create-offer/create-offer.component';
-import { FileSelectDirective } from 'ng2-file-upload';
 
 @NgModule({
   declarations: [
