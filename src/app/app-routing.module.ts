@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AccountComponent } from './components/account/account.component';
 import { CartComponent } from './components/cart/cart.component';
+import { CreateOfferComponent } from './components/create-offer/create-offer.component';
 import { FavoritesComponent } from './components/favorites/favorites.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'messages', component: MessagesComponent, canActivate: [AuthGuard] }, 
   { path: 'favorites', component: FavoritesComponent, canActivate: [AuthGuard] }, 
   { path: 'account', component: AccountComponent, canActivate: [AuthGuard] }, 
+  { path: 'createOffer', component: CreateOfferComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({
