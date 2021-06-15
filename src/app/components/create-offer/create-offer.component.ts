@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Brand } from 'src/app/models/brand';
+import { BrandService } from 'src/app/services/brand/brand.service';
 
 @Component({
   selector: 'app-create-offer',
@@ -9,6 +11,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class CreateOfferComponent implements OnInit {
 
+  brands: Brand[] = null;
+
   images = [];
    myForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(3)]),
@@ -16,10 +20,13 @@ export class CreateOfferComponent implements OnInit {
     fileSource: new FormControl('', [Validators.required])
   });
    
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private brandService: BrandService) { }
   
   ngOnInit(): void {
-    
+    this.brandService.getBrands()
+      .subscribe((response) => {
+        this.brands = response;
+      });
   }
    
   get f(){
