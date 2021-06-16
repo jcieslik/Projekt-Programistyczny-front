@@ -9,10 +9,12 @@ a:hover {
 .spacer {
   flex: 1 0.1 auto;
 }
+
 .search-field { 
   flex: 0.3 0.1 auto;
 }
-.navbar{
+
+mat-toolbar {
   position: sticky;
   position: -webkit-sticky;
   top: 0; 
