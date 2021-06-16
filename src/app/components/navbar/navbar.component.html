@@ -1,14 +1,14 @@
 <mat-toolbar color="primary" class="navbar">
   <a mat-button [routerLink]="'./home'"><h1>Serwis aukcyjny</h1></a>
-  <a mat-button [routerLink]="'./account'">Twoje konto</a>
-  <a mat-button [routerLink]="'./messages'">Wiadomości</a>
-  <a mat-button [routerLink]="'./favorites'">Ulubione</a>
   <div class="spacer"></div>
-  <mat-form-field class=" search-field" floatLabel="never">
+  <mat-form-field class="spacer" floatLabel="never">
     <input matInput type="text" [placeholder]="'Czego szukasz?'">
     <mat-icon matSuffix class="fa fa-search" aria-hidden="true"></mat-icon>
   </mat-form-field>
-  <span class="example-spacer"></span>
+  <div class="spacer"></div>
+  <a mat-button [routerLink]="'./account'">Twoje konto</a>
+  <a mat-button [routerLink]="'./messages'">Wiadomości</a>
+  <a mat-button [routerLink]="'./favorites'">Ulubione</a>
   <a mat-button [routerLink]="'./createOffer'">Dodaj ofertę</a>
   <div *ngIf="!isLoggedIn(); else else_block">
   <button mat-icon-button>

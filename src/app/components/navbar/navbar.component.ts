@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { User } from 'src/app/models/user';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
 
 @Component({
@@ -11,9 +12,12 @@ export class NavbarComponent implements OnInit {
  
   expanded: boolean = false;
 
+  user: User = JSON.parse(localStorage.getItem('user'));
+
   constructor(private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
+    
   }
 
   expandMenu(){
