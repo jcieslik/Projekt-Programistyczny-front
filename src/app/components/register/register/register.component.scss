@@ -1,0 +1,21 @@
+mat-card {
+  max-width: 500px;
+  max-height: 700px;
+  margin: 2em auto;
+  text-align: center;
+  background-color: transparentize($color: #FFFFFF, $amount: 0.35);
+}
+.signup-content {
+  padding: 60px 1rem;
+}
+.full-width-input {
+  width: 100%;
+}
+
+.bg {
+    background-image: url('./../../../../../backgrounds/register-background.jpg');
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}

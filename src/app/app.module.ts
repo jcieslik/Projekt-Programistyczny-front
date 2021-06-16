@@ -22,6 +22,7 @@ import { MatCardModule } from '@angular/material/card';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreateOfferComponent } from './components/create-offer/create-offer.component';
+import { RegisterComponent } from './components/register/register/register.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { CreateOfferComponent } from './components/create-offer/create-offer.com
     HomeComponent,
     AccountComponent,
     CreateOfferComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,

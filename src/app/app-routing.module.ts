@@ -7,6 +7,7 @@ import { FavoritesComponent } from './components/favorites/favorites.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { MessagesComponent } from './components/messages/messages.component';
+import { RegisterComponent } from './components/register/register/register.component';
 import { SearchComponent } from './components/search/search.component';
 import { AuthGuard } from './services/authentication/auth.guard';
 
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'favorites', component: FavoritesComponent, canActivate: [AuthGuard] }, 
   { path: 'account', component: AccountComponent, canActivate: [AuthGuard] }, 
   { path: 'createOffer', component: CreateOfferComponent, canActivate: [AuthGuard] },
+  { path: 'register', component: RegisterComponent },
 ];
 
 @NgModule({
