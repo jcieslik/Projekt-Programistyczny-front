@@ -4,7 +4,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { MdbModule } from 'mdb-angular-ui-kit';
 import { MessagesComponent } from './components/messages/messages.component';
@@ -20,10 +20,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule} from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreateOfferComponent } from './components/create-offer/create-offer.component';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { SpinnerInterceptor } from './http-interceptors/spinner-interceptor';
 
 @NgModule({
   declarations: [
@@ -56,12 +57,18 @@ import { CreateOfferComponent } from './components/create-offer/create-offer.com
     MatInputModule,
     MatCardModule,
     MatSelectModule,
-    MatProgressSpinnerModule,
     ReactiveFormsModule, 
     BrowserAnimationsModule,
     FormsModule,
+    NgxSpinnerModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: SpinnerInterceptor,
+      multi: true,
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
