@@ -1,1 +1,9 @@
-<p>Oto jest strona główna</p>
+<mat-card *ngFor="let offer of offers">
+  <div>
+    <img [src]="offer.image.imageData" height="150x" width="150px" style="margin: 3px;"> <br/>
+  </div>
+  <div class="offer-information">
+    <h1>{{offer.title}}</h1>
+    <h2>{{offer.priceForOneProduct}} zł</h2>
+  </div>
+</mat-card>

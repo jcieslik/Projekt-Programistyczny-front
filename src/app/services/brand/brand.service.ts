@@ -9,10 +9,9 @@ import { environment } from 'src/environments/environment';
 })
 export class BrandService {
 
-  constructor(
-    private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
   getBrands() {
-    return this.http.get<Brand[]>(`${environment.apiUrl}/api/brand/GetBrands`);
+    return this.http.get<Brand[]>(`${environment.apiUrl}/api/Brand/GetBrands`);
   }
 }

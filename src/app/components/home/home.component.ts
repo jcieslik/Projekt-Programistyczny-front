@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { OfferWithBaseData } from 'src/app/models/offer-base-data';
+import { OfferService } from 'src/app/services/offer/offer.service';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  offers: OfferWithBaseData[] = [];
+  
+  constructor(private offerService: OfferService) { }
 
   ngOnInit(): void {
+    this.offerService.getAllOffers()
+      .subscribe((response) => {
+        this.offers = response;
+      })
   }
-
 }

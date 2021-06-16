@@ -19,6 +19,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule} from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
+import { MatSelectModule } from '@angular/material/select';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreateOfferComponent } from './components/create-offer/create-offer.component';
@@ -55,6 +57,8 @@ import { RegisterComponent } from './components/register/register/register.compo
     MatButtonModule,
     MatInputModule,
     MatCardModule,
+    MatSelectModule,
+    MatProgressSpinnerModule,
     ReactiveFormsModule, 
     BrowserAnimationsModule,
     FormsModule,
