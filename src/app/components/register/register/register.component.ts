@@ -52,6 +52,7 @@ export class RegisterComponent implements OnInit {
     newUser.role = UserRole.Customer;
     
     this.userService.createUser(newUser).subscribe();
+    this.router.navigateByUrl(this.returnUrl);
   }
 }
 
