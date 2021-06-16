@@ -1,8 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Brand } from 'src/app/models/brand';
-import { BrandService } from 'src/app/services/brand/brand.service';
+import { Category } from 'src/app/models/category';
+import { City } from 'src/app/models/city';
+import { Image } from 'src/app/models/image';
+import { Offer } from 'src/app/models/offer';
+import { Province } from 'src/app/models/province';
+import { User } from 'src/app/models/user';
+import { OfferService } from 'src/app/services/offer/offer.service';
 
 @Component({
   selector: 'app-create-offer',
@@ -11,27 +17,46 @@ import { BrandService } from 'src/app/services/brand/brand.service';
 })
 export class CreateOfferComponent implements OnInit {
 
-  brands: Brand[] = null;
+  returnUrl: string;
 
-  images = [];
-   myForm = new FormGroup({
-    name: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    file: new FormControl('', [Validators.required]),
-    fileSource: new FormControl('', [Validators.required])
-  });
+  user: User = JSON.parse(localStorage.getItem('user'));
+
+  offer: Offer = new Offer();
+
+  brands: Brand[] = [];
+
+  provinces: Province[] = [];
+
+  cities: City[] = [];
+
+  categories: Category[] = [];
+  
+  selectedBrand: Brand;
+
+  selectedProvince: Province;
+
+  selectedCity: City;
+
+  selectedCategory: Category;
    
-  constructor(private http: HttpClient, private brandService: BrandService) { }
+  constructor(
+    private offerService: OfferService, 
+    private route: ActivatedRoute,
+    private router: Router) { 
+      this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
+    }
   
   ngOnInit(): void {
-    this.brandService.getBrands()
-      .subscribe((response) => {
-        this.brands = response;
-      });
+    this.offer.sellerId = this.user.id;
+    this.offerService.getDataForCreatingOffer()
+      .subscribe((results) => {
+        this.brands = results[0];
+        this.cities = results[1];
+        this.provinces = results[2];
+        this.categories = results[3];
+    })
   }
    
-  get f(){
-    return this.myForm.controls;
-  }
    
   onFileChange(event: any) {
     if (event.target.files && event.target.files[0]) {
@@ -40,11 +65,7 @@ export class CreateOfferComponent implements OnInit {
           var reader = new FileReader();
    
           reader.onload = (event:any) => {
-            this.images.push(event.target.result); 
-   
-            this.myForm.patchValue({
-              fileSource: this.images
-            });
+            this.offer.images.push(new Image(event.target.result)); 
           }
           reader.readAsDataURL(event.target.files[i]);
         }
@@ -52,6 +73,14 @@ export class CreateOfferComponent implements OnInit {
   }
     
   submit(){
-    console.log(this.myForm.value);
+    this.offer.brandId = this.selectedBrand.id;
+    this.offer.cityId = this.selectedCity.id;
+    this.offer.provinceId = this.selectedProvince.id;
+    this.offer.categoryId = this.selectedCategory.id;
+
+    this.offerService.createOffer(this.offer)
+      .subscribe((response) => {
+        this.router.navigate([this.returnUrl]);
+      });
   }
 }

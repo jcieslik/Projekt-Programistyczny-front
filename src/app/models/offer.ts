@@ -3,7 +3,7 @@ import { OfferType } from "../enums/offer-type";
 import { ProductState } from "../enums/product-state";
 import { Image } from "./image" 
 
-export class Brand {
+export class Offer {
   id: number;
   productCount: number;
   priceForOneProduct: number;
@@ -19,5 +19,5 @@ export class Brand {
   productState: ProductState;
   offerState: OfferState;
   offerType: OfferType;
-  images: Image[];
+  images: Image[] = [];
 }

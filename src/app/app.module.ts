@@ -19,6 +19,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule} from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
+import { MatSelectModule } from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreateOfferComponent } from './components/create-offer/create-offer.component';
@@ -53,6 +54,7 @@ import { CreateOfferComponent } from './components/create-offer/create-offer.com
     MatButtonModule,
     MatInputModule,
     MatCardModule,
+    MatSelectModule,
     ReactiveFormsModule, 
     BrowserAnimationsModule,
     FormsModule,

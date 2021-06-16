@@ -1,33 +1,71 @@
-<form class="image-upload" [formGroup]="myForm" (ngSubmit)="submit()">
-         
-  <div class="form-group">
-      <label for="name">Name</label>
-      <input 
-          formControlName="name"
-          id="name" 
-          type="text" 
-          class="form-control">
-      <div *ngIf="f.name.touched && f.name.invalid" class="alert alert-danger">
-          <div *ngIf="f.name.errors.required">Name is required.</div>
-          <div *ngIf="f.name.errors.minlength">Name should be 3 character.</div>
-      </div>
-  </div>
- 
-  <div class="form-group">
-      <label for="file">File</label>
-      <input 
-          formControlName="file"
-          id="file" 
-          type="file" 
-          class="form-control"
-          multiple="" 
-          (change)="onFileChange($event)">
-      <div *ngIf="f.file.touched && f.file.invalid" class="alert alert-danger">
-          <div *ngIf="f.file.errors.required">File is required.</div>
-      </div>
-  </div>
- 
-  <img *ngFor='let url of images'  [src]="url" height="150" width="200px" style="margin: 3px;"> <br/>
-     
-  <button class="btn btn-primary" type="submit">Submit</button>
+<form style="display: flexbox;" (ngSubmit)="submit()">
+	<mat-card class="card-container">
+		<h1>Opis produktu</h1>
+		<div class="create-offer">
+
+			<mat-form-field appearance="outline" class="fill-container">
+				<mat-label>Tytuł ogłoszenia</mat-label>
+				<input [(ngModel)]="offer.title" name="title" matInput>
+			</mat-form-field>
+
+			<mat-form-field appearance="outline" class="fill-container">
+				<mat-label>Opis produktu</mat-label>
+				<textarea [(ngModel)]="offer.description" name="description" matInput rows="12"></textarea>
+			</mat-form-field>
+
+		</div>
+	</mat-card>
+
+	<mat-card class="card-container">
+		<h1>Dane szczegółowe</h1>
+
+		<mat-form-field appearance="fill">
+			<mat-label>Miasto</mat-label>
+			<mat-select [(ngModel)]="selectedCity" name="city">
+				<mat-option *ngFor="let city of cities" [value]="city">
+					{{city.name}}
+				</mat-option>
+			</mat-select>
+		</mat-form-field>
+
+		<mat-form-field appearance="fill">
+			<mat-label>Województwo</mat-label>
+			<mat-select [(ngModel)]="selectedProvince" name="province">
+				<mat-option *ngFor="let province of provinces" [value]="province">
+					{{province.name}}
+				</mat-option>
+			</mat-select>
+		</mat-form-field>
+
+		<mat-form-field appearance="fill">
+			<mat-label>Kategoria</mat-label>
+			<mat-select [(ngModel)]="selectedCategory" name="category">
+				<mat-option *ngFor="let category of categories" [value]="category">
+					{{category.name}}
+				</mat-option>
+			</mat-select>
+		</mat-form-field>
+
+		<mat-form-field appearance="fill">
+			<mat-label>Marka</mat-label>
+			<mat-select [(ngModel)]="selectedBrand" name="brand">
+				<mat-option *ngFor="let brand of brands" [value]="brand">
+					{{brand.name}}
+				</mat-option>
+			</mat-select>
+		</mat-form-field>
+	</mat-card>
+
+	<mat-card class="card-container">
+		<h1>Zdjęcia produktu</h1>
+		<div>
+			<label for="file">Zdjęcia</label>
+			<input id="file" type="file" class="form-control" multiple="" (change)="onFileChange($event)">
+		</div>
+
+		<img *ngFor='let url of offer.images' [src]="url.imageData" height="150" width="200px" style="margin: 3px;"> <br />
+	</mat-card>
+	<mat-card>
+		<button mat-raised-button color="primary" type="submit">Dodaj ogłoszenie</button>
+	</mat-card>
 </form>
