@@ -84,4 +84,8 @@ export class CreateOfferComponent implements OnInit {
         this.router.navigate([this.returnUrl]);
       });
   }
+
+  removeImage(index: number) {
+    this.offer.images.splice(index, 1);
+  }
 }

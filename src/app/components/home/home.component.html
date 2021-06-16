@@ -1,7 +1,7 @@
 <div *ngIf="offers.length > 0; else noOffers">
 <mat-card *ngFor="let offer of offers">
-  <div>
-    <img [src]="offer.image.imageData" height="150x" width="150px" style="margin: 3px;"> <br/>
+  <div class="container">
+    <img [src]="offer.image.imageData" class="image">
   </div>
   <div class="offer-information">
     <h1>{{offer.title}}</h1>

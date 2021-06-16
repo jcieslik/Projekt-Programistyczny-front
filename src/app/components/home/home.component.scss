@@ -1,10 +1,27 @@
 mat-card {
-  display: flex;
+  display: flex;  
   width: 40%;
   margin: 2em auto;
+}
+
+mat-card:hover {
+  cursor: pointer;
 }
 
 .offer-information {
   margin-left: 24px;
   font-size: 64px;
+}
+
+.container{ 
+  margin: 0px;
+  padding: 0px;
+  width: 150px;
+  height: 150px;
+}
+
+.image {
+  max-width: 150px;
+  max-height: 150px;
+  vertical-align: middle;
 }

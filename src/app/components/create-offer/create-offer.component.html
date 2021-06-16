@@ -14,11 +14,13 @@
 			</mat-form-field>
 
 			<mat-form-field>
-				<input matInput [(ngModel)]="offer.priceForOneProduct" type="number" name="price" placeholder="Cena za jeden produkt">
+				<input matInput [(ngModel)]="offer.priceForOneProduct" type="number" name="price"
+					placeholder="Cena za jeden produkt">
 			</mat-form-field>
 
 			<mat-form-field>
-				<input matInput [(ngModel)]="offer.productCount" type="number" name="numberOfProducts" placeholder="Liczba produktów">
+				<input matInput [(ngModel)]="offer.productCount" type="number" name="numberOfProducts"
+					placeholder="Liczba produktów">
 			</mat-form-field>
 
 		</div>
@@ -67,11 +69,15 @@
 	<mat-card class="card-container">
 		<h1>Zdjęcia produktu</h1>
 		<div>
-			<label for="file">Zdjęcia</label>
 			<input id="file" type="file" class="form-control" multiple="" (change)="onFileChange($event)">
 		</div>
 
-		<img *ngFor='let url of offer.images' [src]="url.imageData" height="150px" width="150px" style="margin: 3px;"> <br />
+		<div class="container" *ngFor='let image of offer.images; let indexOfelement=index;' >
+			<img [src]="image.imageData" class="image">
+			<div class="overlay">
+				<i class="icon fa fa-trash" (click)="removeImage(indexOfelement)"></i>
+			</div>
+		</div><br />
 	</mat-card>
 	<mat-card>
 		<button mat-raised-button color="primary" type="submit">Dodaj ogłoszenie</button>
