@@ -10,3 +10,10 @@ a:hover {
 .search-field { 
   flex: 0.3 0.1 auto;
 }
+.navbar{
+  position: sticky;
+  position: -webkit-sticky;
+  top: 0; 
+  z-index: 9999; 
+  overflow: hidden;
+}

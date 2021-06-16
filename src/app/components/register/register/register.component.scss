@@ -3,19 +3,15 @@ mat-card {
   max-height: 700px;
   margin: 2em auto;
   text-align: center;
-  background-color: transparentize($color: #FFFFFF, $amount: 0.35);
+  background-color: transparentize($color: #FFFFFF, $amount: 0.55);
+  z-index: 3;
 }
 .signup-content {
   padding: 60px 1rem;
+  height: 80%;
+  width: 100%;
+  overflow: hidden;
 }
 .full-width-input {
   width: 100%;
-}
-
-.bg {
-    background-image: url('./../../../../../backgrounds/register-background.jpg');
-    height: 100%;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
 }
