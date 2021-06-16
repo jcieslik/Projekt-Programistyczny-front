@@ -77,6 +77,7 @@ export class CreateOfferComponent implements OnInit {
     this.offer.cityId = this.selectedCity.id;
     this.offer.provinceId = this.selectedProvince.id;
     this.offer.categoryId = this.selectedCategory.id;
+    this.offer.images[0].isMainProductImage = true;
 
     this.offerService.createOffer(this.offer)
       .subscribe((response) => {

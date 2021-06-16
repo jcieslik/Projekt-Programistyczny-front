@@ -13,6 +13,14 @@
 				<textarea [(ngModel)]="offer.description" name="description" matInput rows="12"></textarea>
 			</mat-form-field>
 
+			<mat-form-field>
+				<input matInput [(ngModel)]="offer.priceForOneProduct" type="number" name="price" placeholder="Cena za jeden produkt">
+			</mat-form-field>
+
+			<mat-form-field>
+				<input matInput [(ngModel)]="offer.productCount" type="number" name="numberOfProducts" placeholder="Liczba produktów">
+			</mat-form-field>
+
 		</div>
 	</mat-card>
 
@@ -63,7 +71,7 @@
 			<input id="file" type="file" class="form-control" multiple="" (change)="onFileChange($event)">
 		</div>
 
-		<img *ngFor='let url of offer.images' [src]="url.imageData" height="150" width="200px" style="margin: 3px;"> <br />
+		<img *ngFor='let url of offer.images' [src]="url.imageData" height="150px" width="150px" style="margin: 3px;"> <br />
 	</mat-card>
 	<mat-card>
 		<button mat-raised-button color="primary" type="submit">Dodaj ogłoszenie</button>

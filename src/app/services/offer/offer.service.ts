@@ -5,6 +5,7 @@ import { Brand } from 'src/app/models/brand';
 import { Category } from 'src/app/models/category';
 import { City } from 'src/app/models/city';
 import { Offer } from 'src/app/models/offer';
+import { OfferWithBaseData } from 'src/app/models/offer-base-data';
 import { Province } from 'src/app/models/province';
 import { environment } from 'src/environments/environment';
 
@@ -23,7 +24,12 @@ export class OfferService {
     
     return forkJoin([response1, response2, response3, response4]);
   }
+  
   createOffer(offer: Offer) {
     return this.http.post<Offer>(`${environment.apiUrl}/api/Offer/CreateOffer`, offer);
+  }
+
+  getAllOffers() {
+    return this.http.get<OfferWithBaseData[]>(`${environment.apiUrl}/api/Offer/GetAllOffers`);
   }
 }
