@@ -1,17 +1,16 @@
 <div *ngIf="offers.length > 0; else noOffers">
-<mat-card *ngFor="let offer of offers">
-  <div class="container">
-    <img [src]="offer.image.imageData" class="image">
-  </div>
-  <div class="offer-information">
-    <h1>{{offer.title}}</h1>
-    <h2>{{offer.priceForOneProduct}} zł</h2>
-  </div>
-</mat-card>
+  <mat-card *ngFor="let offer of offers">
+    <div class="container">
+      <img [src]="offer.image.imageData" class="image">
+    </div>
+    <div class="offer-information">
+      <h1>{{offer.title}}</h1>
+      <h2>{{offer.priceForOneProduct}} zł</h2>
+    </div>
+  </mat-card>
 </div>
 <ng-template #noOffers>
-    <mat-card style="text-align: center;" title="W krótce pojawią się tu ogłoszenia">
-      <mat-card-content style="text-align: center;">W krótce pojawią się tu ogłoszenia</mat-card-content>
-      
-    </mat-card>  
+  <mat-card style="text-align: center;" title="Wkrótce pojawią się tu ogłoszenia">
+    <mat-card-content style="text-align: center;">Wkrótce pojawią się tu ogłoszenia</mat-card-content>
+  </mat-card>
 </ng-template>
