@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import { MdbModule } from 'mdb-angular-ui-kit';
 import { MessagesComponent } from './components/messages/messages.component';
 import { FavoritesComponent } from './components/favorites/favorites.component';
 import { SearchComponent } from './components/search/search.component';
@@ -26,6 +25,7 @@ import { CreateOfferComponent } from './components/create-offer/create-offer.com
 import { RegisterComponent } from './components/register/register/register.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { SpinnerInterceptor } from './http-interceptors/spinner-interceptor';
+import { OwnOffersComponent } from './components/own-offers/own-offers.component';
 
 @NgModule({
   declarations: [
@@ -40,12 +40,12 @@ import { SpinnerInterceptor } from './http-interceptors/spinner-interceptor';
     AccountComponent,
     CreateOfferComponent,
     RegisterComponent,
+    OwnOffersComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    MdbModule,
     FontAwesomeModule,
     CheckboxModule,
     WavesModule,
@@ -62,7 +62,7 @@ import { SpinnerInterceptor } from './http-interceptors/spinner-interceptor';
     ReactiveFormsModule, 
     BrowserAnimationsModule,
     FormsModule,
-    NgxSpinnerModule,
+    NgxSpinnerModule
   ],
   providers: [
     {

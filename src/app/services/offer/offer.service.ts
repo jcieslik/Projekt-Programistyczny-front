@@ -32,4 +32,8 @@ export class OfferService {
   getAllOffers() {
     return this.http.get<OfferWithBaseData[]>(`${environment.apiUrl}/api/Offer/GetAllOffers`);
   }
+
+  getOffersFromUser(id: number) {
+    return this.http.get<OfferWithBaseData[]>(`${environment.apiUrl}/api/Offer/GetOffersFromUser?id=${id}`);
+  }
 }

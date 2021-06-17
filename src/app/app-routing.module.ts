@@ -9,6 +9,7 @@ import { LoginComponent } from './components/login/login.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { RegisterComponent } from './components/register/register/register.component';
 import { SearchComponent } from './components/search/search.component';
+import { OwnOffersComponent } from './components/own-offers/own-offers.component';
 import { AuthGuard } from './services/authentication/auth.guard';
 
 const routes: Routes = [
@@ -22,6 +23,7 @@ const routes: Routes = [
   { path: 'account', component: AccountComponent, canActivate: [AuthGuard] }, 
   { path: 'createOffer', component: CreateOfferComponent, canActivate: [AuthGuard] },
   { path: 'register', component: RegisterComponent },
+  { path: 'ownOffers', component: OwnOffersComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({
