@@ -1,5 +1,5 @@
 <div *ngIf="offers.length > 0; else noOffers">
-  <mat-card *ngFor="let offer of offers">
+  <mat-card *ngFor="let offer of dataSource">
     <div class="container">
       <img [src]="offer.image.imageData" class="image">
     </div>
@@ -10,7 +10,13 @@
   </mat-card>
 </div>
 <ng-template #noOffers>
-  <mat-card style="text-align: center;" title="Wkrótce pojawią się tu ogłoszenia">
-    <mat-card-content style="text-align: center;">Wkrótce pojawią się tu ogłoszenia</mat-card-content>
+  <mat-card style="text-align: center;" title="Nie posiadasz żadnych aktywnych ogłoszeń">
+    <mat-card-content style="text-align: center;">Nie posiadasz żadnych aktywnych ogłoszeń</mat-card-content>
   </mat-card>
 </ng-template>
+
+<div class="paginator">
+  <mat-paginator #paginator [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20]" [length]="totalSize"
+      [pageIndex]="currentPage" (page)="pageEvent = handlePage($event)">
+  </mat-paginator>
+</div>

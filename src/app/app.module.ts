@@ -26,6 +26,8 @@ import { RegisterComponent } from './components/register/register/register.compo
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { SpinnerInterceptor } from './http-interceptors/spinner-interceptor';
 import { OwnOffersComponent } from './components/own-offers/own-offers.component';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatTableModule } from '@angular/material/table';
 
 @NgModule({
   declarations: [
@@ -62,7 +64,9 @@ import { OwnOffersComponent } from './components/own-offers/own-offers.component
     ReactiveFormsModule, 
     BrowserAnimationsModule,
     FormsModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    MatPaginatorModule,
+    MatTableModule
   ],
   providers: [
     {
