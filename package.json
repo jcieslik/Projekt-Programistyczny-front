@@ -27,6 +27,7 @@
     "@fortawesome/free-brands-svg-icons": "^5.15.3",
     "@fortawesome/free-regular-svg-icons": "^5.15.3",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
+    "@kolkov/ngx-gallery": "^1.2.3",
     "angular-bootstrap-md": "^11.1.0",
     "bootstrap": "^5.0.1",
     "mdb-angular-ui-kit": "^1.0.0-beta6",
