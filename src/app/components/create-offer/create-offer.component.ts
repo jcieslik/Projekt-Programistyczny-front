@@ -5,7 +5,7 @@ import { Brand } from 'src/app/models/brand';
 import { Category } from 'src/app/models/category';
 import { City } from 'src/app/models/city';
 import { Image } from 'src/app/models/image';
-import { Offer } from 'src/app/models/offer';
+import { CreateOffer } from 'src/app/models/create-offer';
 import { Province } from 'src/app/models/province';
 import { User } from 'src/app/models/user';
 import { OfferService } from 'src/app/services/offer/offer.service';
@@ -21,7 +21,7 @@ export class CreateOfferComponent implements OnInit {
 
   user: User = JSON.parse(localStorage.getItem('user'));
 
-  offer: Offer = new Offer();
+  offer: CreateOffer = new CreateOffer();
 
   brands: Brand[] = [];
 

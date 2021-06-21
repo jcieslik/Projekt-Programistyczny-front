@@ -5,32 +5,28 @@ import { Observable } from 'rxjs';
 import { finalize, tap } from 'rxjs/operators';
 
 @Injectable()
-export class SpinnerInterceptor implements HttpInterceptor{
-    
-    count = 0;
+export class SpinnerInterceptor implements HttpInterceptor {
 
-    constructor(private spinner: NgxSpinnerService) { }
+	count = 0;
 
-    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+	constructor(private spinner: NgxSpinnerService) { }
 
-        this.spinner.show()
+	intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-        this.count++;
+		this.spinner.show()
 
-        return next.handle(req)
+		this.count++;
 
-            .pipe ( tap (
+		return next.handle(req)
 
-                    event => console.log(event),
+			.pipe(tap(
 
-                    error => console.log( error )
+			), finalize(() => {
 
-                ), finalize(() => {
+				this.count--;
 
-                    this.count--;
-
-                    if ( this.count == 0 ) this.spinner.hide ()
-                })
-            );
-    }
+				if (this.count == 0) this.spinner.hide()
+			})
+			);
+	}
 }

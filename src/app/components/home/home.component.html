@@ -1,5 +1,5 @@
 <div *ngIf="offers.length > 0; else noOffers">
-  <mat-card *ngFor="let offer of dataSource">
+  <mat-card *ngFor="let offer of dataSource" [routerLink]="['/offer/'+offer.id]">
     <div class="container">
       <img [src]="offer.image.imageData" class="image">
     </div>

@@ -7,10 +7,11 @@ import { FavoritesComponent } from './components/favorites/favorites.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { MessagesComponent } from './components/messages/messages.component';
-import { RegisterComponent } from './components/register/register/register.component';
+import { RegisterComponent } from './components/register/register.component';
 import { SearchComponent } from './components/search/search.component';
 import { OwnOffersComponent } from './components/own-offers/own-offers.component';
 import { AuthGuard } from './services/authentication/auth.guard';
+import { OfferComponent } from './components/offer/offer.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'createOffer', component: CreateOfferComponent, canActivate: [AuthGuard] },
   { path: 'register', component: RegisterComponent },
   { path: 'ownOffers', component: OwnOffersComponent, canActivate: [AuthGuard] },
+  { path: 'offer/:id', component: OfferComponent }
 ];
 
 @NgModule({

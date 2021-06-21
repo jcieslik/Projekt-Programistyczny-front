@@ -19,15 +19,18 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule} from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDialogModule } from '@angular/material/dialog';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreateOfferComponent } from './components/create-offer/create-offer.component';
-import { RegisterComponent } from './components/register/register/register.component';
+import { RegisterComponent } from './components/register/register.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { SpinnerInterceptor } from './http-interceptors/spinner-interceptor';
 import { OwnOffersComponent } from './components/own-offers/own-offers.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
+import { OfferComponent } from './components/offer/offer.component';
+import { ImageDisplayComponent } from './components/image-display/image-display.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +45,9 @@ import { MatTableModule } from '@angular/material/table';
     AccountComponent,
     CreateOfferComponent,
     RegisterComponent,
-    OwnOffersComponent
+    OwnOffersComponent,
+    OfferComponent,
+    ImageDisplayComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +71,8 @@ import { MatTableModule } from '@angular/material/table';
     FormsModule,
     NgxSpinnerModule,
     MatPaginatorModule,
-    MatTableModule
+    MatTableModule, 
+    MatDialogModule
   ],
   providers: [
     {
