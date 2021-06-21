@@ -1,1 +1,5 @@
-<img *ngIf="offer" [src]="offer.images[0].imageData" (click)="openDialog()">
+<div class="gallery-wrapper">
+  <mat-card>
+    <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery>
+  </mat-card>
+</div>

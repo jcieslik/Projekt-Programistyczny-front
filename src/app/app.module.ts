@@ -30,7 +30,7 @@ import { OwnOffersComponent } from './components/own-offers/own-offers.component
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { OfferComponent } from './components/offer/offer.component';
-import { ImageDisplayComponent } from './components/image-display/image-display.component';
+import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 
 @NgModule({
   declarations: [
@@ -46,8 +46,7 @@ import { ImageDisplayComponent } from './components/image-display/image-display.
     CreateOfferComponent,
     RegisterComponent,
     OwnOffersComponent,
-    OfferComponent,
-    ImageDisplayComponent
+    OfferComponent
   ],
   imports: [
     BrowserModule,
@@ -72,7 +71,8 @@ import { ImageDisplayComponent } from './components/image-display/image-display.
     NgxSpinnerModule,
     MatPaginatorModule,
     MatTableModule, 
-    MatDialogModule
+    MatDialogModule,
+    NgxGalleryModule
   ],
   providers: [
     {
