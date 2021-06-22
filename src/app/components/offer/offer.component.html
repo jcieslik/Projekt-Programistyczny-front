@@ -1,9 +1,12 @@
-<div class="gallery-wrapper" *ngIf="offer">
+<div *ngIf="offer">
   <mat-card>
-    <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery>
-
-  </mat-card>
-  <mat-card>
-    
+    <div class="row">
+      <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery>
+      <div style="width: 40%">
+        <div class="title">{{offer.title}}</div>
+        <div class="text">Od: <a [routerLink]="['/userOffers/'+offer.id]">{{offer.seller.name}} {{offer.seller.surname}} ({{offer.seller.username}})</a></div>
+        <div class="text">Koszt: {{offer.priceForOneProduct | currency:'':''}} zł</div>
+      </div>
+    </div>
   </mat-card>
 </div>

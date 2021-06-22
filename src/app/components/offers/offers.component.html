@@ -6,7 +6,7 @@
     <div class="offer-information">
       <h1>{{offer.title}}</h1>
       <h4>Stan: <product-state-i18n [key]="offer.productState"></product-state-i18n></h4>
-      <h2>{{offer.priceForOneProduct}} zł</h2>
+      <h2>Cena za sztukę: {{offer.priceForOneProduct | currency:'':''}} zł</h2>
     </div>
   </mat-card>
 </div>

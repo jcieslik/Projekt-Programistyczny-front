@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -35,6 +35,7 @@ import { OrderStatusTranslationComponent } from './enum-translations/order-statu
 import { OffersComponent } from './components/offers/offers.component';
 import { YourOffersComponent } from './components/your-offers/your-offers.component';
 import { UserOffersComponent } from './components/user-offers/user-offers.component';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 @NgModule({
   declarations: [
@@ -80,14 +81,15 @@ import { UserOffersComponent } from './components/user-offers/user-offers.compon
     MatPaginatorModule,
     MatTableModule, 
     MatDialogModule,
-    NgxGalleryModule
+    NgxGalleryModule,
+    MatGridListModule
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: SpinnerInterceptor,
       multi: true,
-    }
+    },
   ],
   bootstrap: [AppComponent]
 })

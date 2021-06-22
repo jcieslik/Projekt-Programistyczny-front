@@ -12,6 +12,7 @@ import { SearchComponent } from './components/search/search.component';
 import { AuthGuard } from './services/authentication/auth.guard';
 import { OfferComponent } from './components/offer/offer.component';
 import { YourOffersComponent } from './components/your-offers/your-offers.component';
+import { UserOffersComponent } from './components/user-offers/user-offers.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -24,7 +25,7 @@ const routes: Routes = [
   { path: 'account', component: AccountComponent, canActivate: [AuthGuard] }, 
   { path: 'createOffer', component: CreateOfferComponent, canActivate: [AuthGuard] },
   { path: 'register', component: RegisterComponent },
-  { path: 'userOffers/:id', component: YourOffersComponent },
+  { path: 'userOffers/:id', component: UserOffersComponent },
   { path: 'yourOffers', component: YourOffersComponent, canActivate: [AuthGuard] },
   { path: 'offer/:id', component: OfferComponent }
 ];
