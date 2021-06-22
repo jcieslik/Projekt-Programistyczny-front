@@ -31,6 +31,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { OfferComponent } from './components/offer/offer.component';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
+import { ProductStateTranslationComponent } from './enum-translations/product-state-translation/product-state-translation.component';
+import { OrderStatusTranslationComponent } from './enum-translations/order-status-translation/order-status-translation.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +48,9 @@ import { NgxGalleryModule } from '@kolkov/ngx-gallery';
     CreateOfferComponent,
     RegisterComponent,
     OwnOffersComponent,
-    OfferComponent
+    OfferComponent,
+    ProductStateTranslationComponent,
+    OrderStatusTranslationComponent
   ],
   imports: [
     BrowserModule,
