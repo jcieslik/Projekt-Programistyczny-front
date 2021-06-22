@@ -26,13 +26,15 @@ import { CreateOfferComponent } from './components/create-offer/create-offer.com
 import { RegisterComponent } from './components/register/register.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { SpinnerInterceptor } from './http-interceptors/spinner-interceptor';
-import { OwnOffersComponent } from './components/own-offers/own-offers.component';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { OfferComponent } from './components/offer/offer.component';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { ProductStateTranslationComponent } from './enum-translations/product-state-translation/product-state-translation.component';
 import { OrderStatusTranslationComponent } from './enum-translations/order-status-translation/order-status-translation.component';
+import { OffersComponent } from './components/offers/offers.component';
+import { YourOffersComponent } from './components/your-offers/your-offers.component';
+import { UserOffersComponent } from './components/user-offers/user-offers.component';
 
 @NgModule({
   declarations: [
@@ -47,10 +49,12 @@ import { OrderStatusTranslationComponent } from './enum-translations/order-statu
     AccountComponent,
     CreateOfferComponent,
     RegisterComponent,
-    OwnOffersComponent,
     OfferComponent,
     ProductStateTranslationComponent,
-    OrderStatusTranslationComponent
+    OrderStatusTranslationComponent,
+    OffersComponent,
+    YourOffersComponent,
+    UserOffersComponent
   ],
   imports: [
     BrowserModule,

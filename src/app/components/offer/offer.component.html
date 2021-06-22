@@ -1,5 +1,9 @@
-<div class="gallery-wrapper">
+<div class="gallery-wrapper" *ngIf="offer">
   <mat-card>
     <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery>
+
+  </mat-card>
+  <mat-card>
+    
   </mat-card>
 </div>

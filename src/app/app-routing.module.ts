@@ -9,9 +9,9 @@ import { LoginComponent } from './components/login/login.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { RegisterComponent } from './components/register/register.component';
 import { SearchComponent } from './components/search/search.component';
-import { OwnOffersComponent } from './components/own-offers/own-offers.component';
 import { AuthGuard } from './services/authentication/auth.guard';
 import { OfferComponent } from './components/offer/offer.component';
+import { YourOffersComponent } from './components/your-offers/your-offers.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -24,7 +24,8 @@ const routes: Routes = [
   { path: 'account', component: AccountComponent, canActivate: [AuthGuard] }, 
   { path: 'createOffer', component: CreateOfferComponent, canActivate: [AuthGuard] },
   { path: 'register', component: RegisterComponent },
-  { path: 'ownOffers', component: OwnOffersComponent, canActivate: [AuthGuard] },
+  { path: 'userOffers/:id', component: YourOffersComponent },
+  { path: 'yourOffers', component: YourOffersComponent, canActivate: [AuthGuard] },
   { path: 'offer/:id', component: OfferComponent }
 ];
 
