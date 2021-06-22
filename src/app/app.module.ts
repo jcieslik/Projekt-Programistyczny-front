@@ -89,7 +89,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
       provide: HTTP_INTERCEPTORS,
       useClass: SpinnerInterceptor,
       multi: true,
-    },
+    }
   ],
   bootstrap: [AppComponent]
 })

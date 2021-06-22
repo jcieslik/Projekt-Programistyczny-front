@@ -4,8 +4,27 @@
       <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery>
       <div style="width: 40%">
         <div class="title">{{offer.title}}</div>
-        <div class="text">Od: <a [routerLink]="['/userOffers/'+offer.id]">{{offer.seller.name}} {{offer.seller.surname}} ({{offer.seller.username}})</a></div>
+        <div class="text">Od: <a [routerLink]="['/userOffers/'+offer.id]">{{offer.seller.name}} {{offer.seller.surname}}
+            ({{offer.seller.username}})</a></div>
         <div class="text">Koszt: {{offer.priceForOneProduct | currency:'':''}} zł</div>
+        <div class="text">Pozostała ilość sztuk: {{offer.productCount}}</div>
+        <div class="text">Stan: <product-state-i18n [key]="offer.productState"></product-state-i18n>
+        </div>
+        <div class="text">Lokalizacja: {{offer.province}}, {{offer.city}}</div>
+        <button mat-raised-button color="primary" type="submit" class="add-to-cart">Dodaj do koszyka</button>
+      </div>
+    </div>
+  </mat-card>
+  <mat-card>
+    <div class="flex">
+      <div style="flex-basis: 40%">
+        <div class="title" style="margin-top: 16px;">Dane o produkcie</div><br>
+        <div class="text">Kategoria: {{offer.category}}</div>
+        <div class="text">Marka: {{offer.brand}}</div>
+      </div>
+      <div style="flex-basis: 60%">
+        <div class="title" style="margin-top: 16px;">Opis</div><br>
+        <div class="text">{{offer.description}}</div>
       </div>
     </div>
   </mat-card>

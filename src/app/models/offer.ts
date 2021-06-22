@@ -16,7 +16,7 @@ export class Offer {
   city: string;
   province: string;
   category: string;
-  brandId: string;
+  brand: string;
   productState: ProductState;
   offerState: OfferState;
   offerType: OfferType;
