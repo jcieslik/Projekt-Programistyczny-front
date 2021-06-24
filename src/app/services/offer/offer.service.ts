@@ -9,7 +9,7 @@ import { CreateOffer } from 'src/app/models/create-offer';
 import { OfferWithBaseData } from 'src/app/models/offer-base-data';
 import { Province } from 'src/app/models/province';
 import { environment } from 'src/environments/environment';
-import { AddOrRemoveOfferToCartDTO } from 'src/app/models/add-or-remove-offer-to-cart';
+import { AddOrRemoveOfferToCartDTO } from '../../models/add-or-remove-offer-to-cart';
 
 @Injectable({
   providedIn: 'root'
