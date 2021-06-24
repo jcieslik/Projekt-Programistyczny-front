@@ -1,1 +1,22 @@
-<p>cart works!</p>
+<div *ngIf="offers.length > 0; else noOffers">
+  <mat-card *ngFor="let offer of dataSource" [routerLink]="['/offer/'+offer.id]">
+    <div class="container">
+      <img [src]="offer.image.imageData" class="image">
+    </div>
+    <div class="offer-information">
+      <h1>{{offer.title}}</h1>
+      <h4>Stan: <product-state-i18n [key]="offer.productState"></product-state-i18n></h4>
+      <h2>Cena za sztukę: {{offer.priceForOneProduct | currency:'':''}} zł</h2>
+    </div>
+  </mat-card>
+</div>
+<ng-template #noOffers>
+  <mat-card style="text-align: center;">
+    <mat-card-content style="text-align: center;">Koszyk jest pusty</mat-card-content>
+  </mat-card>
+</ng-template>
+<div class="paginator" *ngIf="offers.length > 0">
+  <mat-paginator #paginator [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20]" [length]="totalSize"
+      [pageIndex]="currentPage" (page)="pageEvent = handlePage($event)">
+  </mat-paginator>
+</div>

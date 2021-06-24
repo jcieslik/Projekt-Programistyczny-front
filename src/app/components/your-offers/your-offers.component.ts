@@ -10,7 +10,7 @@ import { OfferService } from 'src/app/services/offer/offer.service';
 })
 export class YourOffersComponent implements OnInit {
 
-  offers: OfferWithBaseData[];
+  offers: OfferWithBaseData[] = [];
 
   user: User = JSON.parse(localStorage.getItem('user'))
 
