@@ -23,21 +23,17 @@ export class CreateOfferComponent implements OnInit {
 
   offer: CreateOffer = new CreateOffer();
 
-  brands: Brand[] = [];
-
   provinces: Province[] = [];
 
-  cities: City[] = [];
-
   categories: Category[] = [];
-  
-  selectedBrand: Brand;
 
   selectedProvince: Province;
 
-  selectedCity: City;
-
   selectedCategory: Category;
+
+  selectedCity: string;
+
+  selectedBrand: string;
    
   constructor(
     private offerService: OfferService, 
@@ -50,10 +46,8 @@ export class CreateOfferComponent implements OnInit {
     this.offer.sellerId = this.user.id;
     this.offerService.getDataForCreatingOffer()
       .subscribe((results) => {
-        this.brands = results[0];
-        this.cities = results[1];
-        this.provinces = results[2];
-        this.categories = results[3];
+        this.provinces = results[0];
+        this.categories = results[1];
     })
   }
    
@@ -73,8 +67,8 @@ export class CreateOfferComponent implements OnInit {
   }
     
   submit(){
-    this.offer.brandId = this.selectedBrand.id;
-    this.offer.cityId = this.selectedCity.id;
+    this.offer.brand = this.selectedBrand;
+    this.offer.city = this.selectedCity;
     this.offer.provinceId = this.selectedProvince.id;
     this.offer.categoryId = this.selectedCategory.id;
     this.offer.images[0].isMainProductImage = true;

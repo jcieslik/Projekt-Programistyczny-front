@@ -36,6 +36,7 @@ import { OffersComponent } from './components/offers/offers.component';
 import { YourOffersComponent } from './components/your-offers/your-offers.component';
 import { UserOffersComponent } from './components/user-offers/user-offers.component';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { CheckoutComponent } from './components/checkout/checkout.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
     OrderStatusTranslationComponent,
     OffersComponent,
     YourOffersComponent,
-    UserOffersComponent
+    UserOffersComponent,
+    CheckoutComponent
   ],
   imports: [
     BrowserModule,
