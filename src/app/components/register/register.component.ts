@@ -27,7 +27,7 @@ export class RegisterComponent implements OnInit {
   }, { validator: MustMatch('password', 'passwordConfirmation')});
 
   addressForm: FormGroup = this.fb.group({
-    province: ['', Validators.required],
+    province: [Province, Validators.required],
     city: ['', Validators.required],
     street: ['', Validators.required],
     postCode: ['', Validators.required]
@@ -56,7 +56,7 @@ export class RegisterComponent implements OnInit {
   get address() { return this.addressForm.controls; }
   
   onSubmit(){
-    if(this.accountForm.invalid){
+    if(this.accountForm.invalid || this.addressForm.invalid){
       return;
     }
     
@@ -67,6 +67,11 @@ export class RegisterComponent implements OnInit {
     newUser.username = this.account.username.value;
     newUser.password = this.account.password.value;
     newUser.role = UserRole.Customer;
+    newUser.provinceId = this.address.province.value.id;
+    newUser.street = this.address.street.value;
+    newUser.postCode = this.address.postCode.value;
+    newUser.city = this.address.city.value;
+    
     
     this.userService.createUser(newUser).subscribe();
     this.router.navigateByUrl(this.returnUrl);

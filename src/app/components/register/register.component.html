@@ -64,7 +64,9 @@
       </mat-card>
     </div>
   </mat-step>
+
   <mat-step [stepControl]="addressForm">
     <ng-template matStepLabel>Gotowe</ng-template>
+    <button mat-raised-button color="primary" (click)="onSubmit()">Utwórz konto</button>
   </mat-step>
 </mat-stepper>

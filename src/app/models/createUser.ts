@@ -7,4 +7,8 @@ export class CreateUser {
     email: string;
     name: string;
     surname: string;
+    provinceId: number;
+    city: string;
+    street: string;
+    postCode: string;
 }
