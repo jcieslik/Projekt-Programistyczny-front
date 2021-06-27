@@ -43,17 +43,15 @@ export class OfferService {
     return this.http.get<Offer>(`${environment.apiUrl}/api/Offer/GetOfferById?id=${id}`)
   }
 
-  addOfferToCart(cartId: number, offerId: number) {
-    const params: AddOrRemoveOfferToCartDTO = { cartId: cartId, offerId: offerId };
-    return this.http.post(`${environment.apiUrl}/api/Offer/AddToCart`, params);
+  addOfferToCart(offerId: number) {
+    return this.http.post(`${environment.apiUrl}/api/Offer/AddToCart`, offerId);
   }
 
-  removeOfferFromCart(cartId: number, offerId: number) {
-    const params: AddOrRemoveOfferToCartDTO = { cartId: cartId, offerId: offerId };
-    return this.http.post(`${environment.apiUrl}/api/Offer/RemoveFromCart`, params);
+  removeOfferFromCart(offerId: number) {
+    return this.http.post(`${environment.apiUrl}/api/Offer/RemoveFromCart`, offerId);
   }
 
-  getOffersFromCart(cartId: number) {
-    return this.http.get<OfferWithBaseData[]>(`${environment.apiUrl}/api/Offer/GetFromCart?cartId=${cartId}`);
+  getOffersFromCart(cartId) {
+    return this.http.get<OfferWithBaseData[]>(`${environment.apiUrl}/api/Offer/GetFromCart`);
   }
 }

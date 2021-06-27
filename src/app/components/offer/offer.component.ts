@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryImageSize, NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import { Offer } from 'src/app/models/offer';
+import { User } from 'src/app/models/user';
 import { OfferService } from 'src/app/services/offer/offer.service';
 
 @Component({
@@ -19,6 +20,8 @@ export class OfferComponent implements OnInit {
   offerId: number;
 
   offer: Offer;
+  
+  user: User = JSON.parse(localStorage.getItem('user'))
 
   constructor(private offerService: OfferService, 
     private route: ActivatedRoute) { }
@@ -59,6 +62,10 @@ export class OfferComponent implements OnInit {
           })
         });
       })
+  }
+
+  addToCart(){
+    this.offerService.addOfferToCart(this.offerId).subscribe();
   }
 
 }

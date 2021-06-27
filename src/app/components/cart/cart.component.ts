@@ -44,7 +44,7 @@ export class CartComponent implements OnInit {
   }
 
   removeOfferFromCart(offerId: number){
-    this.offerService.removeOfferFromCart(this.cartId, offerId).subscribe();
+    this.offerService.removeOfferFromCart(offerId).subscribe();
     this.offers = this.offers.filter(elem => elem.id !== offerId);
     this.totalSize = this.offers.length
 
