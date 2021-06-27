@@ -12,10 +12,10 @@ export class CreateOffer {
   startDate: string;
   endDate: string;
   sellerId: number;
-  cityId: number;
+  city: string;
   provinceId: number;
   categoryId: number;
-  brandId: number;
+  brand: string;
   productState: ProductState;
   offerState: OfferState;
   offerType: OfferType;

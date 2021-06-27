@@ -1,0 +1,10 @@
+<mat-card>
+  <form novalidate (ngSubmit)="createToken()" [formGroup]="stripeTest">
+    <mat-form-field appearance="outline" class="fill-container">
+      <mat-label>Imię i nazwisko</mat-label>
+      <input type="text" formControlName="name" matInput>
+    </mat-form-field>
+    <ngx-stripe-card [options]="cardOptions" [elementsOptions]="elementsOptions"></ngx-stripe-card>
+    <button mat-raised-button color="primary" type="submit" style="margin: 10px 0px 10px 0px;">Zapłać</button>
+  </form>
+</mat-card>

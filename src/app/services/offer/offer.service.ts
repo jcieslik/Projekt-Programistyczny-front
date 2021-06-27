@@ -19,12 +19,10 @@ export class OfferService {
   constructor(private http: HttpClient) { }
 
   getDataForCreatingOffer() {
-    let response1 = this.http.get<Brand[]>(`${environment.apiUrl}/api/Brand/GetBrands`);
-    let response2 = this.http.get<City[]>(`${environment.apiUrl}/api/City/GetCities`);
-    let response3 = this.http.get<Province[]>(`${environment.apiUrl}/api/Province/GetProvinces`);
-    let response4 = this.http.get<Category[]>(`${environment.apiUrl}/api/ProductCategory/GetProductCategories`);
-
-    return forkJoin([response1, response2, response3, response4]);
+    let response1 = this.http.get<Province[]>(`${environment.apiUrl}/api/Province/GetProvinces`);
+    let response2 = this.http.get<Category[]>(`${environment.apiUrl}/api/ProductCategory/GetProductCategories`);
+    
+    return forkJoin([response1, response2]);
   }
 
   createOffer(offer: CreateOffer) {
