@@ -1,3 +1,3 @@
 <div *ngIf="offers">
-  <app-offers [offers]="offers"></app-offers>
+  <app-offers [offers]="offers.items" [totalSize]="offers.totalCount" (pageChange)="getData($event)"></app-offers>
 </div>

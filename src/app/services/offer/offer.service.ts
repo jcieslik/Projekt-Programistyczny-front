@@ -9,6 +9,8 @@ import { CreateOffer } from 'src/app/models/create-offer';
 import { OfferWithBaseData } from 'src/app/models/offer-base-data';
 import { Province } from 'src/app/models/province';
 import { environment } from 'src/environments/environment';
+import { SearchModel } from 'src/app/models/searchModel';
+import { PaginatedOffers } from 'src/app/models/paginatedOffers';
 
 @Injectable({
   providedIn: 'root'
@@ -38,5 +40,9 @@ export class OfferService {
   
   getOffer(id: number) {
     return this.http.get<Offer>(`${environment.apiUrl}/api/Offer/GetOfferById?id=${id}`)
+  }
+
+  getOffers(model: SearchModel) {
+    return this.http.post<PaginatedOffers>(`${environment.apiUrl}/api/Offer/GetOffers`, model);
   }
 }
