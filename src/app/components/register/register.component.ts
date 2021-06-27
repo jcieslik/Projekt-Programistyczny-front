@@ -5,6 +5,8 @@ import { UserRole } from 'src/app/enums/user-role';
 import { MustMatch } from 'src/app/helpers/mustMatchValidator';
 import { CreateUser } from 'src/app/models/createUser';
 import { UserService } from 'src/app/services/user/user.service';
+import { Province } from 'src/app/models/province';
+import { ProvinceService } from 'src/app/services/province/province.service';
 
 @Component({
   selector: 'app-register',
@@ -13,7 +15,9 @@ import { UserService } from 'src/app/services/user/user.service';
 })
 export class RegisterComponent implements OnInit {
 
-  form: FormGroup = this.fb.group({    
+  isLinear = false;
+
+  accountForm: FormGroup = this.fb.group({    
     username: ['', Validators.required],
     password: ['', Validators.required],
     passwordConfirmation: [''],
@@ -22,11 +26,22 @@ export class RegisterComponent implements OnInit {
     surname: ['', Validators.required],
   }, { validator: MustMatch('password', 'passwordConfirmation')});
 
+  addressForm: FormGroup = this.fb.group({
+    province: ['', Validators.required],
+    city: ['', Validators.required],
+    street: ['', Validators.required],
+    postCode: ['', Validators.required]
+  })
+
   returnUrl: string;
   email: string | boolean;
 
+  provinces: Province[] = [];
+  selectedProvince: Province;
+
   constructor(
     private userService: UserService,
+    private provinceService: ProvinceService,
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private router: Router) { 
@@ -34,21 +49,23 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.provinceService.getProvinces().subscribe(e => this.provinces = e);
   }
 
-  get f() { return this.form.controls; }
-
+  get account() { return this.accountForm.controls; }
+  get address() { return this.addressForm.controls; }
+  
   onSubmit(){
-    if(this.form.invalid){
+    if(this.accountForm.invalid){
       return;
     }
     
     var newUser = new CreateUser();
-    newUser.email = this.f.email.value;
-    newUser.name = this.f.name.value;
-    newUser.surname = this.f.surname.value;
-    newUser.username = this.f.username.value;
-    newUser.password = this.f.password.value;
+    newUser.email = this.account.email.value;
+    newUser.name = this.account.name.value;
+    newUser.surname = this.account.surname.value;
+    newUser.username = this.account.username.value;
+    newUser.password = this.account.password.value;
     newUser.role = UserRole.Customer;
     
     this.userService.createUser(newUser).subscribe();

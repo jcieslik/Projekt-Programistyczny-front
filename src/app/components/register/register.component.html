@@ -1,32 +1,70 @@
-<div class="signup-content">
-  <mat-card>
-    <mat-card-content>
-      <form [formGroup]="form" (ngSubmit)="onSubmit()">
-        <p>Proszę zarejestruj się, aby w pełni korzystać z serwisu!</p>
-        <mat-form-field class="full-width-input">
-          <input matInput placeholder="Login" formControlName="username">
-        </mat-form-field>
-        <mat-form-field class="full-width-input">
-          <input matInput placeholder="Imię" formControlName="name">
-        </mat-form-field>
-        <mat-form-field class="full-width-input">
-          <input matInput placeholder="Nazwisko" formControlName="surname">
-        </mat-form-field>
-        <mat-form-field class="full-width-input">
-          <input matInput type="email"  ngModel email="true" placeholder="Email" formControlName="email">
-        </mat-form-field>
-        <mat-form-field class="full-width-input">
-          <input matInput type="password" placeholder="Hasło" formControlName="password">
-        </mat-form-field>
-        <mat-form-field class="full-width-input">
-          <input matInput type="password" placeholder="Potwierdź hasło" formControlName="passwordConfirmation">
-          <mat-error *ngIf="f.password.value!=f.passwordConfirmation.value">
-            Podane hasła są różne
-          </mat-error>  
-        </mat-form-field>
-        <button mat-raised-button color="primary">Utwórz konto</button>
-      </form>
-    </mat-card-content>
-  </mat-card>
-</div>
-
+<mat-stepper linear #stepper>
+  <mat-step [stepControl]="accountForm">
+    <ng-template matStepLabel>Dane dotyczące konta</ng-template>
+    <div class="signup-content">
+      <mat-card>
+        <mat-card-content>
+          <form [formGroup]="accountForm">
+            <!--(ngSubmit)="onSubmit()"-->
+            <p>Proszę zarejestruj się, aby w pełni korzystać z serwisu!</p>
+            <mat-form-field class="full-width-input">
+              <input matInput placeholder="Login" formControlName="username">
+            </mat-form-field>
+            <mat-form-field class="full-width-input">
+              <input matInput placeholder="Imię" formControlName="name">
+            </mat-form-field>
+            <mat-form-field class="full-width-input">
+              <input matInput placeholder="Nazwisko" formControlName="surname">
+            </mat-form-field>
+            <mat-form-field class="full-width-input">
+              <input matInput type="email" ngModel email="true" placeholder="Email" formControlName="email">
+            </mat-form-field>
+            <mat-form-field class="full-width-input">
+              <input matInput type="password" placeholder="Hasło" formControlName="password">
+            </mat-form-field>
+            <mat-form-field class="full-width-input">
+              <input matInput type="password" placeholder="Potwierdź hasło" formControlName="passwordConfirmation">
+              <mat-error *ngIf="account.password.value!=account.passwordConfirmation.value">
+                Podane hasła są różne
+              </mat-error>
+            </mat-form-field>
+            <button mat-raised-button matStepperNext color="primary">Dalej</button>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </mat-step>
+  <mat-step [stepControl]="addressForm">
+    <ng-template matStepLabel>Dane adresowe</ng-template>
+    <div class="signup-content">
+      <mat-card>
+        <mat-card-content>
+          <form [formGroup]="addressForm">
+            <p>Wypełnij dane dotyczące adresu</p>
+            <mat-form-field appearance="fill" class="full-width-input">
+              <mat-label>Województwo</mat-label>
+              <mat-select formControlName="province" name="province">
+                <mat-option *ngFor="let province of provinces" [value]="province">
+                  {{province.name}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="full-width-input">
+              <input matInput placeholder="Kod pocztowy" formControlName="postCode">
+            </mat-form-field>
+            <mat-form-field class="full-width-input">
+              <input matInput placeholder="Miasto" formControlName="city">
+            </mat-form-field>
+            <mat-form-field class="full-width-input">
+              <input matInput placeholder="Ulica" formControlName="street">
+            </mat-form-field>
+            <button mat-raised-button matStepperNext color="primary">Dalej</button>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </mat-step>
+  <mat-step [stepControl]="addressForm">
+    <ng-template matStepLabel>Gotowe</ng-template>
+  </mat-step>
+</mat-stepper>

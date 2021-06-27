@@ -20,6 +20,7 @@ import { MatIconModule} from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
+import {MatStepperModule} from '@angular/material/stepper';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreateOfferComponent } from './components/create-offer/create-offer.component';
@@ -58,7 +59,7 @@ import { NgxStripeModule } from 'ngx-stripe';
     OffersComponent,
     YourOffersComponent,
     UserOffersComponent,
-    CheckoutComponent
+    CheckoutComponent,
   ],
   imports: [
     BrowserModule,
@@ -86,6 +87,7 @@ import { NgxStripeModule } from 'ngx-stripe';
     MatDialogModule,
     NgxGalleryModule,
     MatGridListModule,
+    MatStepperModule,
     NgxStripeModule.forRoot('pk_test_51J6t0pFBQwYWjNW6VzVlX04L3de14TnSCfJgW3fTMGKytO4Ou0eSV6rSlZCJNvzXTq3Sc8Pw02udihz0uhma9xNZ00QeIQpbiQ'),
   ],
   providers: [
