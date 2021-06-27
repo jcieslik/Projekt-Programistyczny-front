@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
   }
 
   public getData(e: any) {
-    this.model.pageIndex = e.pageIndex;
+    this.model.pageIndex = e.pageIndex + 1;
     this.model.pageSize = e.pageSize;
     this.model.orderBy = e.orderBy;
 
