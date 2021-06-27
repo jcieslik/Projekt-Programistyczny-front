@@ -38,7 +38,6 @@ export class HomeComponent implements OnInit {
   private initModel() {
     this.model.pageIndex = 1;
     this.model.pageSize = 10;
-    this.model.categoryId = 2;
     this.model.orderBy = "creation";
   }
 }
