@@ -38,7 +38,7 @@ export class OffersComponent implements OnInit {
   }
 
   public handlePage(e: any) {
-    this.pagination.pageIndex = e.pageIndex + 1;
+    this.pagination.pageIndex = e.pageIndex;
     this.pagination.pageSize = e.pageSize;
     this.pageChange.emit(this.pagination);
   }
