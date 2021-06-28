@@ -11,6 +11,7 @@ import { User } from 'src/app/models/user';
 import { OfferService } from 'src/app/services/offer/offer.service';
 import { DeliveryMethod } from 'src/app/models/delivery-method';
 import { DeliveryMethodWithOffer } from 'src/app/models/delivery-method-with-offer';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-create-offer',
@@ -33,21 +34,35 @@ export class CreateOfferComponent implements OnInit {
 
   chosenDeliveryMethods: DeliveryMethodWithOffer[] = [];
 
-  selectedProvince: Province;
+  form: FormGroup = this.fb.group({
+    title: ['', [Validators.required]],
+    description: ['', [Validators.required]],
+    priceForOneProduct: ['', [Validators.required]],
+    productCount: ['', [Validators.required]],
+    selectedProvince: [null as Province, [Validators.required]],
+    selectedCategory: [null, [Validators.required]],
+    selectedCity: ['', [Validators.required]],
+    selectedBrand: ['', [Validators.required]],
+  });
 
-  selectedCategory: Category;
+  get f() { return this.form.controls; }
 
-  selectedCity: string;
+  get province() {
+    return this.form.get('selectedProvince');
+  }
 
-  selectedBrand: string;
-   
+  get category() {
+    return this.form.get('selectedCategory');
+  }
+
   constructor(
-    private offerService: OfferService, 
+    private offerService: OfferService,
     private route: ActivatedRoute,
-    private router: Router) { 
-      this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
-    }
-  
+    private router: Router,
+    private fb: FormBuilder) {
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
+  }
+
   ngOnInit(): void {
     this.offer.sellerId = this.user.id;
     this.offerService.getDataForCreatingOffer()
@@ -62,32 +77,45 @@ export class CreateOfferComponent implements OnInit {
           deliveryMethod.name = method.name;
           this.chosenDeliveryMethods.push(deliveryMethod);
         })
-    })
+      })
   }
-   
-   
+
+
   onFileChange(event: any) {
     if (event.target.files && event.target.files[0]) {
-        var filesAmount = event.target.files.length;
-        for (let i = 0; i < filesAmount; i++) {
-          var reader = new FileReader();
-   
-          reader.onload = (event:any) => {
-            this.offer.images.push(new Image(event.target.result)); 
-          }
-          reader.readAsDataURL(event.target.files[i]);
+      var filesAmount = event.target.files.length;
+      for (let i = 0; i < filesAmount; i++) {
+        var reader = new FileReader();
+
+        reader.onload = (event: any) => {
+          this.offer.images.push(new Image(event.target.result));
         }
+        reader.readAsDataURL(event.target.files[i]);
+      }
     }
   }
-    
-  submit(){
-    this.offer.brand = this.selectedBrand;
-    this.offer.city = this.selectedCity;
-    this.offer.provinceId = this.selectedProvince.id;
-    this.offer.categoryId = this.selectedCategory.id;
+
+  submit(): void {
+    if (this.form.invalid) {
+      alert("Wypełnij wszystkie wymagane pola!")
+      return;
+    } else if(!(this.offer.images.length > 0)) {
+      alert("Dodaj przynajmniej jedno zdjęcie do oferty!")
+    } else if(!(this.offer.deliveryMethods.length > 0)) {
+      alert("Wybierz przynajmniej jeden sposób dostawy!")
+    }
+
+    this.offer.title = this.f.title.value;
+    this.offer.description = this.f.description.value;
+    this.offer.productCount = this.f.productCount.value;
+    this.offer.priceForOneProduct = this.f.priceForOneProduct.value;
+    this.offer.brand = this.f.selectedBrand.value;
+    this.offer.city = this.f.selectedCity.value;
+    this.offer.provinceId = (this.province.value as Province).id;
+    this.offer.categoryId = (this.category.value as Category).id;
     this.offer.images[0].isMainProductImage = true;
     this.offer.deliveryMethods = this.chosenDeliveryMethods.filter(method => {
-      if(method.isSelected) {
+      if (method.isSelected) {
         return method;
       }
     })

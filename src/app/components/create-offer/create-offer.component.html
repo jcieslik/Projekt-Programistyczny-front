@@ -1,26 +1,30 @@
-<form style="display: flexbox;" (ngSubmit)="submit()">
+<form [formGroup]="form" (ngSubmit)="submit()">
   <mat-card class="card-container">
     <h1>Opis produktu</h1>
     <div class="create-offer">
 
-      <mat-form-field appearance="outline" class="fill-container">  
+      <mat-form-field appearance="outline" class="fill-container">
         <mat-label>Tytuł ogłoszenia</mat-label>
-        <input [(ngModel)]="offer.title" name="title" matInput>
+        <input formControlName="title" name="title" matInput>
+        <mat-error *ngIf="f.title.invalid">Tytuł jest wymagany</mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="fill-container">
         <mat-label>Opis produktu</mat-label>
-        <textarea [(ngModel)]="offer.description" name="description" matInput rows="12"></textarea>
+        <textarea formControlName="description" name="description" matInput rows="12"></textarea>
+        <mat-error *ngIf="f.description.invalid">Opis jest wymagany</mat-error>
       </mat-form-field>
 
       <mat-form-field>
-        <input matInput [(ngModel)]="offer.priceForOneProduct" type="number" name="price"
+        <input matInput formControlName="priceForOneProduct" type="number" name="price"
           placeholder="Cena za jeden produkt">
+        <mat-error *ngIf="f.priceForOneProduct.invalid">Wprowadź cenę za produkt</mat-error>
       </mat-form-field>
 
       <mat-form-field>
-        <input matInput [(ngModel)]="offer.productCount" type="number" name="numberOfProducts"
+        <input matInput formControlName="productCount" type="number" name="numberOfProducts"
           placeholder="Liczba produktów">
+        <mat-error *ngIf="f.productCount.invalid">Podaj ilość produktów</mat-error>
       </mat-form-field>
 
     </div>
@@ -31,44 +35,51 @@
 
     <mat-form-field appearance="outline">
       <mat-label>Miasto</mat-label>
-      <input [(ngModel)]="selectedCity" name="city" matInput>
+      <input formControlName="selectedCity" name="city" matInput>
+      <mat-error *ngIf="f.selectedCity.invalid">Podaj miasto</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Marka</mat-label>
-      <input [(ngModel)]="selectedBrand" name="brand" matInput>
+      <input formControlName="selectedBrand" name="brand" matInput>
+      <mat-error *ngIf="f.selectedBrand.invalid">Podaj markę</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>Województwo</mat-label>
-      <mat-select [(ngModel)]="selectedProvince" name="province">
+      <mat-select formControlName="selectedProvince" name="province">
         <mat-option *ngFor="let province of provinces" [value]="province">
           {{province.name}}
         </mat-option>
       </mat-select>
+      <mat-error *ngIf="f.selectedProvince.invalid">Wybierz województwo</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>Kategoria</mat-label>
-      <mat-select [(ngModel)]="selectedCategory" name="category">
+      <mat-select formControlName="selectedCategory" name="category">
         <mat-option *ngFor="let category of categories" [value]="category">
           {{category.name}}
         </mat-option>
       </mat-select>
+      <mat-error *ngIf="f.selectedCategory.invalid">Wybierz kategorię</mat-error>
     </mat-form-field>
   </mat-card>
+
 
   <mat-card class="card-container">
     <div *ngFor="let deliveryMethod of chosenDeliveryMethods" class="flex-container">
       <div style="flex: 0.5">
-        <mat-checkbox [(ngModel)]="deliveryMethod.isSelected" name="isSelected" class="example-margin">
+        <mat-checkbox [(ngModel)]="deliveryMethod.isSelected" [ngModelOptions]="{standalone: true}" name="isSelected"
+          class="example-margin">
           {{deliveryMethod.name}}
         </mat-checkbox>
       </div>
       <div style="flex: 1; padding-left: 5%;">
         <mat-form-field appearance="outline">
           <mat-label>Cena przesyłki (zł)</mat-label>
-          <input type="number" [(ngModel)]="deliveryMethod.fullPrice" name="fullPrice{{deliveryMethod.deliveryMethodId}}" step="0.1" matInput>
+          <input type="number" [(ngModel)]="deliveryMethod.fullPrice" [ngModelOptions]="{standalone: true}"
+            name="fullPrice{{deliveryMethod.deliveryMethodId}}" step="0.1" matInput>
         </mat-form-field>
       </div>
     </div>
