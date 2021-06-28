@@ -39,6 +39,7 @@ import { UserOffersComponent } from './components/user-offers/user-offers.compon
 import { MatGridListModule } from '@angular/material/grid-list';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { NgxStripeModule } from 'ngx-stripe';
+import {LayoutModule} from '@angular/cdk/layout';
 
 @NgModule({
   declarations: [
@@ -88,6 +89,7 @@ import { NgxStripeModule } from 'ngx-stripe';
     NgxGalleryModule,
     MatGridListModule,
     MatStepperModule,
+    LayoutModule,
     NgxStripeModule.forRoot('pk_test_51J6t0pFBQwYWjNW6VzVlX04L3de14TnSCfJgW3fTMGKytO4Ou0eSV6rSlZCJNvzXTq3Sc8Pw02udihz0uhma9xNZ00QeIQpbiQ'),
   ],
   providers: [

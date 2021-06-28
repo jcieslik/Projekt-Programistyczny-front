@@ -67,6 +67,15 @@
 
   <mat-step [stepControl]="addressForm">
     <ng-template matStepLabel>Gotowe</ng-template>
-    <button mat-raised-button color="primary" (click)="onSubmit()">Utwórz konto</button>
+    <div class="signup-content">
+      <mat-card>
+        <mat-card-content>
+          <p>Dziękujemy za uzupełnienie niezbędnych formularzy. Do utworzenia konta w naszym serwisie pozostał Ci już tylko jeden krok...</p>
+          <br>
+          <p>Rejestrując się akceptujesz <a href="rules">regulamin</a> serwisu</p>
+          <button mat-raised-button color="primary" (click)="onSubmit()">Utwórz konto</button>
+        </mat-card-content>
+      </mat-card>
+    </div>
   </mat-step>
 </mat-stepper>
