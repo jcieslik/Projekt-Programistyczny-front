@@ -9,6 +9,8 @@ import { CreateOffer } from 'src/app/models/create-offer';
 import { Province } from 'src/app/models/province';
 import { User } from 'src/app/models/user';
 import { OfferService } from 'src/app/services/offer/offer.service';
+import { DeliveryMethod } from 'src/app/models/delivery-method';
+import { DeliveryMethodWithOffer } from 'src/app/models/delivery-method-with-offer';
 
 @Component({
   selector: 'app-create-offer',
@@ -26,6 +28,10 @@ export class CreateOfferComponent implements OnInit {
   provinces: Province[] = [];
 
   categories: Category[] = [];
+
+  deliveryMethods: DeliveryMethod[] = [];
+
+  chosenDeliveryMethods: DeliveryMethodWithOffer[] = [];
 
   selectedProvince: Province;
 
@@ -48,6 +54,14 @@ export class CreateOfferComponent implements OnInit {
       .subscribe((results) => {
         this.provinces = results[0];
         this.categories = results[1];
+        this.deliveryMethods = results[2];
+        this.deliveryMethods.forEach(method => {
+          let deliveryMethod = new DeliveryMethodWithOffer();
+          deliveryMethod.deliveryMethodId = method.id;
+          deliveryMethod.fullPrice = method.basePrice;
+          deliveryMethod.name = method.name;
+          this.chosenDeliveryMethods.push(deliveryMethod);
+        })
     })
   }
    
@@ -72,6 +86,11 @@ export class CreateOfferComponent implements OnInit {
     this.offer.provinceId = this.selectedProvince.id;
     this.offer.categoryId = this.selectedCategory.id;
     this.offer.images[0].isMainProductImage = true;
+    this.offer.deliveryMethods = this.chosenDeliveryMethods.filter(method => {
+      if(method.isSelected) {
+        return method;
+      }
+    })
 
     this.offerService.createOffer(this.offer)
       .subscribe((response) => {

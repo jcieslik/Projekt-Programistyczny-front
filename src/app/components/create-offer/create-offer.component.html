@@ -1,77 +1,94 @@
 <form style="display: flexbox;" (ngSubmit)="submit()">
-	<mat-card class="card-container">
-		<h1>Opis produktu</h1>
-		<div class="create-offer">
+  <mat-card class="card-container">
+    <h1>Opis produktu</h1>
+    <div class="create-offer">
 
-			<mat-form-field appearance="outline" class="fill-container">
-				<mat-label>Tytuł ogłoszenia</mat-label>
-				<input [(ngModel)]="offer.title" name="title" matInput>
-			</mat-form-field>
+      <mat-form-field appearance="outline" class="fill-container">  
+        <mat-label>Tytuł ogłoszenia</mat-label>
+        <input [(ngModel)]="offer.title" name="title" matInput>
+      </mat-form-field>
 
-			<mat-form-field appearance="outline" class="fill-container">
-				<mat-label>Opis produktu</mat-label>
-				<textarea [(ngModel)]="offer.description" name="description" matInput rows="12"></textarea>
-			</mat-form-field>
+      <mat-form-field appearance="outline" class="fill-container">
+        <mat-label>Opis produktu</mat-label>
+        <textarea [(ngModel)]="offer.description" name="description" matInput rows="12"></textarea>
+      </mat-form-field>
 
-			<mat-form-field>
-				<input matInput [(ngModel)]="offer.priceForOneProduct" type="number" name="price"
-					placeholder="Cena za jeden produkt">
-			</mat-form-field>
+      <mat-form-field>
+        <input matInput [(ngModel)]="offer.priceForOneProduct" type="number" name="price"
+          placeholder="Cena za jeden produkt">
+      </mat-form-field>
 
-			<mat-form-field>
-				<input matInput [(ngModel)]="offer.productCount" type="number" name="numberOfProducts"
-					placeholder="Liczba produktów">
-			</mat-form-field>
+      <mat-form-field>
+        <input matInput [(ngModel)]="offer.productCount" type="number" name="numberOfProducts"
+          placeholder="Liczba produktów">
+      </mat-form-field>
 
-		</div>
-	</mat-card>
+    </div>
+  </mat-card>
 
-	<mat-card class="card-container">
-		<h1>Dane szczegółowe</h1>
+  <mat-card class="card-container">
+    <h1>Dane szczegółowe</h1>
 
-		<mat-form-field appearance="outline">
-			<mat-label>Miasto</mat-label>
-			<input [(ngModel)]="selectedCity" name="city" matInput>
-		</mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Miasto</mat-label>
+      <input [(ngModel)]="selectedCity" name="city" matInput>
+    </mat-form-field>
 
-		<mat-form-field appearance="outline">
-			<mat-label>Marka</mat-label>
-			<input [(ngModel)]="selectedBrand" name="brand" matInput>
-		</mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Marka</mat-label>
+      <input [(ngModel)]="selectedBrand" name="brand" matInput>
+    </mat-form-field>
 
-		<mat-form-field appearance="fill">
-			<mat-label>Województwo</mat-label>
-			<mat-select [(ngModel)]="selectedProvince" name="province">
-				<mat-option *ngFor="let province of provinces" [value]="province">
-					{{province.name}}
-				</mat-option>
-			</mat-select>
-		</mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Województwo</mat-label>
+      <mat-select [(ngModel)]="selectedProvince" name="province">
+        <mat-option *ngFor="let province of provinces" [value]="province">
+          {{province.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
 
-		<mat-form-field appearance="fill">
-			<mat-label>Kategoria</mat-label>
-			<mat-select [(ngModel)]="selectedCategory" name="category">
-				<mat-option *ngFor="let category of categories" [value]="category">
-					{{category.name}}
-				</mat-option>
-			</mat-select>
-		</mat-form-field>
-	</mat-card>
+    <mat-form-field appearance="fill">
+      <mat-label>Kategoria</mat-label>
+      <mat-select [(ngModel)]="selectedCategory" name="category">
+        <mat-option *ngFor="let category of categories" [value]="category">
+          {{category.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </mat-card>
 
-	<mat-card class="card-container">
-		<h1>Zdjęcia produktu</h1>
-		<div>
-			<input id="file" type="file" class="form-control" multiple="" (change)="onFileChange($event)">
-		</div>
+  <mat-card class="card-container">
+    <div *ngFor="let deliveryMethod of chosenDeliveryMethods" class="flex-container">
+      <div style="flex: 0.5">
+        <mat-checkbox [(ngModel)]="deliveryMethod.isSelected" name="isSelected" class="example-margin">
+          {{deliveryMethod.name}}
+        </mat-checkbox>
+      </div>
+      <div style="flex: 1; padding-left: 5%;">
+        <mat-form-field appearance="outline">
+          <mat-label>Cena przesyłki (zł)</mat-label>
+          <input type="number" [(ngModel)]="deliveryMethod.fullPrice" name="fullPrice{{deliveryMethod.deliveryMethodId}}" step="0.1" matInput>
+        </mat-form-field>
+      </div>
+    </div>
+  </mat-card>
 
-		<div class="container" *ngFor='let image of offer.images; let indexOfelement=index;' >
-			<img [src]="image.imageData" class="image">
-			<div class="overlay">
-				<i class="icon fa fa-trash" (click)="removeImage(indexOfelement)"></i>
-			</div>
-		</div><br />
-	</mat-card>
-	<mat-card>
-		<button mat-raised-button color="primary" type="submit" style="margin-top: 25px; margin-bottom: 25px;">Dodaj ogłoszenie</button>
-	</mat-card>
+  <mat-card class="card-container">
+    <h1>Zdjęcia produktu</h1>
+    <div>
+      <input id="file" type="file" class="form-control" multiple="" (change)="onFileChange($event)">
+    </div>
+
+    <div class="container" *ngFor='let image of offer.images; let indexOfelement=index;'>
+      <img [src]="image.imageData" class="image">
+      <div class="overlay">
+        <i class="icon fa fa-trash" (click)="removeImage(indexOfelement)"></i>
+      </div>
+    </div><br />
+  </mat-card>
+  <mat-card>
+    <button mat-raised-button color="primary" type="submit" style="margin-top: 10px; margin-bottom: 10px;">Dodaj
+      ogłoszenie</button>
+  </mat-card>
 </form>
