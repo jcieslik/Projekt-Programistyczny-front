@@ -19,37 +19,37 @@ export class OfferService {
   constructor(private http: HttpClient) { }
 
   getDataForCreatingOffer() {
-    let response1 = this.http.get<Province[]>(`${environment.apiUrl}/api/Province/GetProvinces`);
-    let response2 = this.http.get<Category[]>(`${environment.apiUrl}/api/ProductCategory/GetProductCategories`);
+    let response1 = this.http.get<Province[]>(`${environment.apiUrl}/api/Province/GetProvinces`, { withCredentials: true });
+    let response2 = this.http.get<Category[]>(`${environment.apiUrl}/api/ProductCategory/GetProductCategories`, { withCredentials: true });
     
     return forkJoin([response1, response2]);
   }
 
   createOffer(offer: CreateOffer) {
-    return this.http.post<CreateOffer>(`${environment.apiUrl}/api/Offer/CreateOffer`, offer);
+    return this.http.post<CreateOffer>(`${environment.apiUrl}/api/Offer/CreateOffer`, offer, { withCredentials: true });
   }
 
   getAllOffers() {
-    return this.http.get<OfferWithBaseData[]>(`${environment.apiUrl}/api/Offer/GetAllOffers`);
+    return this.http.get<OfferWithBaseData[]>(`${environment.apiUrl}/api/Offer/GetAllOffers`, { withCredentials: true });
   }
 
   getOffersFromUser(id: number) {
-    return this.http.get<OfferWithBaseData[]>(`${environment.apiUrl}/api/Offer/GetOffersFromUser?id=${id}`);
+    return this.http.get<OfferWithBaseData[]>(`${environment.apiUrl}/api/Offer/GetOffersFromUser?id=${id}`, { withCredentials: true });
   }
 
   getOffer(id: number) {
-    return this.http.get<Offer>(`${environment.apiUrl}/api/Offer/GetOfferById?id=${id}`)
+    return this.http.get<Offer>(`${environment.apiUrl}/api/Offer/GetOfferById?id=${id}`, { withCredentials: true })
   }
 
   addOfferToCart(offerId: number) {
-    return this.http.post(`${environment.apiUrl}/api/Offer/AddToCart`, offerId);
+    return this.http.post(`${environment.apiUrl}/api/Offer/AddToCart?id=${offerId}`, { withCredentials: true });
   }
 
   removeOfferFromCart(offerId: number) {
-    return this.http.post(`${environment.apiUrl}/api/Offer/RemoveFromCart`, offerId);
+    return this.http.post(`${environment.apiUrl}/api/Offer/RemoveFromCart?id=${offerId}`, { withCredentials: true });
   }
 
   getOffersFromCart(cartId) {
-    return this.http.get<OfferWithBaseData[]>(`${environment.apiUrl}/api/Offer/GetFromCart`);
+    return this.http.get<OfferWithBaseData[]>(`${environment.apiUrl}/api/Offer/GetFromCart?id=${cartId}`, { withCredentials: true });
   }
 }

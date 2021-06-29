@@ -11,7 +11,7 @@ export class ProvinceService {
   constructor(private http: HttpClient) { }
 
   getProvinces(){
-    return this.http.get<Province[]>(`${environment.apiUrl}/api/Province/GetProvinces`);
+    return this.http.get<Province[]>(`${environment.apiUrl}/api/Province/GetProvinces`, { withCredentials: true });
   }
   
 }
