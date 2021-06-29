@@ -1,0 +1,85 @@
+<form style="display: flexbox;" (ngSubmit)="submit()">
+    <mat-card class="card-container">
+        <mat-card>
+            <div class="filters">
+                <div class="price-range">
+                    <h1>Cena</h1>
+                    <mat-form-field floatLabel="always">
+                        <mat-label></mat-label>
+                        <input matInput [(ngModel)]="minPrice" type="number" name="minPrice" 
+                            placeholder="0" class="right-align">
+                        <span matPrefix>PLN&nbsp;</span>
+                    </mat-form-field>
+                    -
+                    <mat-form-field floatLabel="always">
+                        <mat-label></mat-label>
+                        <input matInput [(ngModel)]="maxPrice" type="number" name="maxPrice"
+                                placeholder="∞" class="right-align">  
+                    </mat-form-field>
+                </div>
+
+                <mat-form-field appearance="outline" class="fill-container">
+                    <mat-label>Województwa</mat-label>
+                    <mat-select [formControl]="provincesForm" multiple>
+                        <mat-select-trigger>
+                        {{provincesForm.value ? provincesForm.value[0] : ''}}
+                        <span *ngIf="provincesForm.value?.length > 1">
+                            (+{{provincesForm.value.length - 1}} {{provincesForm.value?.length < 5 ? 'inne' : 'innych'}})
+                        </span>
+                        </mat-select-trigger>
+                        <mat-option *ngFor="let province of provincesList" [value]="province">{{province}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <div>
+                <mat-form-field>
+                <mat-label>Typ oferty</mat-label>
+                <mat-select [(ngModel)]="selectedOfferType" name="selectedOfferType">
+                    <mat-option>--</mat-option>
+                    <mat-option *ngFor="let type of offerTypes" [value]="type.value">
+                    {{type.viewValue}}
+                    </mat-option>
+                </mat-select>
+                </mat-form-field>
+                
+                &nbsp;
+
+                <mat-form-field>
+                <mat-label>Stan</mat-label>
+                <mat-select [(ngModel)]="selectedProductState" name="selectedProductState">
+                    <mat-option>--</mat-option>
+                    <mat-option *ngFor="let state of productStates" [value]="state.value">
+                    {{state.viewValue}}
+                    </mat-option>
+                </mat-select>
+                </mat-form-field>
+                </div>
+
+                <div>
+                    <mat-form-field>
+                    <mat-label>Cena: rosnąco</mat-label>
+                    <mat-select [(ngModel)]="selectedSortType" name="selectedSortType">
+                        <mat-option>--</mat-option>
+                        <mat-option *ngFor="let type of sortTypes" [value]="type.value">
+                        {{type.viewValue}}
+                        </mat-option>
+                    </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <div>
+                <button mat-raised-button color="primary" type="submit">Zastosuj</button>
+                <button mat-raised-button (click)="reset()">Reset</button>
+                
+                </div>
+                <div>
+                    <p></p>
+                    <h1> Kategorie </h1>
+                    <div *ngFor="let category of displayedCategories">
+                        <button class="category-button" (click)="onCategoryClick(category)">{{category.name}}</button>
+                    </div>
+                </div>
+            </div>
+        </mat-card>
+    </mat-card>  
+</form>

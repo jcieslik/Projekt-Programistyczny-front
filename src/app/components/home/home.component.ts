@@ -13,6 +13,7 @@ export class HomeComponent implements OnInit {
 
   offers: PaginatedOffers;
   model: SearchModel = new SearchModel();
+  defaultSort: string = "creation";
   
   constructor(private offerService: OfferService) { }
 
@@ -35,9 +36,32 @@ export class HomeComponent implements OnInit {
       })
   }
 
+  public getSearchModel(e: any) {
+    this.model.minPrice = e.minPrice;
+    this.model.maxPrice = e.maxPrice;
+    this.model.offerType = e.offerType;
+    this.model.productState = e.productState;
+    this.model.provincesIds = e.provincesIds;
+    this.model.categoryId = e.categoryId;
+    
+    if (e.orderBy == undefined) {
+      this.model.orderBy = this.defaultSort;
+    }
+    else {
+      this.model.orderBy = e.orderBy;
+    }
+
+    console.log(this.model);
+    this.offerService.getOffers(this.model)
+      .subscribe((response) => {
+        this.offers = response;
+      })
+  }
+
   private initModel() {
     this.model.pageIndex = 1;
     this.model.pageSize = 10;
-    this.model.orderBy = "creation";
+    this.model.orderBy = this.defaultSort;
   }
+
 }

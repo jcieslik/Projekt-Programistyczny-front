@@ -16,7 +16,7 @@
   </mat-card>
 </ng-template>
 <div class="paginator" *ngIf="offers.length > 0">
-  <mat-paginator #paginator [pageSize]="pagination.pageSize" [pageSizeOptions]="[5, 10, 20]" [length]="totalSize"
+  <mat-paginator #paginator [pageSize]="pagination.pageSize" [pageSizeOptions]="[5, 10, 20, 50]" [length]="totalSize"
       [pageIndex]="pagination.pageIndex" (page)="pageEvent = handlePage($event)">
   </mat-paginator>
 </div>

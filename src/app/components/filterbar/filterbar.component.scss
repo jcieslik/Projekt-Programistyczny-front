@@ -1,0 +1,41 @@
+mat-card {
+    position: fixed;  
+    width: 20%;
+    min-height: 10%;
+    margin: 1em auto;
+    top: 10%;
+    left: 5%;
+}
+
+mat-form-field {
+    width: 45%;
+}
+
+.filters {
+    margin: 2em auto;
+    text-align: left;
+    display: block;
+}
+
+.price-range {
+    margin-left: auto;
+    margin-right: auto;  
+    width: 90%;
+}
+
+.right-align {
+    text-align: right;
+}
+
+h1 {
+    font-size: 1.3em;
+    font-weight: bold;
+}
+
+.category-button {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;  
+}
