@@ -55,7 +55,7 @@
       <mat-error *ngIf="f.selectedProvince.invalid">Wybierz województwo</mat-error>
     </mat-form-field>
 
-    <mat-form-field appearance="fill" (click)="displayDialog()">
+    <mat-form-field appearance="fill" (click)="openDialog()">
       <mat-label>Kategoria</mat-label>
       <mat-select formControlName="selectedCategory" name="category">
       </mat-select>

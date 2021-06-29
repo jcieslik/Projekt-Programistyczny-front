@@ -12,6 +12,8 @@ import { OfferService } from 'src/app/services/offer/offer.service';
 import { DeliveryMethod } from 'src/app/models/delivery-method';
 import { DeliveryMethodWithOffer } from 'src/app/models/delivery-method-with-offer';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialog } from '@angular/material/dialog';
+import { DialogCategoryComponent } from 'src/app/dialogs/dialog-category/dialog-category.component';
 
 @Component({
   selector: 'app-create-offer',
@@ -40,7 +42,7 @@ export class CreateOfferComponent implements OnInit {
     priceForOneProduct: ['', [Validators.required]],
     productCount: ['', [Validators.required]],
     selectedProvince: [null as Province, [Validators.required]],
-    selectedCategory: [null, [Validators.required]],
+    selectedCategory: [null as Category, [Validators.required]],
     selectedCity: ['', [Validators.required]],
     selectedBrand: ['', [Validators.required]],
   });
@@ -59,7 +61,8 @@ export class CreateOfferComponent implements OnInit {
     private offerService: OfferService,
     private route: ActivatedRoute,
     private router: Router,
-    private fb: FormBuilder) {
+    private fb: FormBuilder,
+    public dialog: MatDialog) {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/home';
   }
 
@@ -130,7 +133,18 @@ export class CreateOfferComponent implements OnInit {
     this.offer.images.splice(index, 1);
   }
 
-  displayDialog() {
-    console.log("Otwarty")
+  openDialog(): void {
+    const dialogRef = this.dialog.open(DialogCategoryComponent, {
+      width: '800px',
+      height: '600px',
+      data: {categories: this.categories, category: null}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      if(result) {
+        this.f.selectedCategory = result;
+      }
+    });
   }
 }

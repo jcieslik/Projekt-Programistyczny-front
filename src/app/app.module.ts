@@ -39,6 +39,7 @@ import { UserOffersComponent } from './components/user-offers/user-offers.compon
 import { MatGridListModule } from '@angular/material/grid-list';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { NgxStripeModule } from 'ngx-stripe';
+import { DialogCategoryComponent } from './dialogs/dialog-category/dialog-category.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { NgxStripeModule } from 'ngx-stripe';
     OffersComponent,
     YourOffersComponent,
     UserOffersComponent,
-    CheckoutComponent
+    CheckoutComponent,
+    DialogCategoryComponent
   ],
   imports: [
     BrowserModule,
