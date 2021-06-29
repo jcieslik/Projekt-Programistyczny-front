@@ -73,7 +73,7 @@ export class CreateOfferComponent implements OnInit {
         this.deliveryMethods.forEach(method => {
           let deliveryMethod = new DeliveryMethodWithOffer();
           deliveryMethod.deliveryMethodId = method.id;
-          deliveryMethod.fullPrice = method.basePrice;
+          deliveryMethod.fullPrice = method.price;
           deliveryMethod.name = method.name;
           this.chosenDeliveryMethods.push(deliveryMethod);
         })
@@ -128,5 +128,9 @@ export class CreateOfferComponent implements OnInit {
 
   removeImage(index: number) {
     this.offer.images.splice(index, 1);
+  }
+
+  displayDialog() {
+    console.log("Otwarty")
   }
 }
