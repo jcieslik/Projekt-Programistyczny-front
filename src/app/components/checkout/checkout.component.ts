@@ -6,6 +6,8 @@ import {
   StripeCardElementOptions,
   StripeElementsOptions
 } from '@stripe/stripe-js';
+import { PaymentService } from 'src/app/services/payment/payment.service';
+import { Payment } from 'src/app/models/payment';
 
 @Component({
   selector: 'app-checkout',
@@ -22,10 +24,7 @@ export class CheckoutComponent implements OnInit {
         color: '#31325F',
         fontWeight: '300',
         fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-        fontSize: '18px',
-        '::placeholder': {
-          color: '#CFD7E0'
-        }
+        fontSize: '18px'
       }
     }
   };
@@ -36,7 +35,7 @@ export class CheckoutComponent implements OnInit {
 
   stripeTest: FormGroup;
 
-  constructor(private fb: FormBuilder, private stripeService: StripeService) {}
+  constructor(private fb: FormBuilder, private stripeService: StripeService, private paymentService: PaymentService) {}
 
   ngOnInit(): void {
     this.stripeTest = this.fb.group({
@@ -50,7 +49,13 @@ export class CheckoutComponent implements OnInit {
       .createToken(this.card.element, { name })
       .subscribe((result) => {
         if (result.token) {
-          // Use the token
+          let paymentRequest = new Payment();
+          paymentRequest.tokenId = result.token.id;
+          paymentRequest.amount = 2000;
+          this.paymentService.makePayment(paymentRequest)
+            .subscribe((result) => {
+
+            })
           console.log(result.token.id);
         } else if (result.error) {
           // Error creating the token
