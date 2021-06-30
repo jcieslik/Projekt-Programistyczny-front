@@ -1,7 +1,7 @@
 mat-card {
     position: absolute;  
     width: 17%;
-    min-height: 10%;
+    min-height: 80%;
     margin: 1em auto;
     top: 6.5%;
     left: 6%;
@@ -30,17 +30,23 @@ mat-form-field {
     transform: translate(-50%, -50%);
 }
 
+::ng-deep.mat-form-field:not(.mat-form-field-has-label) .mat-form-field-infix {
+    border-top-width: 0;
+    top: 2px;
+    font-size: 15px;
+  }
+
 .right {
     float: right;
-    width: 35%;
-    border: 2px solid #652fbd;
-    right: 9%;
+    width: 40%;
+    border: 1px solid #555555;
+    right: 0%;
 }
 
 .left {
-    width: 35%;
-    border: 2px solid #652fbd;
-    left: 9%;
+    width: 50%;
+    border: 1px solid #652fbd;
+    left: 0%;
 }
 
 .filters {
@@ -49,15 +55,13 @@ mat-form-field {
     display: block;
 }
 
-.price-range {
-    margin-left: auto;
-    margin-right: auto;  
-    width: 100%;
-    height: fit-content;
-}
-
 .right-align {
     text-align: right;
+}
+
+input.right-align::-webkit-outer-spin-button,
+input.right-align::-webkit-inner-spin-button {
+  display: none;
 }
 
 h1 {
@@ -75,3 +79,4 @@ h1 {
     overflow: hidden; 
     color: blue;
 }
+
