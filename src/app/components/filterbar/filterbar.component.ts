@@ -28,6 +28,7 @@ export class FilterbarComponent implements OnInit {
   allCategories: Category[];
   displayedCategories: Category[] = [];
   parentCategoryId: number = undefined;
+  currentCategory: Category;
 
   provinces: Province[];
   provincesForm = new FormControl();
@@ -119,7 +120,7 @@ export class FilterbarComponent implements OnInit {
   listCategories() {
     this.displayedCategories = [];
     this.allCategories.forEach(element => {
-      if (element.parentCategoryId == this.parentCategoryId) {
+      if (element.parentCategoryId == this.categoryId) {
         this.displayedCategories.push(element);
         if (this.displayedCategories.length == this.maxCategories)
           return;
@@ -128,10 +129,36 @@ export class FilterbarComponent implements OnInit {
   }
 
   onCategoryClick(category: Category) {
-    this.categoryId = category.id;
-    this.parentCategoryId = category.id;
+    if (!category) {
+      this.currentCategory = undefined;
+      this.categoryId = undefined;
+      this.parentCategoryId = undefined;
+    }
+    else {
+      this.currentCategory = category;
+      this.categoryId = category.id;
+      this.parentCategoryId = category.parentCategoryId;
+    }
     this.listCategories();
     this.submit();
+  }
+
+  onBackClick() {
+    this.onCategoryClick(this.getCategory(this.parentCategoryId));
+  }
+
+  getCategory(id: number) {
+    let cat = new Category;
+    if (!id)
+      return undefined;
+
+    this.allCategories.forEach(element => {
+      if (element.id == id) {
+        cat = element;
+        return;
+      }
+    });
+    return cat;
   }
 
 }

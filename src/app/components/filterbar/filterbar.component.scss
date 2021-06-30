@@ -1,14 +1,46 @@
 mat-card {
-    position: fixed;  
-    width: 20%;
+    position: absolute;  
+    width: 17%;
     min-height: 10%;
     margin: 1em auto;
-    top: 10%;
-    left: 5%;
+    top: 6.5%;
+    left: 6%;
 }
 
 mat-form-field {
-    width: 45%;
+    width: 100%;
+}
+
+.xd {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto; 
+}
+
+.half-width {
+    width: 48%;
+}
+
+.center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.right {
+    float: right;
+    width: 35%;
+    border: 2px solid #652fbd;
+    right: 9%;
+}
+
+.left {
+    width: 35%;
+    border: 2px solid #652fbd;
+    left: 9%;
 }
 
 .filters {
@@ -20,7 +52,8 @@ mat-form-field {
 .price-range {
     margin-left: auto;
     margin-right: auto;  
-    width: 90%;
+    width: 100%;
+    height: fit-content;
 }
 
 .right-align {
@@ -30,12 +63,15 @@ mat-form-field {
 h1 {
     font-size: 1.3em;
     font-weight: bold;
-}
+    margin: 0;
+    margin-top: 10px;
+}   
 
 .category-button {
     background-color: Transparent;
     background-repeat:no-repeat;
     border: none;
     cursor:pointer;
-    overflow: hidden;  
+    overflow: hidden; 
+    color: blue;
 }
