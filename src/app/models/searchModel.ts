@@ -1,4 +1,5 @@
 export class SearchModel {
+    sellerId: number;
     minPrice: number;
     maxPrice: number;
     cities: string[] = [];
