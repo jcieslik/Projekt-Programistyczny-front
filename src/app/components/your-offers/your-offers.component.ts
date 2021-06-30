@@ -22,5 +22,4 @@ export class YourOffersComponent implements OnInit {
         this.offers = result;
       })
   }
-
 }

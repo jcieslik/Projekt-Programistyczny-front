@@ -6,6 +6,7 @@
 
 mat-card {
   min-height: 10%;
+  min-width: 350px;
   width: 60%;
   margin: 2em auto;
   text-align: center;
@@ -68,4 +69,8 @@ mat-form-field {
   transform: translate(-50%, -50%);
   -ms-transform: translate(-50%, -50%);
   text-align: center;
+}
+
+.flex-container {
+  display: flex;
 }

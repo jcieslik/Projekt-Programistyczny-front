@@ -11,6 +11,7 @@ import { Province } from 'src/app/models/province';
 import { environment } from 'src/environments/environment';
 import { SearchModel } from 'src/app/models/searchModel';
 import { PaginatedOffers } from 'src/app/models/paginatedOffers';
+import { DeliveryMethod } from 'src/app/models/delivery-method';
 
 @Injectable({
   providedIn: 'root'
@@ -22,8 +23,9 @@ export class OfferService {
   getDataForCreatingOffer() {
     let response1 = this.http.get<Province[]>(`${environment.apiUrl}/api/Province/GetProvinces`);
     let response2 = this.http.get<Category[]>(`${environment.apiUrl}/api/ProductCategory/GetProductCategories`);
+    let response3 = this.http.get<DeliveryMethod[]>(`${environment.apiUrl}/api/DeliveryMethod/GetDeliveryMethods`);
     
-    return forkJoin([response1, response2]);
+    return forkJoin([response1, response2, response3]);
   }
   
   createOffer(offer: CreateOffer) {
