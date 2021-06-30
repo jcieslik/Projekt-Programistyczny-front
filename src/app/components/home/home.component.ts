@@ -44,14 +44,11 @@ export class HomeComponent implements OnInit {
     this.model.provincesIds = e.provincesIds;
     this.model.categoryId = e.categoryId;
     
-    if (e.orderBy == undefined) {
+    if (e.orderBy == undefined)
       this.model.orderBy = this.defaultSort;
-    }
-    else {
+    else
       this.model.orderBy = e.orderBy;
-    }
 
-    console.log(this.model);
     this.offerService.getOffers(this.model)
       .subscribe((response) => {
         this.offers = response;
