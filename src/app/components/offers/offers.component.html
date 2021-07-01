@@ -1,5 +1,5 @@
 <div *ngIf="offers.length > 0; else noOffers">
-  <mat-card *ngFor="let offer of dataSource" [routerLink]="['/offer/'+offer.id]">
+  <mat-card *ngFor="let offer of offers" [routerLink]="['/offer/'+offer.id]">
     <div class="container">
       <img [src]="offer.image.imageData" class="image">
     </div>
@@ -16,7 +16,7 @@
   </mat-card>
 </ng-template>
 <div class="paginator" *ngIf="offers.length > 0">
-  <mat-paginator #paginator [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20]" [length]="totalSize"
-      [pageIndex]="currentPage" (page)="pageEvent = handlePage($event)">
+  <mat-paginator #paginator [pageSize]="pagination.pageSize" [pageSizeOptions]="[5, 10, 20, 50]" [length]="totalSize"
+      [pageIndex]="pagination.pageIndex" (page)="pageEvent = handlePage($event)">
   </mat-paginator>
 </div>

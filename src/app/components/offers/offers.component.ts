@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
 import { PaginationProperties } from 'src/app/enums/pagination-properties';
 import { OfferWithBaseData } from 'src/app/models/offer-base-data';
 
@@ -11,16 +10,14 @@ import { OfferWithBaseData } from 'src/app/models/offer-base-data';
 })
 export class OffersComponent implements OnInit {
   @Input()
-  offers: OfferWithBaseData[] = [];
+  offers: OfferWithBaseData[];
+  @Input()
+  totalSize: number;
 
   @Output()
   pageChange = new EventEmitter<PaginationProperties>();
 
-  public dataSource: any;
-
-  public pageSize = 10;
-  public currentPage = 0;
-  public totalSize = 0;
+  pagination: PaginationProperties = new PaginationProperties();
 
   public pageEvent;
 
@@ -29,22 +26,14 @@ export class OffersComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.totalSize = this.offers.length
-    this.dataSource = new MatTableDataSource<OfferWithBaseData>(this.offers);
-    this.dataSource.paginator = this.paginator;
-    this.iterator();
+    this.pagination.pageIndex = 0;
+    this.pagination.pageSize = 10;
+    this.pagination.orderBy = "creation";
   }
 
   public handlePage(e: any) {
-    this.currentPage = e.pageIndex;
-    this.pageSize = e.pageSize;
-    this.iterator();
-  }
-
-  private iterator() {
-    const end = (this.currentPage + 1) * this.pageSize;
-    const start = this.currentPage * this.pageSize;
-    const part = this.offers.slice(start, end);
-    this.dataSource = part;
+    this.pagination.pageIndex = e.pageIndex;
+    this.pagination.pageSize = e.pageSize;
+    this.pageChange.emit(this.pagination);
   }
 }

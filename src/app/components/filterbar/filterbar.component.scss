@@ -1,0 +1,82 @@
+mat-card {
+    position: absolute;  
+    width: 17%;
+    min-height: 80%;
+    margin: 1em auto;
+    top: 6.5%;
+    left: 6%;
+}
+
+mat-form-field {
+    width: 100%;
+}
+
+.xd {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto; 
+}
+
+.half-width {
+    width: 48%;
+}
+
+.center {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+::ng-deep.mat-form-field:not(.mat-form-field-has-label) .mat-form-field-infix {
+    border-top-width: 0;
+    top: 2px;
+    font-size: 15px;
+  }
+
+.right {
+    float: right;
+    width: 40%;
+    border: 1px solid #555555;
+    right: 0%;
+}
+
+.left {
+    width: 50%;
+    border: 1px solid #652fbd;
+    left: 0%;
+}
+
+.filters {
+    margin: 2em auto;
+    text-align: left;
+    display: block;
+}
+
+.right-align {
+    text-align: right;
+}
+
+input.right-align::-webkit-outer-spin-button,
+input.right-align::-webkit-inner-spin-button {
+  display: none;
+}
+
+h1 {
+    font-size: 1.3em;
+    font-weight: bold;
+    margin: 0;
+    margin-top: -10px;
+}   
+
+.category-button {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden; 
+    color: blue;
+}
+
