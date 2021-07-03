@@ -16,11 +16,13 @@ import { CheckboxModule, WavesModule, ButtonsModule, InputsModule, IconsModule, 
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
-import { MatIconModule} from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreateOfferComponent } from './components/create-offer/create-offer.component';
@@ -41,6 +43,7 @@ import { CheckoutComponent } from './components/checkout/checkout.component';
 import { NgxStripeModule } from 'ngx-stripe';
 import { FilterbarComponent } from './components/filterbar/filterbar.component';
 import { DialogCategoryComponent } from './dialogs/dialog-category/dialog-category.component';
+import { NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
 
 @NgModule({
   declarations: [
@@ -62,7 +65,7 @@ import { DialogCategoryComponent } from './dialogs/dialog-category/dialog-catego
     YourOffersComponent,
     UserOffersComponent,
     CheckoutComponent,
-    FilterbarComponent
+    FilterbarComponent,
     DialogCategoryComponent
   ],
   imports: [
@@ -82,17 +85,22 @@ import { DialogCategoryComponent } from './dialogs/dialog-category/dialog-catego
     MatInputModule,
     MatCardModule,
     MatSelectModule,
-    ReactiveFormsModule, 
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     FormsModule,
     NgxSpinnerModule,
     MatPaginatorModule,
-    MatTableModule, 
+    MatTableModule,
     MatDialogModule,
     NgxGalleryModule,
     MatGridListModule,
     MatCheckboxModule,
     NgxStripeModule.forRoot('pk_test_51J6t0pFBQwYWjNW6VzVlX04L3de14TnSCfJgW3fTMGKytO4Ou0eSV6rSlZCJNvzXTq3Sc8Pw02udihz0uhma9xNZ00QeIQpbiQ'),
+    MatDatepickerModule,
+    NgxMatTimepickerModule,
+    NgxMatDatetimePickerModule,
+    MatNativeDateModule,
+    NgxMatNativeDateModule,
   ],
   providers: [
     {

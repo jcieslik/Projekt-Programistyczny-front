@@ -1,93 +1,92 @@
 <form style="display: flexbox;" (ngSubmit)="submit()">
-    <mat-card class="card-container">
-            <div class="filters">
+  <mat-card class="card-container">
+    <div class="filters">
 
-                <h1 style="margin-top:-10px">Cena</h1>
-                <div class="price-range">
-                    <mat-form-field class="half-width" appearance="outline"> 
-                        <input matInput [(ngModel)]="minPrice" type="number" name="minPrice" 
-                            placeholder="0" class="right-align" min="0">
-                        <span matPrefix>PLN&nbsp;</span>
-                    </mat-form-field>
-                    -
-                    <mat-form-field class="half-width" appearance="outline">
-                        
-                        <input matInput [(ngModel)]="maxPrice" type="number" name="maxPrice"
-                                placeholder="∞" class="right-align" min="0">  
-                    </mat-form-field>
-                </div>
+      <h1 style="margin-top:-10px">Cena</h1>
+      <div class="price-range">
+        <mat-form-field class="half-width" appearance="outline">
+          <input matInput [(ngModel)]="minPrice" type="number" name="minPrice" placeholder="0" class="right-align"
+            min="0">
+          <span matPrefix>PLN&nbsp;</span>
+        </mat-form-field>
+        -
+        <mat-form-field class="half-width" appearance="outline">
 
-                <div>
-                <h1>Typ oferty</h1>
-                <mat-form-field appearance="outline">
-                <mat-label>Dowolny</mat-label>
-                <mat-select [(ngModel)]="selectedOfferType" name="selectedOfferType">
-                    <mat-option>--</mat-option>
-                    <mat-option *ngFor="let type of offerTypes" [value]="type.value">
-                    {{type.viewValue}}
-                    </mat-option>
-                </mat-select>
-                </mat-form-field>
+          <input matInput [(ngModel)]="maxPrice" type="number" name="maxPrice" placeholder="∞" class="right-align"
+            min="0">
+        </mat-form-field>
+      </div>
 
-                <h1>Stan produktu</h1>
-                <mat-form-field appearance="outline">
-                <mat-label>Dowolny</mat-label>
-                <mat-select [(ngModel)]="selectedProductState" name="selectedProductState">
-                    <mat-option>--</mat-option>
-                    <mat-option *ngFor="let state of productStates" [value]="state.value">
-                    {{state.viewValue}}
-                    </mat-option>
-                </mat-select>
-                </mat-form-field>
-                </div>
+      <div>
+        <h1>Typ oferty</h1>
+        <mat-form-field appearance="outline">
+          <mat-label>Dowolny</mat-label>
+          <mat-select [(ngModel)]="selectedOfferType" name="selectedOfferType">
+            <mat-option>--</mat-option>
+            <mat-option *ngFor="let type of offerTypes" [value]="type.value">
+              {{type.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
 
-                <h1>Sortowanie</h1>
-                <div>
-                    <mat-form-field appearance="outline">
-                    <mat-label>Data dodania</mat-label>
-                    <mat-select [(ngModel)]="selectedSortType" name="selectedSortType">
-                        <mat-option>--</mat-option>
-                        <mat-option *ngFor="let type of sortTypes" [value]="type.value">
-                        {{type.viewValue}}
-                        </mat-option>
-                    </mat-select>
-                    </mat-form-field>
-                </div>
+        <h1>Stan produktu</h1>
+        <mat-form-field appearance="outline">
+          <mat-label>Dowolny</mat-label>
+          <mat-select [(ngModel)]="selectedProductState" name="selectedProductState">
+            <mat-option>--</mat-option>
+            <mat-option *ngFor="let state of productStates" [value]="state.value">
+              {{state.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
 
-                <h1> Województwa </h1>
-                <mat-form-field appearance="outline" class="fill-container">
-                    <mat-label>Wszystkie</mat-label>
-                    <mat-select [formControl]="provincesForm" multiple>
-                        <mat-select-trigger>
-                        {{provincesForm.value ? provincesForm.value[0] : ''}}
-                        <span *ngIf="provincesForm.value?.length > 1">
-                            (+{{provincesForm.value.length - 1}} {{provincesForm.value?.length < 5 ? 'inne' : 'innych'}})
-                        </span>
-                        </mat-select-trigger>
-                        <mat-option *ngFor="let province of provinces" [value]="province.name">{{province.name}}</mat-option>
-                    </mat-select>
-                </mat-form-field>
+      <h1>Sortowanie</h1>
+      <div>
+        <mat-form-field appearance="outline">
+          <mat-label>Data dodania</mat-label>
+          <mat-select [(ngModel)]="selectedSortType" name="selectedSortType">
+            <mat-option>--</mat-option>
+            <mat-option *ngFor="let type of sortTypes" [value]="type.value">
+              {{type.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
 
-                <div style="margin-top: 10px">
-                <button mat-raised-button color="primary" type="submit" class="left">Zastosuj</button>
-                <button mat-raised-button (click)="reset()" class="right">Reset</button>
-                </div>
+      <h1> Województwa </h1>
+      <mat-form-field appearance="outline" class="fill-container">
+        <mat-label>Wszystkie</mat-label>
+        <mat-select [formControl]="provincesForm" multiple>
+          <mat-select-trigger>
+            {{provincesForm.value ? provincesForm.value[0] : ''}}
+            <span *ngIf="provincesForm.value?.length > 1">
+              (+{{provincesForm.value.length - 1}} {{provincesForm.value?.length < 5 ? 'inne' : 'innych' }}) </span>
+          </mat-select-trigger>
+          <mat-option *ngFor="let province of provinces" [value]="province.name">{{province.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
 
-                <div>
-                    <h1 style="margin-top:30px; margin-bottom:-8px; font-size: 1.5em"> Kategorie </h1>
-                    <div *ngIf="currentCategory">
-                        <div style="font-size:15px; margin-top:10px">
-                        Wyniki dla kategorii: {{currentCategory.name}}
-                        </div>
-                        <div class="right-align" style="margin-bottom:-35px; margin-top: 3px">
-                        <button class="category-button" (click)="onBackClick()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cofnij</button>
-                        </div>
-                    </div>
-                        <p></p>
-                    <div style="margin-top:1px; font-size: 15px" *ngFor="let category of displayedCategories">
-                        <button class="category-button" (click)="onCategoryClick(category)">{{category.name}}</button>
-                    </div>
-                </div>
-            </div>
-    </mat-card>  
+      <div style="margin-top: 10px">
+        <button mat-raised-button color="primary" type="submit" class="left">Zastosuj</button>
+        <button mat-raised-button (click)="reset()" class="right">Reset</button>
+      </div>
+
+      <div>
+        <h1 style="margin-top:30px; margin-bottom:-8px; font-size: 1.5em"> Kategorie </h1>
+        <div *ngIf="currentCategory">
+          <div style="font-size:15px; margin-top:10px">
+            Wyniki dla kategorii: {{currentCategory.name}}
+          </div>
+          <div class="right-align" style="margin-bottom:-35px; margin-top: 3px">
+            <button class="category-button" (click)="onBackClick()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cofnij</button>
+          </div>
+        </div>
+        <p></p>
+        <div style="margin-top:1px; font-size: 15px" *ngFor="let category of displayedCategories">
+          <button class="category-button" (click)="onCategoryClick(category)">{{category.name}}</button>
+        </div>
+      </div>
+    </div>
+  </mat-card>
 </form>

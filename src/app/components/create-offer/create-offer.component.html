@@ -27,6 +27,24 @@
         <mat-error *ngIf="f.productCount.invalid">Podaj ilość produktów</mat-error>
       </mat-form-field>
 
+      <mat-form-field>
+        <input matInput [ngxMatDatetimePicker]="start" placeholder="Początek aukcji" formControlName="startDate"
+          [min]="today">
+        <mat-datepicker-toggle matSuffix [for]="start"></mat-datepicker-toggle>
+        <ngx-mat-datetime-picker #start [showSeconds]="false">
+        </ngx-mat-datetime-picker>
+        <mat-error *ngIf="f.startDate.invalid">Podaj początek aukcji</mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput [ngxMatDatetimePicker]="end" placeholder="Koniec aukcji" formControlName="endDate"
+          [min]="getMinEndDate()">
+        <mat-datepicker-toggle matSuffix [for]="end"></mat-datepicker-toggle>
+        <ngx-mat-datetime-picker #end [showSeconds]="false">
+        </ngx-mat-datetime-picker>
+        <mat-error *ngIf="f.endDate.invalid">Podaj koniec aukcji</mat-error>
+      </mat-form-field>
+
     </div>
   </mat-card>
 

@@ -1,9 +1,6 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Brand } from 'src/app/models/brand';
 import { Category } from 'src/app/models/category';
-import { City } from 'src/app/models/city';
 import { Image } from 'src/app/models/image';
 import { CreateOffer } from 'src/app/models/create-offer';
 import { Province } from 'src/app/models/province';
@@ -11,7 +8,7 @@ import { User } from 'src/app/models/user';
 import { OfferService } from 'src/app/services/offer/offer.service';
 import { DeliveryMethod } from 'src/app/models/delivery-method';
 import { DeliveryMethodWithOffer } from 'src/app/models/delivery-method-with-offer';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogCategoryComponent } from 'src/app/dialogs/dialog-category/dialog-category.component';
 
@@ -36,6 +33,8 @@ export class CreateOfferComponent implements OnInit {
 
   chosenDeliveryMethods: DeliveryMethodWithOffer[] = [];
 
+  today: Date = new Date();
+
   form: FormGroup = this.fb.group({
     title: ['', [Validators.required]],
     description: ['', [Validators.required]],
@@ -45,6 +44,8 @@ export class CreateOfferComponent implements OnInit {
     selectedCategory: [null as Category, [Validators.required]],
     selectedCity: ['', [Validators.required]],
     selectedBrand: ['', [Validators.required]],
+    startDate: ['', [Validators.required]],
+    endDate: ['', [Validators.required]]
   });
 
   get f() { return this.form.controls; }
@@ -67,6 +68,13 @@ export class CreateOfferComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.today = this.roundMinutes(this.today)
+    let startDate = new Date(this.today);
+    let endDate = new Date(this.today);
+    endDate.setDate(endDate.getDate() + 7)
+
+    this.f.startDate.setValue(startDate)
+    this.f.endDate.setValue(endDate)
     this.offer.sellerId = this.user.id;
     this.offerService.getDataForCreatingOffer()
       .subscribe((results) => {
@@ -102,9 +110,9 @@ export class CreateOfferComponent implements OnInit {
     if (this.form.invalid) {
       alert("Wypełnij wszystkie wymagane pola!")
       return;
-    } else if(!(this.offer.images.length > 0)) {
+    } else if (!(this.offer.images.length > 0)) {
       alert("Dodaj przynajmniej jedno zdjęcie do oferty!")
-    } else if(!(this.offer.deliveryMethods.length > 0)) {
+    } else if (!(this.offer.deliveryMethods.length > 0)) {
       alert("Wybierz przynajmniej jeden sposób dostawy!")
     }
 
@@ -112,6 +120,8 @@ export class CreateOfferComponent implements OnInit {
     this.offer.description = this.f.description.value;
     this.offer.productCount = this.f.productCount.value;
     this.offer.priceForOneProduct = this.f.priceForOneProduct.value;
+    this.offer.startDate = this.f.startDate.value;
+    this.offer.endDate = this.f.endDate.value;
     this.offer.brand = this.f.selectedBrand.value;
     this.offer.city = this.f.selectedCity.value;
     this.offer.provinceId = (this.province.value as Province).id;
@@ -137,14 +147,28 @@ export class CreateOfferComponent implements OnInit {
     const dialogRef = this.dialog.open(DialogCategoryComponent, {
       width: '800px',
       height: '600px',
-      data: {categories: this.categories, category: null}
+      data: { categories: this.categories, category: null }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
-      if(result) {
+      if (result) {
         this.f.selectedCategory = result;
       }
     });
+  }
+
+  roundMinutes(date: Date) {
+
+    date.setHours(date.getHours() + Math.round(date.getMinutes() / 60));
+    date.setMinutes(0, 0, 0); // Resets also seconds and milliseconds
+    date.setHours(date.getHours() + 1)
+    return date;
+  }
+
+  getMinEndDate(): Date {
+    let date = new Date(this.today)
+    date.setDate(this.f.startDate.value.getDate() + 1)
+    return date;
   }
 }

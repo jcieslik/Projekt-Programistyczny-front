@@ -38,21 +38,21 @@ export class FilterbarComponent implements OnInit {
   provincesIds: number[] = [];
   categoryId: number;
   offerTypes: Map[] = [
-    {value: OfferType.BuyNow, viewValue: 'Kup teraz'},
-    {value: OfferType.Auction, viewValue: 'Aukcja'}
+    { value: OfferType.BuyNow, viewValue: 'Kup teraz' },
+    { value: OfferType.Auction, viewValue: 'Aukcja' }
   ];
   selectedOfferType: number;
   productStates: Map[] = [
-    {value: ProductState.New, viewValue: 'Nowy'},
-    {value: ProductState.VeryGood, viewValue: 'Bardzo dobry'},
-    {value: ProductState.Used, viewValue: 'Używany'}
+    { value: ProductState.New, viewValue: 'Nowy' },
+    { value: ProductState.VeryGood, viewValue: 'Bardzo dobry' },
+    { value: ProductState.Used, viewValue: 'Używany' }
   ];
   selectedProductState: number;
   sortTypes: Map[] = [
-    {value: 'price_asc', viewValue: 'Cena: rosnąco'},
-    {value: 'price_desc', viewValue: 'Cena: malejąco'},
-    {value: 'rate', viewValue: 'Ocena'},
-    {value: 'creation', viewValue: 'Data dodania'}
+    { value: 'price_asc', viewValue: 'Cena: rosnąco' },
+    { value: 'price_desc', viewValue: 'Cena: malejąco' },
+    { value: 'rate', viewValue: 'Ocena' },
+    { value: 'creation', viewValue: 'Data dodania' }
   ];
   selectedSortType: string;
 
@@ -64,7 +64,7 @@ export class FilterbarComponent implements OnInit {
         this.provinces = response;
       })
 
-      this.productCategoryService.getProductCategories()
+    this.productCategoryService.getProductCategories()
       .subscribe((response) => {
         this.allCategories = response;
         this.listCategories();
