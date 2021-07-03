@@ -32,9 +32,6 @@ export class FilterbarComponent implements OnInit {
 
   provinces: Province[];
   provincesForm = new FormControl();
-  provincesList: string[] = ['Dolnośląskie', 'Kujawsko-pomorskie', 'Lubelskie', 'Lubuskie', 'Łódzkie', 'Małopolskie', 
-                        'Mazowiecke', 'Opolskie', 'Podkarpackie', 'Podlaskie', 'Pomorskie', 'Śląskie',
-                        'Świętokrzyskie', 'Warmińsko-Mazurskie', 'Wielkopolskie', 'Zachodniopomorskie'];
 
   minPrice: number;
   maxPrice: number;
@@ -58,9 +55,6 @@ export class FilterbarComponent implements OnInit {
     {value: 'creation', viewValue: 'Data dodania'}
   ];
   selectedSortType: string;
-
-  provincesString:string;
-  provincesArray: string[];
 
   maxCategories: number = 20;
 
@@ -94,9 +88,9 @@ export class FilterbarComponent implements OnInit {
 
   mapProvinces() {
     this.provincesIds = [];
-    this.provincesString = this.provincesForm.value + '';
-    this.provincesArray = this.provincesString.split(',');
-    this.provincesArray.forEach(string => {
+    let provincesString = this.provincesForm.value + '';
+    let provincesArray = provincesString.split(',');
+    provincesArray.forEach(string => {
       this.provinces.forEach(province => {
         if (string == province.name) {
           this.provincesIds.push(province.id)
