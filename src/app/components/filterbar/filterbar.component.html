@@ -64,7 +64,7 @@
                             (+{{provincesForm.value.length - 1}} {{provincesForm.value?.length < 5 ? 'inne' : 'innych'}})
                         </span>
                         </mat-select-trigger>
-                        <mat-option *ngFor="let province of provincesList" [value]="province">{{province}}</mat-option>
+                        <mat-option *ngFor="let province of provinces" [value]="province.name">{{province.name}}</mat-option>
                     </mat-select>
                 </mat-form-field>
 
