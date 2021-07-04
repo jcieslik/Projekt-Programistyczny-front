@@ -15,6 +15,7 @@ import { YourOffersComponent } from './components/your-offers/your-offers.compon
 import { UserOffersComponent } from './components/user-offers/user-offers.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { ChangeUserInfoComponent } from './components/change-user-info/change-user-info.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -26,6 +27,7 @@ const routes: Routes = [
   { path: 'messages/:id', component: MessagesComponent, canActivate: [AuthGuard] }, 
   { path: 'favorites', component: FavoritesComponent, canActivate: [AuthGuard] }, 
   { path: 'account', component: AccountComponent, canActivate: [AuthGuard] }, 
+  { path: 'changeUserInfo', component: ChangeUserInfoComponent, canActivate: [AuthGuard] },
   { path: 'createOffer', component: CreateOfferComponent, canActivate: [AuthGuard] },
   { path: 'register', component: RegisterComponent },
   { path: 'userOffers/:id', component: UserOffersComponent },

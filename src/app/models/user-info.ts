@@ -12,4 +12,5 @@ export class UserInfo {
   street: string;
   postCode: string;
   provinceId: number;
+  bankAccountNumber: string;
 }

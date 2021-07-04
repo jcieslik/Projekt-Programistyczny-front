@@ -49,6 +49,7 @@ import { FilterbarComponent } from './components/filterbar/filterbar.component';
 import { DialogCategoryComponent } from './dialogs/dialog-category/dialog-category.component';
 import { NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { ChangeUserInfoComponent } from './components/change-user-info/change-user-info.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +73,8 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
     CheckoutComponent,
     FilterbarComponent,
     DialogCategoryComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    ChangeUserInfoComponent
   ],
   imports: [
     BrowserModule,

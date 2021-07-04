@@ -24,11 +24,7 @@ export class UserService {
   updateUser(user: UpdateUser){
     return this.http.post<UpdateUser>(`${environment.apiUrl}/api/User/UpdateUser`, user, { withCredentials: true });
   }
-
-  getAccountDetails() {
-    return this.http.get<User>(`${environment.apiUrl}/api/User/AccountDetails`, { withCredentials: true });
-  }
-
+  
   getUserInfo(userId: number) {
     return this.http.get<UserInfo>(`${environment.apiUrl}/api/User/GetUserInfo?userId=${userId}`, { withCredentials: true });
   }
