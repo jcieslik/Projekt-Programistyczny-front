@@ -13,8 +13,8 @@
         <div class="text">Stan: <product-state-i18n [key]="offer.productState"></product-state-i18n>
         </div>
         <div class="text">Lokalizacja: {{offer.province}}, {{offer.city}}</div>
-        <button mat-raised-button color="primary" type="submit" class="buy-button" [routerLink]="['/checkout/'+offer.id]">Kup teraz</button>
-        <button mat-raised-button color="primary" type="submit" class="buy-button">Dodaj do koszyka</button>
+        <button mat-raised-button color="primary" type="submit" class="buy-button" [routerLink]="['/checkout/'+offer.id]" [disabled]="checkIfCanBuy()">Kup teraz</button>
+        <button mat-raised-button color="primary" type="submit" class="buy-button" [disabled]="checkIfCanBuy()">Dodaj do koszyka</button>
       </div>
     </div>
   </mat-card>
