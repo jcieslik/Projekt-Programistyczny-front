@@ -20,6 +20,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatStepperModule } from '@angular/material/stepper';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -105,6 +107,8 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
     NgxMatDatetimePickerModule,
     MatNativeDateModule,
     NgxMatNativeDateModule,
+    MatStepperModule,
+    MatRadioModule,
   ],
   providers: [
     {

@@ -67,4 +67,8 @@ export class OfferComponent implements OnInit {
   checkIfCanBuy(): boolean {
     return this.offer.seller.id === this.user.id;
   }
+
+  getRouterLink(): string {
+    return this.offer.seller.id === this.user.id ? '/account/' : '/userProfile/' + this.offer.seller.id;
+  }
 }

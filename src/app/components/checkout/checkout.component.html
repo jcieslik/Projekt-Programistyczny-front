@@ -1,10 +1,32 @@
 <mat-card>
-  <form novalidate (ngSubmit)="createToken()" [formGroup]="stripeTest">
-    <mat-form-field appearance="outline" class="fill-container">
-      <mat-label>Imię i nazwisko</mat-label>
-      <input type="text" formControlName="name" matInput>
-    </mat-form-field>
-    <ngx-stripe-card [options]="cardOptions" [elementsOptions]="elementsOptions"></ngx-stripe-card>
-    <button mat-raised-button color="primary" type="submit" style="margin: 10px 0px 10px 0px;">Zapłać</button>
-  </form>
+  <mat-stepper orientation="vertical" [linear]="true" #stepper *ngIf="deliveryMethods">
+    <mat-step>
+      <form [formGroup]="deliveryMethodForm">
+        <ng-template matStepLabel>Wybierz sposób dostawy</ng-template>
+        <mat-radio-group formControlName="option">
+          <mat-radio-button *ngFor="let deliveryMethod of deliveryMethods" [value]="deliveryMethod">
+            {{deliveryMethod.name}} - {{deliveryMethod.price}}
+          </mat-radio-button>
+        </mat-radio-group><br>
+        <button mat-raised-button color="primary" matStepperNext style="margin: 10px 0px 10px 0px;">Dalej</button>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="stripeTest">
+      <form novalidate [formGroup]="stripeTest">
+        <ng-template matStepLabel>Wypełnij informacje o karcie</ng-template>
+        <mat-form-field appearance="outline" class="fill-container">
+          <mat-label>Imię i nazwisko</mat-label>
+          <input type="text" formControlName="name" matInput>
+        </mat-form-field>
+        <ngx-stripe-card [options]="cardOptions" [elementsOptions]="elementsOptions"></ngx-stripe-card>
+        <button mat-raised-button color="primary" matStepperNext style="margin: 10px 0px 10px 0px;">Dalej</button>
+      </form>
+    </mat-step>
+    <mat-step>
+      <form (ngSubmit)="createOrder()">
+        <ng-template matStepLabel>Potwierdź</ng-template>
+        <button mat-raised-button color="primary" matStepperNext style="margin: 10px 0px 10px 0px;">Zakończ</button>
+      </form>
+    </mat-step>
+  </mat-stepper>
 </mat-card>

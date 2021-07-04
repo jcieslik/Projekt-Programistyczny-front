@@ -5,7 +5,15 @@
   <h3><a [routerLink]="['/userOffers/'+user.id]">Zobacz produkty tego użytkownika</a></h3>
   <h3><a [routerLink]="['/messages/'+user.id]">Skontaktuj się z tym użytkownikiem</a></h3>
   <mat-tab-group>
-    <mat-tab label="Informacje o użytkowniku"></mat-tab>
-    <mat-tab label="Komentarze"></mat-tab>
+    <mat-tab label="Informacje o użytkowniku">
+      <br>
+      <h3>Województwo: {{user.province || '-'}}</h3>
+      <h3>Miejscowość: {{user.city || '-'}}</h3>
+      <h3>Kod pocztowy: {{user.zipCode || '-'}}</h3>
+      <h3>Ulica: {{user.street || '-'}}</h3>
+    </mat-tab>
+    <mat-tab label="Komentarze">
+
+    </mat-tab>
   </mat-tab-group>
 </mat-card>
