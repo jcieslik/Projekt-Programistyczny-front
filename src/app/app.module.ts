@@ -22,6 +22,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatDividerModule } from '@angular/material/divider';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -109,6 +110,7 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
     NgxMatNativeDateModule,
     MatStepperModule,
     MatRadioModule,
+    MatDividerModule,
   ],
   providers: [
     {

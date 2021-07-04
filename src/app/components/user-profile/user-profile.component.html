@@ -1,4 +1,4 @@
-<mat-card *ngIf="user">
+<mat-card class="main-card" *ngIf="user">
   <h1>{{user.username}}</h1>
   <h3>Imię: {{user.name}} {{user.surname}}</h3>
   <h3>Email: {{user.email}}</h3>
@@ -13,7 +13,15 @@
       <h3>Ulica: {{user.street || '-'}}</h3>
     </mat-tab>
     <mat-tab label="Komentarze">
-
+      <br>
+      <div class="comment" *ngFor="let comment of dataSource">
+        <h1>{{comment.content}}</h1>
+      </div>
+      <div class="paginator" *ngIf="comments.length > 0">
+        <mat-paginator #paginator [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20, 50]" [length]="totalSize"
+          [pageIndex]="currentPage" (page)="pageEvent = handlePage($event)">
+        </mat-paginator>
+      </div>
     </mat-tab>
   </mat-tab-group>
 </mat-card>
