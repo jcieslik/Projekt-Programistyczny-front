@@ -10,6 +10,9 @@ import { OfferWithBaseData } from 'src/app/models/offer-base-data';
 import { Province } from 'src/app/models/province';
 import { environment } from 'src/environments/environment';
 import { AddOrRemoveOfferToCartDTO } from '../../models/add-or-remove-offer-to-cart';
+import { SearchModel } from 'src/app/models/searchModel';
+import { PaginatedOffers } from 'src/app/models/paginatedOffers';
+import { DeliveryMethod } from 'src/app/models/delivery-method';
 
 @Injectable({
   providedIn: 'root'
@@ -19,10 +22,11 @@ export class OfferService {
   constructor(private http: HttpClient) { }
 
   getDataForCreatingOffer() {
-    let response1 = this.http.get<Province[]>(`${environment.apiUrl}/api/Province/GetProvinces`, { withCredentials: true });
-    let response2 = this.http.get<Category[]>(`${environment.apiUrl}/api/ProductCategory/GetProductCategories`, { withCredentials: true });
+    let response1 = this.http.get<Province[]>(`${environment.apiUrl}/api/Province/GetProvinces`);
+    let response2 = this.http.get<Category[]>(`${environment.apiUrl}/api/ProductCategory/GetProductCategories`);
+    let response3 = this.http.get<DeliveryMethod[]>(`${environment.apiUrl}/api/DeliveryMethod/GetDeliveryMethods`);
     
-    return forkJoin([response1, response2]);
+    return forkJoin([response1, response2, response3]);
   }
 
   createOffer(offer: CreateOffer) {
@@ -51,5 +55,9 @@ export class OfferService {
 
   getOffersFromCart(userId) {
     return this.http.get<OfferWithBaseData[]>(`${environment.apiUrl}/api/Cart/GetOffersFromCart?userId=${userId}`, { withCredentials: true });
+  }
+
+  getOffers(model: SearchModel) {
+    return this.http.post<PaginatedOffers>(`${environment.apiUrl}/api/Offer/GetOffers`, model);
   }
 }

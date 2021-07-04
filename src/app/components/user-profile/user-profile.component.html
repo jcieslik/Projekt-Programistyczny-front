@@ -1,0 +1,27 @@
+<mat-card class="main-card" *ngIf="user">
+  <h1>{{user.username}}</h1>
+  <h3>Imię: {{user.name}} {{user.surname}}</h3>
+  <h3>Email: {{user.email}}</h3>
+  <h3><a [routerLink]="['/userOffers/'+user.id]">Zobacz produkty tego użytkownika</a></h3>
+  <h3><a [routerLink]="['/messages/'+user.id]">Skontaktuj się z tym użytkownikiem</a></h3>
+  <mat-tab-group>
+    <mat-tab label="Informacje o użytkowniku">
+      <br>
+      <h3>Województwo: {{user.province || '-'}}</h3>
+      <h3>Miejscowość: {{user.city || '-'}}</h3>
+      <h3>Kod pocztowy: {{user.zipCode || '-'}}</h3>
+      <h3>Ulica: {{user.street || '-'}}</h3>
+    </mat-tab>
+    <mat-tab label="Komentarze">
+      <br>
+      <div class="comment" *ngFor="let comment of dataSource">
+        <h1>{{comment.content}}</h1>
+      </div>
+      <div class="paginator" *ngIf="comments.length > 0">
+        <mat-paginator #paginator [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20, 50]" [length]="totalSize"
+          [pageIndex]="currentPage" (page)="pageEvent = handlePage($event)">
+        </mat-paginator>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</mat-card>

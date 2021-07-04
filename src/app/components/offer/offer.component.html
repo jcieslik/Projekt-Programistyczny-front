@@ -1,18 +1,22 @@
 <div *ngIf="offer">
   <mat-card>
-    <div class="row">
-      <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery>
-      <div style="width: 40%">
+    <div class="row flex">
+      <div style="flex-basis: 55%">
+        <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery>
+      </div>
+      <div style="flex-basis: 45%">
         <div class="title">{{offer.title}}</div>
-        <div class="text">Od: <a [routerLink]="['/userOffers/'+offer.seller.id]">{{offer.seller.name}} {{offer.seller.surname}}
+        <div class="text">Od: <a [routerLink]="getRouterLink()">{{offer.seller.name}} {{offer.seller.surname}}
             ({{offer.seller.username}})</a></div>
         <div class="text">Koszt: {{offer.priceForOneProduct | currency:'':''}} zł</div>
         <div class="text">Pozostała ilość sztuk: {{offer.productCount}}</div>
         <div class="text">Stan: <product-state-i18n [key]="offer.productState"></product-state-i18n>
         </div>
         <div class="text">Lokalizacja: {{offer.province}}, {{offer.city}}</div>
-        <button mat-raised-button color="primary" type="submit" class="buy-button">Kup teraz</button>
-        <button mat-raised-button color="primary" type="submit" class="buy-button" (click)="addToCart()">Dodaj do koszyka</button>
+        <button mat-raised-button color="primary" type="submit" class="buy-button"
+          [routerLink]="['/checkout/'+offer.id]" [disabled]="checkIfCanBuy()">Kup teraz</button>
+        <button mat-raised-button color="primary" type="submit" class="buy-button" [disabled]="checkIfCanBuy()" (click)="addToCart()">Dodaj do
+          koszyka</button>
       </div>
     </div>
   </mat-card>

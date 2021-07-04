@@ -1,3 +1,7 @@
+<div *ngIf="model">
+  <app-filterbar (pageChange)="getSearchModel($event)" [userId]="userId"> </app-filterbar>
+</div>
+
 <div *ngIf="offers">
-  <app-offers [offers]="offers"></app-offers>
+  <app-offers [offers]="offers.items" [totalSize]="offers.totalCount" (pageChange)="getData($event)"></app-offers>
 </div>

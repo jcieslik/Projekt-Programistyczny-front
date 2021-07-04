@@ -1,8 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MustMatch } from 'src/app/helpers/mustMatchValidator';
-import { UpdateUser } from 'src/app/models/updateUser';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatPaginator } from '@angular/material/paginator';
+import { PaginationProperties } from 'src/app/enums/pagination-properties';
+import { OfferWithBaseData } from 'src/app/models/offer-base-data';
+import { PaginatedOffers } from 'src/app/models/paginatedOffers';
+import { SearchModel } from 'src/app/models/searchModel';
 import { User } from 'src/app/models/user';
+import { UserInfo } from 'src/app/models/user-info';
+import { OfferService } from 'src/app/services/offer/offer.service';
 import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
@@ -12,51 +16,57 @@ import { UserService } from 'src/app/services/user/user.service';
 })
 export class AccountComponent implements OnInit {
 
-  constructor(
-    private userService: UserService,
-    private fb: FormBuilder) { }
+  constructor(private userService: UserService, private offerService: OfferService) { }
 
-  form: FormGroup = this.fb.group({    
-    username: ['', Validators.required],
-    // password: ['', Validators.required],
-    // passwordConfirmation: [''],
-    email: ['',Validators.required],
-    name: ['', Validators.required],
-    surname: ['', Validators.required],
-  });//, { validator: MustMatch('password', 'passwordConfirmation')});
+  currentUser: User = JSON.parse(localStorage.getItem('user'));
+
+  user: UserInfo;
   
-  get f() { return this.form.controls; }
-  private user: User;
+  offersPaginated: PaginatedOffers;
+  model: SearchModel = new SearchModel();
+  defaultSort: string = "creation";
+  pagination: PaginationProperties = new PaginationProperties();
+  totalSize: number;
+  offers: OfferWithBaseData[] = [];
+
+  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   ngOnInit(): void {
-    this.getAccountDetails();
+    this.initModel();
+
+    this.userService.getUserInfo(this.currentUser.id)
+      .subscribe((result) => {
+        this.user = result;
+      })
+
+    this.offerService.getOffers(this.model)
+    .subscribe((response) => {
+      this.offersPaginated = response;
+      this.offers = this.offersPaginated.items;
+      this.totalSize = response.totalCount;
+    })
   }
-  
-  getAccountDetails(): void {
-    this.userService.getAccountDetails().subscribe(details => {
-      this.user = details;
-      this.f.username.setValue(details.username);
-      this.f.name.setValue(details.name);
-      this.f.surname.setValue(details.surname);
-      this.f.email.setValue(details.email);
-    });
 
-
-  }
-
-  updateUser(){
-    var updateDto: UpdateUser;
+  private initModel() {
+    this.model.pageIndex = 1;
+    this.model.pageSize = 10;
+    this.model.orderBy = this.defaultSort;
+    this.model.sellerId = this.currentUser.id;
     
-    updateDto.username = this.f.username.value;
-    updateDto.surname = this.f.surname.value;
-    updateDto.email = this.f.email.value;
-    updateDto.name = this.f.name.value;
-    updateDto.isActive = true;
-    updateDto.id = this.user.id;
-    updateDto.password = "";
-    //this.userService.updateUser(this.user);
+    this.pagination.pageIndex = 0;
+    this.pagination.pageSize = 10;
+    this.pagination.orderBy = "creation";
   }
 
-  onSubmit(){}
+  public handlePage(e: any) {
+    this.model.pageIndex = e.pageIndex + 1;
+    this.model.pageSize = e.pageSize;
 
+    this.offerService.getOffers(this.model)
+      .subscribe((response) => {
+        this.offersPaginated = response;
+        this.offers = this.offersPaginated.items;
+        this.totalSize = response.totalCount;
+      })
+  }
 }

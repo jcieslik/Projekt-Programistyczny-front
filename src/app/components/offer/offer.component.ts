@@ -23,6 +23,8 @@ export class OfferComponent implements OnInit {
   
   user: User = JSON.parse(localStorage.getItem('user'))
 
+  user: User = JSON.parse(localStorage.getItem('user'));
+
   constructor(private offerService: OfferService, 
     private route: ActivatedRoute) { }
 
@@ -68,4 +70,11 @@ export class OfferComponent implements OnInit {
     this.offerService.addOfferToCart(this.offerId).subscribe();
   }
 
+  checkIfCanBuy(): boolean {
+    return this.offer.seller.id === this.user.id;
+  }
+
+  getRouterLink(): string {
+    return this.offer.seller.id === this.user.id ? '/account/' : '/userProfile/' + this.offer.seller.id;
+  }
 }

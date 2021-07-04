@@ -1,77 +1,123 @@
-<form style="display: flexbox;" (ngSubmit)="submit()">
-	<mat-card class="card-container">
-		<h1>Opis produktu</h1>
-		<div class="create-offer">
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <mat-card class="card-container">
+    <h1>Opis produktu</h1>
+    <div class="create-offer">
 
-			<mat-form-field appearance="outline" class="fill-container">
-				<mat-label>Tytuł ogłoszenia</mat-label>
-				<input [(ngModel)]="offer.title" name="title" matInput>
-			</mat-form-field>
+      <mat-form-field appearance="outline" class="fill-container">
+        <mat-label>Tytuł ogłoszenia</mat-label>
+        <input formControlName="title" name="title" matInput>
+        <mat-error *ngIf="f.title.invalid">Tytuł jest wymagany</mat-error>
+      </mat-form-field>
 
-			<mat-form-field appearance="outline" class="fill-container">
-				<mat-label>Opis produktu</mat-label>
-				<textarea [(ngModel)]="offer.description" name="description" matInput rows="12"></textarea>
-			</mat-form-field>
+      <mat-form-field appearance="outline" class="fill-container">
+        <mat-label>Opis produktu</mat-label>
+        <textarea formControlName="description" name="description" matInput rows="12"></textarea>
+        <mat-error *ngIf="f.description.invalid">Opis jest wymagany</mat-error>
+      </mat-form-field>
 
-			<mat-form-field>
-				<input matInput [(ngModel)]="offer.priceForOneProduct" type="number" name="price"
-					placeholder="Cena za jeden produkt">
-			</mat-form-field>
+      <mat-form-field>
+        <input matInput formControlName="priceForOneProduct" type="number" name="price"
+          placeholder="Cena za jeden produkt">
+        <mat-error *ngIf="f.priceForOneProduct.invalid">Wprowadź cenę za produkt</mat-error>
+      </mat-form-field>
 
-			<mat-form-field>
-				<input matInput [(ngModel)]="offer.productCount" type="number" name="numberOfProducts"
-					placeholder="Liczba produktów">
-			</mat-form-field>
+      <mat-form-field>
+        <input matInput formControlName="productCount" type="number" name="numberOfProducts"
+          placeholder="Liczba produktów">
+        <mat-error *ngIf="f.productCount.invalid">Podaj ilość produktów</mat-error>
+      </mat-form-field>
 
-		</div>
-	</mat-card>
+      <mat-form-field>
+        <input matInput [ngxMatDatetimePicker]="start" placeholder="Początek aukcji" formControlName="startDate"
+          [min]="today">
+        <mat-datepicker-toggle matSuffix [for]="start"></mat-datepicker-toggle>
+        <ngx-mat-datetime-picker #start [showSeconds]="false">
+        </ngx-mat-datetime-picker>
+        <mat-error *ngIf="f.startDate.invalid">Podaj początek aukcji</mat-error>
+      </mat-form-field>
 
-	<mat-card class="card-container">
-		<h1>Dane szczegółowe</h1>
+      <mat-form-field>
+        <input matInput [ngxMatDatetimePicker]="end" placeholder="Koniec aukcji" formControlName="endDate"
+          [min]="getMinEndDate()">
+        <mat-datepicker-toggle matSuffix [for]="end"></mat-datepicker-toggle>
+        <ngx-mat-datetime-picker #end [showSeconds]="false">
+        </ngx-mat-datetime-picker>
+        <mat-error *ngIf="f.endDate.invalid">Podaj koniec aukcji</mat-error>
+      </mat-form-field>
 
-		<mat-form-field appearance="outline">
-			<mat-label>Miasto</mat-label>
-			<input [(ngModel)]="selectedCity" name="city" matInput>
-		</mat-form-field>
+    </div>
+  </mat-card>
 
-		<mat-form-field appearance="outline">
-			<mat-label>Marka</mat-label>
-			<input [(ngModel)]="selectedBrand" name="brand" matInput>
-		</mat-form-field>
+  <mat-card class="card-container">
+    <h1>Dane szczegółowe</h1>
 
-		<mat-form-field appearance="fill">
-			<mat-label>Województwo</mat-label>
-			<mat-select [(ngModel)]="selectedProvince" name="province">
-				<mat-option *ngFor="let province of provinces" [value]="province">
-					{{province.name}}
-				</mat-option>
-			</mat-select>
-		</mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Miasto</mat-label>
+      <input formControlName="selectedCity" name="city" matInput>
+      <mat-error *ngIf="f.selectedCity.invalid">Podaj miasto</mat-error>
+    </mat-form-field>
 
-		<mat-form-field appearance="fill">
-			<mat-label>Kategoria</mat-label>
-			<mat-select [(ngModel)]="selectedCategory" name="category">
-				<mat-option *ngFor="let category of categories" [value]="category">
-					{{category.name}}
-				</mat-option>
-			</mat-select>
-		</mat-form-field>
-	</mat-card>
+    <mat-form-field appearance="outline">
+      <mat-label>Marka</mat-label>
+      <input formControlName="selectedBrand" name="brand" matInput>
+      <mat-error *ngIf="f.selectedBrand.invalid">Podaj markę</mat-error>
+    </mat-form-field>
 
-	<mat-card class="card-container">
-		<h1>Zdjęcia produktu</h1>
-		<div>
-			<input id="file" type="file" class="form-control" multiple="" (change)="onFileChange($event)">
-		</div>
+    <mat-form-field appearance="fill">
+      <mat-label>Województwo</mat-label>
+      <mat-select formControlName="selectedProvince" name="province">
+        <mat-option *ngFor="let province of provinces" [value]="province">
+          {{province.name}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="f.selectedProvince.invalid">Wybierz województwo</mat-error>
+    </mat-form-field>
 
-		<div class="container" *ngFor='let image of offer.images; let indexOfelement=index;' >
-			<img [src]="image.imageData" class="image">
-			<div class="overlay">
-				<i class="icon fa fa-trash" (click)="removeImage(indexOfelement)"></i>
-			</div>
-		</div><br />
-	</mat-card>
-	<mat-card>
-		<button mat-raised-button color="primary" type="submit" style="margin-top: 25px; margin-bottom: 25px;">Dodaj ogłoszenie</button>
-	</mat-card>
+    <mat-form-field appearance="fill" (click)="categorySelect.close(); openDialog()">
+      <mat-label>Kategoria</mat-label>
+      <mat-select #categorySelect formControlName="selectedCategory" name="category">
+        <mat-option *ngFor="let category of chosenCategories" [value]="category">
+          {{category.name}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="f.selectedCategory.invalid">Wybierz kategorię</mat-error>
+    </mat-form-field>
+  </mat-card>
+
+
+  <mat-card class="card-container">
+    <div *ngFor="let deliveryMethod of chosenDeliveryMethods" class="flex-container">
+      <div style="flex: 0.5">
+        <mat-checkbox [(ngModel)]="deliveryMethod.isSelected" [ngModelOptions]="{standalone: true}" name="isSelected"
+          class="example-margin">
+          {{deliveryMethod.name}}
+        </mat-checkbox>
+      </div>
+      <div style="flex: 1; padding-left: 5%;">
+        <mat-form-field appearance="outline">
+          <mat-label>Cena przesyłki (zł)</mat-label>
+          <input type="number" [(ngModel)]="deliveryMethod.fullPrice" [ngModelOptions]="{standalone: true}"
+            name="fullPrice{{deliveryMethod.deliveryMethodId}}" step="0.1" matInput>
+        </mat-form-field>
+      </div>
+    </div>
+  </mat-card>
+
+  <mat-card class="card-container">
+    <h1>Zdjęcia produktu</h1>
+    <div>
+      <input id="file" type="file" class="form-control" multiple="" (change)="onFileChange($event)">
+    </div>
+
+    <div class="container" *ngFor='let image of offer.images; let indexOfelement=index;'>
+      <img [src]="image.imageData" class="image">
+      <div class="overlay">
+        <i class="icon fa fa-trash" (click)="removeImage(indexOfelement)"></i>
+      </div>
+    </div><br />
+  </mat-card>
+  <mat-card>
+    <button mat-raised-button color="primary" type="submit" style="margin-top: 10px; margin-bottom: 10px;">Dodaj
+      ogłoszenie</button>
+  </mat-card>
 </form>

@@ -1,5 +1,6 @@
 export class Category {
-  id: number;
-  parentCategoryId?: number;
   name: string;
+  parentCategoryId?: number;
+  childrenCategories: Category[];
+  id: number;
 }

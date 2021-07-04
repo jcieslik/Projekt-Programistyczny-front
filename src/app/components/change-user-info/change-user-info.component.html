@@ -1,0 +1,33 @@
+<div class="account-content">
+    <mat-card>
+      <mat-card-content>
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <p>Twoje dane</p>
+          <mat-form-field class="full-width-input">
+            <input matInput placeholder="Login" formControlName="username">
+          </mat-form-field>
+          <mat-form-field class="full-width-input">
+            <input matInput placeholder="Imię" formControlName="name">
+          </mat-form-field>
+          <mat-form-field class="full-width-input">
+            <input matInput placeholder="Nazwisko" formControlName="surname">
+          </mat-form-field>
+          <mat-form-field class="full-width-input">
+            <input matInput type="email"  ngModel email="true" placeholder="Email" formControlName="email">
+          </mat-form-field>
+          <!-- <mat-form-field class="full-width-input">
+            <input matInput type="password" placeholder="Hasło" formControlName="password">
+          </mat-form-field>
+          <mat-form-field class="full-width-input">
+            <input matInput type="password" placeholder="Potwierdź hasło" formControlName="passwordConfirmation">
+            <mat-error *ngIf="f.password.value!=f.passwordConfirmation.value">
+              Podane hasła są różne
+            </mat-error>  
+          </mat-form-field>-->
+          <button mat-raised-button color="primary">Zatwierdź zmiany</button> 
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  
+  

@@ -1,6 +1,7 @@
 import { OfferState } from "../enums/offer-state";
 import { OfferType } from "../enums/offer-type";
 import { ProductState } from "../enums/product-state";
+import { DeliveryMethodWithOffer } from "./delivery-method-with-offer";
 import { Image } from "./image" 
 
 export class CreateOffer {
@@ -20,4 +21,5 @@ export class CreateOffer {
   offerState: OfferState;
   offerType: OfferType;
   images: Image[] = [];
+  deliveryMethods: DeliveryMethodWithOffer[] = [];
 }

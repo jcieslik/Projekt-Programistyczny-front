@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { CreateUser } from 'src/app/models/createUser';
 import { UpdateUser } from 'src/app/models/updateUser';
 import { User } from 'src/app/models/user';
+import { UserInfo } from 'src/app/models/user-info';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -23,9 +24,8 @@ export class UserService {
   updateUser(user: UpdateUser){
     return this.http.post<UpdateUser>(`${environment.apiUrl}/api/User/UpdateUser`, user, { withCredentials: true });
   }
-
-  getAccountDetails() {
-    return this.http.get<User>(`${environment.apiUrl}/api/User/AccountDetails`, { withCredentials: true });
+  
+  getUserInfo(userId: number) {
+    return this.http.get<UserInfo>(`${environment.apiUrl}/api/User/GetUserInfo?userId=${userId}`, { withCredentials: true });
   }
-
 }
