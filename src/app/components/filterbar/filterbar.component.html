@@ -2,6 +2,10 @@
   <mat-card class="card-container">
     <div class="filters">
 
+      <h4 *ngIf="user">
+        <a [routerLink]="['/userProfile/'+user.id]">Powróć do profilu użytkownika {{user.username}}</a>
+      </h4>
+
       <h1 style="margin-top:-10px">Cena</h1>
       <div class="price-range">
         <mat-form-field class="half-width" appearance="outline">

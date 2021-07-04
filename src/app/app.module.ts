@@ -17,6 +17,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
+import { MatTabsModule } from '@angular/material/tabs';
 import { MatCardModule } from '@angular/material/card';
 import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -44,6 +45,7 @@ import { NgxStripeModule } from 'ngx-stripe';
 import { FilterbarComponent } from './components/filterbar/filterbar.component';
 import { DialogCategoryComponent } from './dialogs/dialog-category/dialog-category.component';
 import { NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +68,8 @@ import { NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerMod
     UserOffersComponent,
     CheckoutComponent,
     FilterbarComponent,
-    DialogCategoryComponent
+    DialogCategoryComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -84,6 +87,7 @@ import { NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerMod
     MatButtonModule,
     MatInputModule,
     MatCardModule,
+    MatTabsModule,
     MatSelectModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,

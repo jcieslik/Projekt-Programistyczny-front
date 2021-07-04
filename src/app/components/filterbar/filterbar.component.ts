@@ -5,8 +5,10 @@ import { ProductState } from 'src/app/enums/product-state';
 import { Category } from 'src/app/models/category';
 import { Province } from 'src/app/models/province';
 import { SearchModel } from 'src/app/models/searchModel';
+import { UserInfo } from 'src/app/models/user-info';
 import { ProductCategoryService } from 'src/app/services/product-category/product-category.service';
 import { ProvinceService } from 'src/app/services/province/province.service';
+import { UserService } from 'src/app/services/user/user.service';
 
 interface Map {
   value: any;
@@ -19,11 +21,17 @@ interface Map {
   styleUrls: ['./filterbar.component.scss']
 })
 export class FilterbarComponent implements OnInit {
+  @Input()
+  userId: number;
 
   @Output()
   pageChange = new EventEmitter<SearchModel>();
 
-  constructor(private provinceService: ProvinceService, private productCategoryService: ProductCategoryService) { }
+  user: UserInfo;
+
+  constructor(private provinceService: ProvinceService, 
+    private productCategoryService: ProductCategoryService, 
+    private userService: UserService) { }
 
   allCategories: Category[];
   displayedCategories: Category[] = [];
@@ -59,6 +67,12 @@ export class FilterbarComponent implements OnInit {
   maxCategories: number = 20;
 
   ngOnInit(): void {
+    if(this.userId) {
+      this.userService.getUserInfo(this.userId)
+        .subscribe((result) => {
+          this.user = result;
+        })
+    }
     this.provinceService.getProvinces()
       .subscribe((response) => {
         this.provinces = response;

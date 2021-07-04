@@ -6,7 +6,7 @@
       </div>
       <div style="flex-basis: 45%">
         <div class="title">{{offer.title}}</div>
-        <div class="text">Od: <a [routerLink]="['/userOffers/'+offer.seller.id]">{{offer.seller.name}} {{offer.seller.surname}}
+        <div class="text">Od: <a [routerLink]="['/userProfile/'+offer.seller.id]">{{offer.seller.name}} {{offer.seller.surname}}
             ({{offer.seller.username}})</a></div>
         <div class="text">Koszt: {{offer.priceForOneProduct | currency:'':''}} zł</div>
         <div class="text">Pozostała ilość sztuk: {{offer.productCount}}</div>
