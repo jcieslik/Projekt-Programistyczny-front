@@ -16,3 +16,33 @@
     cursor: pointer;
   }
 }
+
+.offers-card {
+  display: flex;  
+  width: 100%;
+  min-width: 500px;
+  min-height: 10%;
+  margin: 1em auto;
+}
+
+mat-card:hover {
+  cursor: pointer;
+}
+
+.offer-information {
+  margin-left: 24px;
+  font-size: 64px;
+}
+
+.container{ 
+  margin: 0px;
+  padding: 0px;
+  width: 150px;
+  height: 150px;
+}
+
+.image {
+  max-width: 150px;
+  max-height: 150px;
+  vertical-align: middle;
+}

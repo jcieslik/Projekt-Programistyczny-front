@@ -13,6 +13,29 @@
     </mat-tab>
     <mat-tab label="Twoje oferty">
 
+      <div *ngIf="offers.length > 0; else noOffers">
+          <mat-card class="offers-card" *ngFor="let offer of offers" [routerLink]="['/offer/'+offer.id]">
+            <div class="container">
+              <img [src]="offer.image.imageData" class="image">
+            </div>
+            <div class="offer-information">
+              <h1>{{offer.title}}</h1>
+              <h4>Stan: <product-state-i18n [key]="offer.productState"></product-state-i18n></h4>
+              <h2>Cena za sztukę: {{offer.priceForOneProduct | currency:'':''}} zł</h2>
+            </div>
+          </mat-card>
+        </div>
+        <ng-template #noOffers>
+          <mat-card class="mat-offers-card" style="text-align: center;">
+            <mat-card-content style="text-align: center;">Brak ogłoszeń</mat-card-content>
+          </mat-card>
+        </ng-template>
+        <div class="paginator" *ngIf="offers.length > 0">
+          <mat-paginator #paginator [pageSize]="pagination.pageSize" [pageSizeOptions]="[5, 10, 20, 50]" [length]="totalSize"
+              [pageIndex]="pagination.pageIndex" (page)="pageEvent = handlePage($event)">
+          </mat-paginator>
+      </div>
+
     </mat-tab>
     <mat-tab label="Zakupione">
 
