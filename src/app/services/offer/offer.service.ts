@@ -42,14 +42,14 @@ export class OfferService {
   }
 
   addOfferToCart(offerId: number) {
-    return this.http.post(`${environment.apiUrl}/api/Offer/AddToCart?id=${offerId}`, { withCredentials: true });
+    return this.http.post(`${environment.apiUrl}/api/Cart/AddOfferToCart?offerId=${offerId}`, null,  { withCredentials: true });
   }
 
   removeOfferFromCart(offerId: number) {
-    return this.http.post(`${environment.apiUrl}/api/Offer/RemoveFromCart?id=${offerId}`, { withCredentials: true });
+    return this.http.post(`${environment.apiUrl}/api/Cart/RemoveOfferFromCart?offerId=${offerId}`, null, { withCredentials: true });
   }
 
-  getOffersFromCart(cartId) {
-    return this.http.get<OfferWithBaseData[]>(`${environment.apiUrl}/api/Offer/GetFromCart?id=${cartId}`, { withCredentials: true });
+  getOffersFromCart(userId) {
+    return this.http.get<OfferWithBaseData[]>(`${environment.apiUrl}/api/Cart/GetOffersFromCart?userId=${userId}`, { withCredentials: true });
   }
 }

@@ -5,6 +5,8 @@ import { PaginationProperties } from 'src/app/enums/pagination-properties';
 import { Component, OnInit } from '@angular/core';
 import { OfferWithBaseData } from 'src/app/models/offer-base-data';
 import { OfferService } from 'src/app/services/offer/offer.service';
+import { UserService } from 'src/app/services/user/user.service';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-cart',
@@ -18,7 +20,7 @@ export class CartComponent implements OnInit {
 
   offers: OfferWithBaseData[] = [];
   
-  cartId: number = 1; // temporary 
+  user: User = JSON.parse(localStorage.getItem('user'))
 
   dataSource: any;
 
@@ -39,7 +41,7 @@ export class CartComponent implements OnInit {
   }
 
   getOffersFromCart(){
-    this.offerService.getOffersFromCart(this.cartId).subscribe((result) => {  this.offers = result  });;
+    this.offerService.getOffersFromCart(this.user.id).subscribe((result) => {  this.offers = result  });;
     this.totalSize = this.offers.length
   }
 
