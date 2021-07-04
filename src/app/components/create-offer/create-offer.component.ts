@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Category } from 'src/app/models/category';
 import { Image } from 'src/app/models/image';
@@ -19,6 +19,8 @@ import { DialogCategoryComponent } from 'src/app/dialogs/dialog-category/dialog-
 })
 export class CreateOfferComponent implements OnInit {
 
+  @ViewChild('categorySelect') categorySelect: any;
+
   returnUrl: string;
 
   user: User = JSON.parse(localStorage.getItem('user'));
@@ -34,6 +36,8 @@ export class CreateOfferComponent implements OnInit {
   chosenDeliveryMethods: DeliveryMethodWithOffer[] = [];
 
   today: Date = new Date();
+
+  chosenCategories: Category[] = [];
 
   form: FormGroup = this.fb.group({
     title: ['', [Validators.required]],
@@ -107,13 +111,21 @@ export class CreateOfferComponent implements OnInit {
   }
 
   submit(): void {
+    this.offer.deliveryMethods = this.chosenDeliveryMethods.filter(method => {
+      if (method.isSelected) {
+        return method;
+      }
+    })
+
     if (this.form.invalid) {
       alert("Wypełnij wszystkie wymagane pola!")
       return;
     } else if (!(this.offer.images.length > 0)) {
       alert("Dodaj przynajmniej jedno zdjęcie do oferty!")
+      return;
     } else if (!(this.offer.deliveryMethods.length > 0)) {
       alert("Wybierz przynajmniej jeden sposób dostawy!")
+      return;
     }
 
     this.offer.title = this.f.title.value;
@@ -127,11 +139,6 @@ export class CreateOfferComponent implements OnInit {
     this.offer.provinceId = (this.province.value as Province).id;
     this.offer.categoryId = (this.category.value as Category).id;
     this.offer.images[0].isMainProductImage = true;
-    this.offer.deliveryMethods = this.chosenDeliveryMethods.filter(method => {
-      if (method.isSelected) {
-        return method;
-      }
-    })
 
     this.offerService.createOffer(this.offer)
       .subscribe((response) => {
@@ -144,16 +151,17 @@ export class CreateOfferComponent implements OnInit {
   }
 
   openDialog(): void {
+    this.chosenCategories = [];
     const dialogRef = this.dialog.open(DialogCategoryComponent, {
-      width: '800px',
-      height: '600px',
-      data: { categories: this.categories, category: null }
+      width: '1200px',
+      height: '300px',
+      data: this.categories,
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       if (result) {
-        this.f.selectedCategory = result;
+        this.chosenCategories.push(result);
+        this.f.selectedCategory.setValue(result);
       }
     });
   }
