@@ -1,12 +1,7 @@
-import { ViewChild } from '@angular/core';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
-import { PaginationProperties } from 'src/app/enums/pagination-properties';
 import { Component, OnInit } from '@angular/core';
-import { OfferWithBaseData } from 'src/app/models/offer-base-data';
 import { OfferService } from 'src/app/services/offer/offer.service';
-import { UserService } from 'src/app/services/user/user.service';
 import { User } from 'src/app/models/user';
+import { CartOfferDTO } from 'src/app/models/cart-offer';
 
 @Component({
   selector: 'app-cart',
@@ -14,54 +9,26 @@ import { User } from 'src/app/models/user';
   styleUrls: ['./cart.component.scss']
 })
 export class CartComponent implements OnInit {
-  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   constructor(private offerService: OfferService) { }
 
-  offers: OfferWithBaseData[] = [];
+  offers: CartOfferDTO[] = [];
   
   user: User = JSON.parse(localStorage.getItem('user'))
 
-  dataSource: any;
-
-  public pageSize = 10;
-
-  public currentPage = 0;
-
-  public totalSize = 0;
-
-  public pageEvent;
-
   ngOnInit(): void {
     this.getOffersFromCart();
-    this.totalSize = this.offers.length
-    this.dataSource = new MatTableDataSource<OfferWithBaseData>(this.offers);
-    this.dataSource.paginator = this.paginator;
-    this.iterator();
   }
 
   getOffersFromCart(){
-    this.offerService.getOffersFromCart(this.user.id).subscribe((result) => {  this.offers = result  });;
-    this.totalSize = this.offers.length
+    this.offerService.getOffersFromCart(this.user.id).subscribe((result) => {
+        this.offers = result ;
+      });;
   }
 
   removeOfferFromCart(offerId: number){
     this.offerService.removeOfferFromCart(offerId).subscribe();
-    this.offers = this.offers.filter(elem => elem.id !== offerId);
-    this.totalSize = this.offers.length
-
+    this.offers = this.offers.filter(elem => elem.offerId !== offerId);
   }
   
-  public handlePage(e: any) {
-    this.currentPage = e.pageIndex;
-    this.pageSize = e.pageSize;
-    this.iterator();
-  }
-
-  private iterator() {
-    const end = (this.currentPage + 1) * this.pageSize;
-    const start = this.currentPage * this.pageSize;
-    const part = this.offers.slice(start, end);
-    this.dataSource = part;
-  }
 }

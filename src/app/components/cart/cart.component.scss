@@ -1,0 +1,29 @@
+mat-card {
+  display: flex;  
+  width: 60%;
+  min-width: 500px;
+  min-height: 10%;
+  margin: 1em auto;
+}
+
+mat-card:hover {
+  cursor: pointer;
+}
+
+.offer-information {
+  margin-left: 12px;
+  font-size: 64px;
+}
+
+.container{ 
+  margin: 0px;
+  padding: 0px;
+  width: 250px;
+  height: 250px;
+}
+
+.image {
+  max-width: 250px;
+  max-height: 250px;
+  vertical-align: middle;
+}

@@ -13,6 +13,7 @@ import { AddOrRemoveOfferToCartDTO } from '../../models/add-or-remove-offer-to-c
 import { SearchModel } from 'src/app/models/searchModel';
 import { PaginatedOffers } from 'src/app/models/paginatedOffers';
 import { DeliveryMethod } from 'src/app/models/delivery-method';
+import { CartOfferDTO } from 'src/app/models/cart-offer';
 
 @Injectable({
   providedIn: 'root'
@@ -54,7 +55,7 @@ export class OfferService {
   }
 
   getOffersFromCart(userId) {
-    return this.http.get<OfferWithBaseData[]>(`${environment.apiUrl}/api/Cart/GetOffersFromCart?userId=${userId}`, { withCredentials: true });
+    return this.http.get<CartOfferDTO[]>(`${environment.apiUrl}/api/Cart/GetOffersFromCart?userId=${userId}`, { withCredentials: true });
   }
 
   getOffers(model: SearchModel) {

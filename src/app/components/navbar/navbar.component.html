@@ -11,6 +11,8 @@
   <a mat-button [routerLink]="'./messages'">Wiadomości</a>
   <a mat-button [routerLink]="'./favorites'">Ulubione</a>
   <a mat-button [routerLink]="'./createOffer'">Dodaj ofertę</a>
+  <a mat-button [routerLink]="'./cart'">Koszyk</a>
+
   <div *ngIf="!isLoggedIn(); else else_block">
   <button mat-icon-button>
     <mat-icon [routerLink]="'./login'" class="fas fa-sign-in-alt"></mat-icon>

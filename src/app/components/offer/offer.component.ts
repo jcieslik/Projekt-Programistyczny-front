@@ -23,8 +23,6 @@ export class OfferComponent implements OnInit {
   
   user: User = JSON.parse(localStorage.getItem('user'))
 
-  user: User = JSON.parse(localStorage.getItem('user'));
-
   constructor(private offerService: OfferService, 
     private route: ActivatedRoute) { }
 
