@@ -29,22 +29,26 @@ export class OfferService {
   }
   
   createOffer(offer: CreateOffer) {
-    return this.http.post<CreateOffer>(`${environment.apiUrl}/api/Offer/CreateOffer`, offer);
+    return this.http.post<CreateOffer>(`${environment.apiUrl}/api/Offer/CreateOffer`, offer, { withCredentials: true });
   }
 
   getAllOffers() {
-    return this.http.get<OfferWithBaseData[]>(`${environment.apiUrl}/api/Offer/GetAllOffers`);
+    return this.http.get<OfferWithBaseData[]>(`${environment.apiUrl}/api/Offer/GetAllOffers`, { withCredentials: true });
   }
 
   getOffersFromUser(id: number) {
-    return this.http.get<OfferWithBaseData[]>(`${environment.apiUrl}/api/Offer/GetOffersFromUser?id=${id}`);
+    return this.http.get<OfferWithBaseData[]>(`${environment.apiUrl}/api/Offer/GetOffersFromUser?id=${id}`, { withCredentials: true });
   }
   
   getOffer(id: number) {
-    return this.http.get<Offer>(`${environment.apiUrl}/api/Offer/GetOfferById?id=${id}`)
+    return this.http.get<Offer>(`${environment.apiUrl}/api/Offer/GetOfferById?id=${id}`, { withCredentials: true })
   }
 
   getOffers(model: SearchModel) {
-    return this.http.post<PaginatedOffers>(`${environment.apiUrl}/api/Offer/GetOffers`, model);
+    return this.http.post<PaginatedOffers>(`${environment.apiUrl}/api/Offer/GetOffers`, model, { withCredentials: true });
+  }
+
+  updateOffer(offer: Offer) {
+    return this.http.put<Offer>(`${environment.apiUrl}/api/Offer/UpdateOffer`, offer, { withCredentials: true });
   }
 }

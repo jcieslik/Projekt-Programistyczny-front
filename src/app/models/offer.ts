@@ -19,7 +19,7 @@ export class Offer {
   category: string;
   brand: string;
   productState: ProductState;
-  offerState: OfferState;
+  state: OfferState;
   offerType: OfferType;
   images: Image[] = [];
 }
