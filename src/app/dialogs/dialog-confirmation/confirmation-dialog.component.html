@@ -1,1 +1,5 @@
-<p>confirmation-dialog works!</p>
+<h1 mat-dialog-title>Czy na pewno chcesz zakończyć tę aukcje?</h1>
+<div mat-dialog-actions>
+  <button mat-raised-button (click)="onNoClick()">Nie</button>
+  <button mat-raised-button color="warn" (click)="submit()">Tak</button>
+</div>

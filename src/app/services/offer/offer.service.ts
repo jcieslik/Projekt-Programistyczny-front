@@ -44,6 +44,10 @@ export class OfferService {
 
 
   getOffers(model: SearchModel) {
-    return this.http.post<PaginatedOffers>(`${environment.apiUrl}/api/Offer/GetOffers`, model);
+    return this.http.post<PaginatedOffers>(`${environment.apiUrl}/api/Offer/GetOffers`, model, { withCredentials: true });
+  }
+
+  updateOffer(offer: Offer) {
+    return this.http.put<Offer>(`${environment.apiUrl}/api/Offer/UpdateOffer`, offer, { withCredentials: true });
   }
 }
