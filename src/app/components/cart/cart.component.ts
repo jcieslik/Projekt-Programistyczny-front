@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { OfferService } from 'src/app/services/offer/offer.service';
 import { User } from 'src/app/models/user';
 import { CartOfferDTO } from 'src/app/models/cart-offer';
+import { CartService } from 'src/app/services/cart/cart.service';
 
 @Component({
   selector: 'app-cart',
@@ -10,25 +10,40 @@ import { CartOfferDTO } from 'src/app/models/cart-offer';
 })
 export class CartComponent implements OnInit {
 
-  constructor(private offerService: OfferService) { }
+  constructor(private cartService: CartService) { }
 
   offers: CartOfferDTO[] = [];
-  
+
   user: User = JSON.parse(localStorage.getItem('user'))
 
   ngOnInit(): void {
     this.getOffersFromCart();
   }
 
-  getOffersFromCart(){
-    this.offerService.getOffersFromCart(this.user.id).subscribe((result) => {
-        this.offers = result ;
-      });;
+  incrementOfferCount(offer: CartOfferDTO): void {
+    offer.productsCount += 1;
+    this.cartService.addOfferToCart(offer.offerId).subscribe();
   }
 
-  removeOfferFromCart(offerId: number){
-    this.offerService.removeOfferFromCart(offerId).subscribe();
+  decrementOfferCount(offer: CartOfferDTO) {
+
+    if (offer.productsCount > 1) {
+      offer.productsCount -= 1;
+    } else {
+      this.offers.splice(this.offers.indexOf(offer), 1);
+    }
+    this.cartService.decrementOfferCountInCart(offer.offerId).subscribe();
+  }
+
+  getOffersFromCart() {
+    this.cartService.getOffersFromCart().subscribe((result) => {
+      this.offers = result;
+    });;
+  }
+
+  removeOfferFromCart(offerId: number) {
+    this.cartService.removeOfferFromCart(offerId).subscribe();
     this.offers = this.offers.filter(elem => elem.offerId !== offerId);
   }
-  
+
 }
