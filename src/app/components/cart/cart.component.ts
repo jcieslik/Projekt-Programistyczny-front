@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user';
 import { CartOfferDTO } from 'src/app/models/cart-offer';
 import { CartService } from 'src/app/services/cart/cart.service';
+import { OfferService } from 'src/app/services/offer/offer.service';
+import { Offer } from 'src/app/models/offer';
 
 @Component({
   selector: 'app-cart',
@@ -10,7 +12,9 @@ import { CartService } from 'src/app/services/cart/cart.service';
 })
 export class CartComponent implements OnInit {
 
-  constructor(private cartService: CartService) { }
+  constructor(
+    private cartService: CartService,
+    private offerService: OfferService) { }
 
   offers: CartOfferDTO[] = [];
 
@@ -20,11 +24,16 @@ export class CartComponent implements OnInit {
     this.getOffersFromCart();
   }
 
-  incrementOfferCount(offer: CartOfferDTO): void {
-    offer.productsCount += 1;
-    this.cartService.addOfferToCart(offer.offerId).subscribe();
+  incrementOfferCount(offer: CartOfferDTO): Boolean {
+    if (offer.productsCount < offer.availableProducts) {
+      offer.productsCount += 1;
+      this.cartService.addOfferToCart(offer.offerId).subscribe();
+      return true;
+    }
+    return false;
   }
 
+  getProductCount(offer: CartOfferDTO): number { return 10; }
   decrementOfferCount(offer: CartOfferDTO) {
 
     if (offer.productsCount > 1) {
@@ -44,6 +53,16 @@ export class CartComponent implements OnInit {
   removeOfferFromCart(offerId: number) {
     this.cartService.removeOfferFromCart(offerId).subscribe();
     this.offers = this.offers.filter(elem => elem.offerId !== offerId);
+  }
+
+  validateQuantity(offer: CartOfferDTO){ 
+    return (offer.productsCount > 0 && offer.productsCount <= offer.availableProducts)
+  }
+
+  getTotalCost(){
+    var cost = 0;
+    this.offers.forEach(d => cost += d.priceForOneProduct * d.productsCount);
+    return cost;
   }
 
 }

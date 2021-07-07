@@ -6,6 +6,7 @@ export class CartOfferDTO {
   title: string;
   image: Image;
   productsCount: number;
+  availableProducts: number;
   cartId: number;
   offerId: number;
   offerState: OfferState;

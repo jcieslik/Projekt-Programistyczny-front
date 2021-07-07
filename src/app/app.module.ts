@@ -51,7 +51,8 @@ import { DialogCategoryComponent } from './dialogs/dialog-category/dialog-catego
 import { NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { ChangeUserInfoComponent } from './components/change-user-info/change-user-info.component';
-import { ConfirmationDialogComponent } from './dialogs/dialog-confirmation/confirmation-dialog/confirmation-dialog.component';
+import { ConfirmationDialogComponent } from './dialogs/dialog-confirmation/confirmation-dialog.component';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 @NgModule({
   declarations: [
@@ -93,6 +94,7 @@ import { ConfirmationDialogComponent } from './dialogs/dialog-confirmation/confi
     MatToolbarModule,
     MatIconModule,
     MatButtonModule,
+    MatButtonToggleModule,
     MatInputModule,
     MatCardModule,
     MatTabsModule,

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryImageSize, NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import { Offer } from 'src/app/models/offer';
 import { User } from 'src/app/models/user';
+import { CartService } from 'src/app/services/cart/cart.service';
 import { OfferService } from 'src/app/services/offer/offer.service';
 
 @Component({
@@ -23,7 +23,9 @@ export class OfferComponent implements OnInit {
   
   user: User = JSON.parse(localStorage.getItem('user'))
 
-  constructor(private offerService: OfferService, 
+  constructor(
+    private offerService: OfferService, 
+    private cartService: CartService, 
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -65,7 +67,7 @@ export class OfferComponent implements OnInit {
   }
 
   addToCart(){
-    this.offerService.addOfferToCart(this.offerId).subscribe();
+    this.cartService.addOfferToCart(this.offerId).subscribe();
   }
 
   checkIfCanBuy(): boolean {
