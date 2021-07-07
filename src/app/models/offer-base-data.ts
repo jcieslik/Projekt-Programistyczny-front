@@ -6,6 +6,7 @@ import { ProductState } from "../enums/product-state";
 export class OfferWithBaseData {
   id: number;
   priceForOneProduct: number;
+  productCount: number;
   title: string;
   offerType: OfferType;
   productState: ProductState;

@@ -50,6 +50,7 @@ import { DialogCategoryComponent } from './dialogs/dialog-category/dialog-catego
 import { NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerModule } from '@angular-material-components/datetime-picker';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { ChangeUserInfoComponent } from './components/change-user-info/change-user-info.component';
+import { ConfirmationDialogComponent } from './dialogs/dialog-confirmation/confirmation-dialog/confirmation-dialog.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +75,8 @@ import { ChangeUserInfoComponent } from './components/change-user-info/change-us
     FilterbarComponent,
     DialogCategoryComponent,
     UserProfileComponent,
-    ChangeUserInfoComponent
+    ChangeUserInfoComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     BrowserModule,
