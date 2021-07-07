@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { CommentPagination } from 'src/app/models/comment-pagination';
 import { CreateComment } from 'src/app/models/create-comment';
 import { UserComment } from 'src/app/models/user-comment';
 import { environment } from 'src/environments/environment';
@@ -21,5 +22,13 @@ export class CommentService {
 
   getCommentsFromUser(userId: number) {
     return this.http.get<UserComment[]>(`${environment.apiUrl}/api/Comment/GetCommentsFromUser?id=${userId}`, { withCredentials: true });
+  }
+
+  getPaginatedCommentsFromUser(pagination: CommentPagination) {
+    return this.http.post<UserComment[]>(`${environment.apiUrl}/api/Comment/GetPaginatedCommentsFromUser`, pagination, { withCredentials: true });
+  }
+
+  getPaginatedCommentsFromOffer(pagination: CommentPagination) {
+    return this.http.post<UserComment[]>(`${environment.apiUrl}/api/Comment/GetPaginatedCommentsFromOffer`, pagination, { withCredentials: true });
   }
 }
