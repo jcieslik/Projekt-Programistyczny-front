@@ -1,8 +1,8 @@
 <mat-toolbar color="primary">
-  <a mat-button [routerLink]="'./home'"><h1>Serwis aukcyjny</h1></a>
+  <a mat-button [routerLink]="'./home'" (click)="gotoHome()"><h1>Serwis aukcyjny</h1></a>
   <div class="spacer"></div>
   <mat-form-field class="spacer" floatLabel="never">
-    <input matInput type="text" [placeholder]="'Czego szukasz?'">
+    <input matInput type="text" [(ngModel)]=searchText (keydown.enter)="find()" [placeholder]="'Czego szukasz?'">
     <mat-icon matSuffix class="fa fa-search" aria-hidden="true"></mat-icon>
   </mat-form-field>
   <div class="spacer"></div>

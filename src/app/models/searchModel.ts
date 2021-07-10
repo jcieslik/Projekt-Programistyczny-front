@@ -12,4 +12,5 @@ export class SearchModel {
     pageIndex: number;
     pageSize: number;
     orderBy: string;
+    searchText: string;
   }

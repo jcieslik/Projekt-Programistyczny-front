@@ -3,6 +3,8 @@ import { PaginatedOffers } from 'src/app/models/paginatedOffers';
 import { OfferService } from 'src/app/services/offer/offer.service';
 import { SearchModel } from 'src/app/models/searchModel';
 import { OfferWithBaseData } from 'src/app/models/offer-base-data';
+import { ActivatedRoute } from '@angular/router';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -14,11 +16,17 @@ export class HomeComponent implements OnInit {
   offers: PaginatedOffers;
   model: SearchModel = new SearchModel();
   defaultSort: string = "creation";
+  searchText: string;
   
-  constructor(private offerService: OfferService) { }
+  constructor(private offerService: OfferService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.initModel();
+    this.searchText = this.route.snapshot.paramMap.get('q');
+    if (this.searchText == undefined)
+      this.searchText = "";
+    this.model.searchText = this.searchText;
+    console.log(this.searchText);
     this.offerService.getOffers(this.model)
       .subscribe((response) => {
         this.offers = response;
