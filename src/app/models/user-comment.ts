@@ -4,7 +4,8 @@ export class UserComment {
   id: number;
   content: string;
   rateValue: number;
+  customer: UserInfo
   offerId: number;
-  customer: UserInfo;
   sellerId: number;
+  offerTitle: string;
 }

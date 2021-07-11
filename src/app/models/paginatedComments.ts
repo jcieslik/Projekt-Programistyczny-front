@@ -1,8 +1,8 @@
-import { Comment } from "./comment";
+import { UserComment } from "./user-comment";
 
 export class PaginatedComments
 {
-    items: Comment[] = [];
+    items: UserComment[] = [];
     pageIndex: number;
     totalPages: number;
     totalCount: number;

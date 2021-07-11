@@ -6,4 +6,6 @@ export class Comment {
   customer: UserInfo
   offerId: number;
   sellerId: number;
+  offerTitle: string;
+  sellerUsername: string;
 }

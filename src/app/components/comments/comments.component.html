@@ -1,6 +1,23 @@
 <div *ngIf="commentsPaginated && commentsPaginated.items.length > 0; else noComments">
   <mat-card class="comment-card" *ngFor="let comment of commentsPaginated.items">
-
+    <div>
+      <ngb-rating max="5" [(rate)]="comment.rateValue" readonly="true" style="padding-right: 12px;">
+        <ng-template let-fill="fill">
+          <span [class.filled]="fill === 100" [class.notfilled]="fill === 0">
+            ★
+          </span>
+        </ng-template>
+      </ngb-rating>
+      <a [routerLink]="['/offer/'+comment.offerId]"
+        style="padding-right: 8px; font-size: 20px">{{comment.offerTitle}}</a>
+      <a [routerLink]="['/userProfile/'+comment.customer.id]" style="padding-right: 8px; font-size: 20px"
+        (click)="changeProfile(comment)">({{comment.customer.username}})</a>
+    </div><br>
+    <div>
+      <h1>
+        {{comment.content}}
+      </h1>
+    </div>
   </mat-card>
 </div>
 <ng-template #noComments>

@@ -53,6 +53,7 @@ import { ChangeUserInfoComponent } from './components/change-user-info/change-us
 import { ConfirmationDialogComponent } from './dialogs/dialog-confirmation/confirmation-dialog.component';
 import { CommentsComponent } from './components/comments/comments.component';
 import { NoPermissionComponent } from './components/no-permission/no-permission.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -119,6 +120,7 @@ import { NoPermissionComponent } from './components/no-permission/no-permission.
     MatStepperModule,
     MatRadioModule,
     MatDividerModule,
+    NgbModule
   ],
   providers: [
     {
