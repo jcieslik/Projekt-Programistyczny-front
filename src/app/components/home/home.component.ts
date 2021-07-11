@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
 
   offers: PaginatedOffers;
   model: SearchModel = new SearchModel();
-  defaultSort: string = "creation";
+  defaultSort: string = "creation_asc";
   searchText: string;
   
   constructor(private offerService: OfferService, private route: ActivatedRoute) { }

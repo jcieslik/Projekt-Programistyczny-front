@@ -59,8 +59,10 @@ export class FilterbarComponent implements OnInit {
   sortTypes: Map[] = [
     { value: 'price_asc', viewValue: 'Cena: rosnąco' },
     { value: 'price_desc', viewValue: 'Cena: malejąco' },
-    { value: 'rate', viewValue: 'Ocena' },
-    { value: 'creation', viewValue: 'Data dodania' }
+    { value: 'end_date_asc', viewValue: 'Czas do końca: najnowsze' },
+    { value: 'end_date_desc', viewValue: 'Czas do końca: najstarsze' },
+    { value: 'creation_asc', viewValue: 'Data dodania: najnowsze' },
+    { value: 'creation_desc', viewValue: 'Data dodania: najstarsze' }
   ];
   selectedSortType: string;
 
