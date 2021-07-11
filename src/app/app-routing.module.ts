@@ -29,17 +29,37 @@ const routes: Routes = [
       userRoles: [UserRole.Customer]
     }
   },
-  { path: 'search', component: SearchComponent },
-  { path: 'messages', component: MessagesComponent, canActivate: [AuthGuard] },
-  { path: 'messages/:id', component: MessagesComponent, canActivate: [AuthGuard] },
-  { path: 'favorites', component: FavoritesComponent, canActivate: [AuthGuard] },
+  { path: 'search', component: SearchComponent, },
+  {
+    path: 'messages', component: MessagesComponent, canActivate: [AuthGuard],
+    data: {
+      userRoles: [UserRole.Customer]
+    }
+  },
+  {
+    path: 'messages/:id', component: MessagesComponent, canActivate: [AuthGuard],
+    data: {
+      userRoles: [UserRole.Customer]
+    }
+  },
+  {
+    path: 'favorites', component: FavoritesComponent, canActivate: [AuthGuard],
+    data: {
+      userRoles: [UserRole.Customer]
+    }
+  },
   {
     path: 'account', component: AccountComponent, canActivate: [AuthGuard],
     data: {
       userRoles: [UserRole.Customer]
     }
   },
-  { path: 'changeUserInfo', component: ChangeUserInfoComponent, canActivate: [AuthGuard] },
+  {
+    path: 'changeUserInfo', component: ChangeUserInfoComponent, canActivate: [AuthGuard],
+    data: {
+      userRoles: [UserRole.Customer]
+    }
+  },
   {
     path: 'createOffer', component: CreateOfferComponent, canActivate: [AuthGuard],
     data: {
