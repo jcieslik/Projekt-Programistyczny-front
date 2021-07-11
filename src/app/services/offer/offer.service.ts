@@ -12,6 +12,7 @@ import { environment } from 'src/environments/environment';
 import { SearchModel } from 'src/app/models/searchModel';
 import { PaginatedOffers } from 'src/app/models/paginatedOffers';
 import { DeliveryMethod } from 'src/app/models/delivery-method';
+import { PaginationProperties } from 'src/app/enums/pagination-properties';
 
 @Injectable({
   providedIn: 'root'
@@ -50,5 +51,9 @@ export class OfferService {
 
   updateOffer(offer: Offer) {
     return this.http.put<Offer>(`${environment.apiUrl}/api/Offer/UpdateOffer`, offer, { withCredentials: true });
+  }
+
+  getOffersFromUserWishes(pagination: PaginationProperties) {
+    return this.http.post<PaginatedOffers>(`${environment.apiUrl}/api/Offer/GetOffersFromActiveUserWishes`, pagination, { withCredentials: true });
   }
 }
