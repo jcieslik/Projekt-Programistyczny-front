@@ -3,7 +3,7 @@
   <div class="spacer"></div>
   <mat-form-field class="spacer" floatLabel="never">
     <input matInput type="text" [(ngModel)]=searchText (keydown.enter)="find()" [placeholder]="'Czego szukasz?'">
-    <mat-icon matSuffix class="fa fa-search" aria-hidden="true"></mat-icon>
+    <mat-icon matSuffix class="fa fa-search" aria-hidden="true" (click)="find()" ></mat-icon>
   </mat-form-field>
   <div class="spacer"></div>
   <a mat-button [routerLink]="'./yourOffers'">Twoje oferty</a>
