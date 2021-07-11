@@ -1,0 +1,16 @@
+<div *ngIf="commentsPaginated && commentsPaginated.items.length > 0; else noComments">
+  <mat-card class="comment-card" *ngFor="let comment of commentsPaginated.items">
+
+  </mat-card>
+</div>
+<ng-template #noComments>
+  <mat-card class="mat-offers-card" style="text-align: center;">
+    <mat-card-content style="text-align: center;">Brak komentarzy</mat-card-content>
+  </mat-card>
+</ng-template>
+<div class="paginator" *ngIf="commentsPaginated && commentsPaginated.items.length > 0">
+  <mat-paginator #paginator [pageSize]="paginationComments.pageSize" [pageSizeOptions]="[5, 10, 20, 50]"
+    [length]="commentsPaginated.totalCount" [pageIndex]="paginationComments.pageIndex"
+    (page)="pageEvent = handlePageComments($event)">
+  </mat-paginator>
+</div>

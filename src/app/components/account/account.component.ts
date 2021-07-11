@@ -1,12 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
 import { ConfirmationDialogComponent } from 'src/app/dialogs/dialog-confirmation/confirmation-dialog.component';
 import { OfferState } from 'src/app/enums/offer-state';
 import { PaginationProperties } from 'src/app/enums/pagination-properties';
 import { Offer } from 'src/app/models/offer';
 import { OfferWithBaseData } from 'src/app/models/offer-base-data';
-import { Order } from 'src/app/models/order';
 import { PaginatedOffers } from 'src/app/models/paginatedOffers';
 import { PaginatedOrders } from 'src/app/models/paginatedOrders';
 import { SearchModel } from 'src/app/models/searchModel';
@@ -41,8 +39,6 @@ export class AccountComponent implements OnInit {
   ordersModel: PaginationProperties = new PaginationProperties();
   paginationOrders: PaginationProperties = new PaginationProperties();
   ordersPaginated: PaginatedOrders;
-
-  @ViewChild(MatPaginator) paginator: MatPaginator;
 
   ngOnInit(): void {
     this.initModel();

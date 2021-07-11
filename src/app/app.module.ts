@@ -51,6 +51,8 @@ import { NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerMod
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { ChangeUserInfoComponent } from './components/change-user-info/change-user-info.component';
 import { ConfirmationDialogComponent } from './dialogs/dialog-confirmation/confirmation-dialog.component';
+import { CommentsComponent } from './components/comments/comments.component';
+import { NoPermissionComponent } from './components/no-permission/no-permission.component';
 
 @NgModule({
   declarations: [
@@ -76,7 +78,9 @@ import { ConfirmationDialogComponent } from './dialogs/dialog-confirmation/confi
     DialogCategoryComponent,
     UserProfileComponent,
     ChangeUserInfoComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    CommentsComponent,
+    NoPermissionComponent
   ],
   imports: [
     BrowserModule,
