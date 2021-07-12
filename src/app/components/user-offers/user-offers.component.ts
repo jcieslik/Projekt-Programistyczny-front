@@ -1,6 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { OfferWithBaseData } from 'src/app/models/offer-base-data';
 import { PaginatedOffers } from 'src/app/models/paginatedOffers';
 import { SearchModel } from 'src/app/models/searchModel';
 import { OfferService } from 'src/app/services/offer/offer.service';

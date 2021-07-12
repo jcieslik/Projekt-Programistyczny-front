@@ -1,6 +1,6 @@
 import { PaginationProperties } from "../enums/pagination-properties";
 
-export class CommentPagination {
+export class SearchComments {
   subjectId: number;
   properties: PaginationProperties;
   onlyNotHidden: boolean;

@@ -52,6 +52,9 @@ import { NgxMatDatetimePickerModule, NgxMatNativeDateModule, NgxMatTimepickerMod
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { ChangeUserInfoComponent } from './components/change-user-info/change-user-info.component';
 import { ConfirmationDialogComponent } from './dialogs/dialog-confirmation/confirmation-dialog.component';
+import { CommentsComponent } from './components/comments/comments.component';
+import { NoPermissionComponent } from './components/no-permission/no-permission.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 @NgModule({
@@ -78,7 +81,9 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     DialogCategoryComponent,
     UserProfileComponent,
     ChangeUserInfoComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    CommentsComponent,
+    NoPermissionComponent
   ],
   imports: [
     BrowserModule,
@@ -120,6 +125,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     MatStepperModule,
     MatRadioModule,
     MatDividerModule,
+    NgbModule
   ],
   providers: [
     {

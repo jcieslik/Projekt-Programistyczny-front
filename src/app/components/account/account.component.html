@@ -54,7 +54,9 @@
           (page)="pageEvent = handlePageOrder($event)">
         </mat-paginator>
       </div>
-
+    </mat-tab>
+    <mat-tab label="Komentarze">
+      <app-comments [userId]="this.user.id"></app-comments>
     </mat-tab>
   </mat-tab-group>
 </mat-card>

@@ -13,15 +13,7 @@
       <h3>Ulica: {{user.street || '-'}}</h3>
     </mat-tab>
     <mat-tab label="Komentarze">
-      <br>
-      <div class="comment" *ngFor="let comment of dataSource">
-        <h1>{{comment.content}}</h1>
-      </div>
-      <div class="paginator" *ngIf="comments.length > 0">
-        <mat-paginator #paginator [pageSize]="pageSize" [pageSizeOptions]="[5, 10, 20, 50]" [length]="totalSize"
-          [pageIndex]="currentPage" (page)="pageEvent = handlePage($event)">
-        </mat-paginator>
-      </div>
+      <app-comments [userId]="user.id"></app-comments>
     </mat-tab>
   </mat-tab-group>
 </mat-card>

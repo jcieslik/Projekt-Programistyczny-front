@@ -16,25 +16,73 @@ import { UserOffersComponent } from './components/user-offers/user-offers.compon
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { ChangeUserInfoComponent } from './components/change-user-info/change-user-info.component';
+import { UserRole } from './enums/user-role';
+import { NoPermissionComponent } from './components/no-permission/no-permission.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'login', component: LoginComponent }, 
-  { path: 'home', component: HomeComponent }, 
-  { path: 'cart', component: CartComponent, canActivate: [AuthGuard] }, 
-  { path: 'search', component: SearchComponent }, 
-  { path: 'messages', component: MessagesComponent, canActivate: [AuthGuard] }, 
-  { path: 'messages/:id', component: MessagesComponent, canActivate: [AuthGuard] }, 
-  { path: 'favorites', component: FavoritesComponent, canActivate: [AuthGuard] }, 
-  { path: 'account', component: AccountComponent, canActivate: [AuthGuard] }, 
-  { path: 'changeUserInfo', component: ChangeUserInfoComponent, canActivate: [AuthGuard] },
-  { path: 'createOffer', component: CreateOfferComponent, canActivate: [AuthGuard] },
+  { path: 'login', component: LoginComponent },
+  { path: 'home', component: HomeComponent },
+  {
+    path: 'cart', component: CartComponent, canActivate: [AuthGuard],
+    data: {
+      userRoles: [UserRole.Customer]
+    }
+  },
+  { path: 'search', component: SearchComponent, },
+  {
+    path: 'messages', component: MessagesComponent, canActivate: [AuthGuard],
+    data: {
+      userRoles: [UserRole.Customer]
+    }
+  },
+  {
+    path: 'messages/:id', component: MessagesComponent, canActivate: [AuthGuard],
+    data: {
+      userRoles: [UserRole.Customer]
+    }
+  },
+  {
+    path: 'favorites', component: FavoritesComponent, canActivate: [AuthGuard],
+    data: {
+      userRoles: [UserRole.Customer]
+    }
+  },
+  {
+    path: 'account', component: AccountComponent, canActivate: [AuthGuard],
+    data: {
+      userRoles: [UserRole.Customer]
+    }
+  },
+  {
+    path: 'changeUserInfo', component: ChangeUserInfoComponent, canActivate: [AuthGuard],
+    data: {
+      userRoles: [UserRole.Customer]
+    }
+  },
+  {
+    path: 'createOffer', component: CreateOfferComponent, canActivate: [AuthGuard],
+    data: {
+      userRoles: [UserRole.Customer]
+    }
+  },
   { path: 'register', component: RegisterComponent },
   { path: 'userOffers/:id', component: UserOffersComponent },
   { path: 'userProfile/:id', component: UserProfileComponent },
-  { path: 'yourOffers', component: YourOffersComponent, canActivate: [AuthGuard] },
+  {
+    path: 'yourOffers', component: YourOffersComponent, canActivate: [AuthGuard],
+    data: {
+      userRoles: [UserRole.Customer]
+    }
+  },
   { path: 'offer/:id', component: OfferComponent },
-  { path: 'checkout/:id', component: CheckoutComponent, canActivate: [AuthGuard]}
+  {
+    path: 'checkout/:id', component: CheckoutComponent, canActivate: [AuthGuard],
+    data: {
+      userRoles: [UserRole.Customer]
+    }
+  },
+  { path: 'noPermission', component: NoPermissionComponent }
 ];
 
 @NgModule({

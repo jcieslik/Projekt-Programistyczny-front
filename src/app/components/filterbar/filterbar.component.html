@@ -48,7 +48,7 @@
       <h1>Sortowanie</h1>
       <div>
         <mat-form-field appearance="outline">
-          <mat-label>Data dodania</mat-label>
+          <mat-label>Data dodania: najnowsze</mat-label>
           <mat-select [(ngModel)]="selectedSortType" name="selectedSortType">
             <mat-option>--</mat-option>
             <mat-option *ngFor="let type of sortTypes" [value]="type.value">
