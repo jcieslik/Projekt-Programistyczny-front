@@ -1,48 +1,50 @@
-<div *ngIf="offers.length > 0; else noOffers">
-  <mat-card *ngFor="let offer of offers">
-    <div class="container">
-      <img [src]="offer.image.imageData" class="image" [routerLink]="['/offer/'+offer.offerId]">
-    </div>
-    <div class="offer-information">
-      <button mat-icon-button style="float: right;" (click)="removeOfferFromCart(offer)">
-        <mat-icon class="fas fa-times"></mat-icon>
-      </button>
-      <h1 [routerLink]="['/offer/'+offer.offerId]"><b class="title">{{offer.title}}</b></h1>
-      <h2>
-        <mat-button-toggle-group style="height: 85px">
-          <mat-button-toggle (click)="decrementOfferCount(offer)">
-            <mat-icon class="fas fa-minus"></mat-icon>
-          </mat-button-toggle>
-          <mat-button-toggle [isDisabled]="true">
-            <mat-form-field appearance="outline" style="width: 100px">
-              <mat-label>Ilość</mat-label>
-              <input matInput type="number" name="quantity" [min]="1" [max]="offer.availableProducts"
-                [(ngModel)]="offer.productsCount" />
-            </mat-form-field>
-          </mat-button-toggle>
-          <mat-button-toggle (click)="incrementOfferCount(offer)">
-            <mat-icon class="fas fa-plus"></mat-icon>
-          </mat-button-toggle>
-        </mat-button-toggle-group>
-        <mat-error *ngIf="!validateQuantity(offer)">Sprzedawca nie posiada takiej ilości sztuk produktu
-        </mat-error>
-      </h2>
-      <h2>Cena za sztukę: {{offer.priceForOneProduct | currency:'':''}} zł</h2>
-      <h1><b>Cena za zamówienie: {{offer.priceForOneProduct * offer.productsCount | currency:'':''}} zł</b></h1>
-    </div>
+<div class="flex" >
+  <div *ngIf="offers.length > 0; else noOffers" style="flex-basis: 60%; margin: auto auto;">
+    <mat-card *ngFor="let offer of offers">
+      <div>
+        <img [src]="offer.image.imageData" class="image" [routerLink]="['/offer/'+offer.offerId]">
+      </div>
+      <div class="offer-information container">
+        <button mat-icon-button style="float: right; margin-right: 35px;" (click)="removeOfferFromCart(offer)">
+          <mat-icon class="fas fa-times"></mat-icon>
+        </button>
+        <h1 [routerLink]="['/offer/'+offer.offerId]"><b class="title">{{offer.title}}</b></h1>
+        <h2>
+          <mat-button-toggle-group style="height: 85px">
+            <mat-button-toggle (click)="decrementOfferCount(offer)">
+              <mat-icon class="fas fa-minus"></mat-icon>
+            </mat-button-toggle>
+            <mat-button-toggle [isDisabled]="true">
+              <mat-form-field appearance="outline" style="width: 100px">
+                <mat-label>Ilość</mat-label>
+                <input matInput type="number" name="quantity" [min]="1" [max]="offer.availableProducts"
+                  [(ngModel)]="offer.productsCount" />
+              </mat-form-field>
+            </mat-button-toggle>
+            <mat-button-toggle (click)="incrementOfferCount(offer)">
+              <mat-icon class="fas fa-plus"></mat-icon>
+            </mat-button-toggle>
+          </mat-button-toggle-group>
+          <mat-error *ngIf="!validateQuantity(offer)">Sprzedawca nie posiada takiej ilości sztuk produktu
+          </mat-error>
+        </h2>
+        <h2>Cena za sztukę: {{offer.priceForOneProduct | currency:'':''}} zł</h2>
+        <h1><b>Cena za zamówienie: {{offer.priceForOneProduct * offer.productsCount | currency:'':''}} zł</b></h1>
+      </div>
+    </mat-card>
+  </div>
+  <ng-template #noOffers>
+    <mat-card style="text-align: center;" style="flex-basis: 78%">
+      <mat-card-content style="text-align: center;">Koszyk jest pusty</mat-card-content>
+    </mat-card>
+  </ng-template>
+
+  <mat-card style="flex-basis: 30%; text-align: center; height: 150px;">
+        <div class="summary-information container">
+          <h2>Sumaryczny koszt: {{getTotalCost()}}</h2>
+          <button mat-raised-button color="primary" type="submit" style="height: 50px; width: 400px">
+            Przejdź do realizacji zamówienia
+          </button>
+        </div>
   </mat-card>
 </div>
-<ng-template #noOffers>
-  <mat-card style="text-align: center;">
-    <mat-card-content style="text-align: center;">Koszyk jest pusty</mat-card-content>
-  </mat-card>
-</ng-template>
-
-<mat-card style="text-align: center; align-items: center;">
-  <mat-card-content style="text-align: center;">
-    <p>Sumaryczny koszt: {{getTotalCost()}}</p>
-    <button mat-raised-button color="primary" style="float: right;" type="submit">
-      Przejdź do realizacji zamówienia
-    </button>
-  </mat-card-content>
-</mat-card>

@@ -1,10 +1,17 @@
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 mat-card {
-  display: flex;  
-  width: 60%;
-  min-width: 500px;
+  position: relative;
+  display: flex;
+  width: 100%;
   min-height: 10%;
+  min-width: 550px;
   margin: 1em auto;
 }
+
 img{
   cursor: pointer;
 }
@@ -14,21 +21,24 @@ img{
 }
 
 .offer-information {
-  margin-left: 12px;
   font-size: 64px;
+  margin-left: 10%; 
+}
+
+.summary-information {
+  font-size: 30px;
+  vertical-align: center;
 }
 
 .container{ 
-  margin: 0px;
-  padding: 0px;
-  width: 250px;
-  height: 250px;
+  vertical-align: center;
+  min-width: 350px;
 }
 
 .image {
-  max-width: 250px;
-  max-height: 250px;
-  vertical-align: middle;
+  max-width: 300px;
+  max-height: 300px;
+  margin-left: 55px; 
 }
 
 input[type=number] {
