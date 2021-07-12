@@ -12,7 +12,7 @@ import { OfferService } from 'src/app/services/offer/offer.service';
 export class FavoritesComponent implements OnInit {
 
   offers: PaginatedOffers;
-  model: PaginationProperties = new PaginationProperties();
+  model: SearchModel = new SearchModel();
   defaultSort: string = "creation";
   
   constructor(private offerService: OfferService) { }
