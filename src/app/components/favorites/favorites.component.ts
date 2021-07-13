@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { PaginationProperties } from 'src/app/enums/pagination-properties';
+import { Category } from 'src/app/models/category';
 import { PaginatedOffers } from 'src/app/models/paginatedOffers';
 import { SearchModel } from 'src/app/models/searchModel';
 import { OfferService } from 'src/app/services/offer/offer.service';
+import { ProductCategoryService } from 'src/app/services/product-category/product-category.service';
 
 @Component({
   selector: 'app-favorites',
@@ -11,11 +13,13 @@ import { OfferService } from 'src/app/services/offer/offer.service';
 })
 export class FavoritesComponent implements OnInit {
 
+  categories: Category[];
+
   offers: PaginatedOffers;
   model: SearchModel = new SearchModel();
   defaultSort: string = "creation";
   
-  constructor(private offerService: OfferService) { }
+  constructor(private offerService: OfferService, private productCategoryService: ProductCategoryService) { }
 
   ngOnInit(): void {
     this.initModel();

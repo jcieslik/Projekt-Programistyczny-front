@@ -13,4 +13,8 @@ export class ProductCategoryService {
   getProductCategories() {
     return this.http.get<Category[]>(`${environment.apiUrl}/api/ProductCategory/GetProductCategories`);
   }
+
+  getProductCategoriesByIds(ids: number[]) {
+    return this.http.post<Category[]>(`${environment.apiUrl}/api/ProductCategory/GetProductCategoriesByIds`, ids);
+  }
 }

@@ -4,7 +4,9 @@ import { ActivatedRoute } from '@angular/router';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryImageSize, NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import { Offer } from 'src/app/models/offer';
 import { User } from 'src/app/models/user';
+import { Wish } from 'src/app/models/wish';
 import { OfferService } from 'src/app/services/offer/offer.service';
+import { WishService } from 'src/app/services/wish/wish.service';
 
 @Component({
   selector: 'app-offer',
@@ -14,20 +16,24 @@ import { OfferService } from 'src/app/services/offer/offer.service';
 export class OfferComponent implements OnInit {
 
   galleryOptions: NgxGalleryOptions[];
-  
+
   galleryImages: NgxGalleryImage[] = [];
-  
+
   offerId: number;
 
   offer: Offer;
 
   user: User = JSON.parse(localStorage.getItem('user'));
 
-  constructor(private offerService: OfferService, 
-    private route: ActivatedRoute) { }
+  isFavorite: boolean = true;
+
+  constructor(private offerService: OfferService,
+    private route: ActivatedRoute,
+    private wishService: WishService) { }
 
   ngOnInit(): void {
     this.offerId = +this.route.snapshot.paramMap.get('id')
+    this.checkForUserWish();
     this.offerService.getOffer(this.offerId)
       .subscribe((result) => {
         this.offer = result;
@@ -48,10 +54,6 @@ export class OfferComponent implements OnInit {
             thumbnailsPercent: 20,
             thumbnailsMargin: 20,
             thumbnailMargin: 20
-          },
-          {
-            breakpoint: 100,
-            preview: false
           }
         ];
         result.images.forEach(element => {
@@ -64,11 +66,39 @@ export class OfferComponent implements OnInit {
       })
   }
 
+  checkForUserWish() {
+    this.wishService.checkForUserWish(this.offerId)
+      .subscribe((result) => {
+        this.isFavorite = result;
+      })
+  }
+
   checkIfCanBuy(): boolean {
     return this.offer.seller.id === this.user.id;
   }
 
   getRouterLink(): string {
     return this.offer.seller.id === this.user.id ? '/account/' : '/userProfile/' + this.offer.seller.id;
+  }
+
+  makeFavorite() {
+    let wish = new Wish();
+    wish.customerId = this.user.id;
+    wish.offerId = this.offerId;
+    if (!this.isFavorite) {
+      this.wishService.createWish(wish)
+        .subscribe((result) => {
+          this.checkForUserWish();
+        })
+    } else {
+      this.wishService.hideWish(this.offerId)
+        .subscribe((result) => {
+          this.checkForUserWish();
+        })
+    }
+  }
+
+  getColor() {
+    return this.isFavorite ? 'gold' : '';
   }
 }
