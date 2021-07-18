@@ -1,4 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule, registerLocaleData } from '@angular/common';
+import localePl from '@angular/common/locales/pl';
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 import { AppRoutingModule } from './app-routing.module';
@@ -59,8 +61,8 @@ import { MailboxTypeTranslationComponent } from './enum-translations/mailbox-typ
 import { NgxEditorModule } from 'ngx-editor';
 import { InboxComponent } from './components/messages/inbox/inbox.component';
 import { CreateMessageComponent } from './components/messages/create-message/create-message.component';
-import { registerLocaleData } from '@angular/common';
-import localePl from '@angular/common/locales/pl';
+import { SentComponent } from './components/messages/sent/sent.component';
+import { TrashComponent } from './components/messages/trash/trash.component';
 
 registerLocaleData(localePl);
 
@@ -94,10 +96,13 @@ registerLocaleData(localePl);
     NoPermissionComponent,
     EnumToArrayPipe,
     InboxComponent,
-    CreateMessageComponent
+    CreateMessageComponent,
+    SentComponent,
+    TrashComponent
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     AppRoutingModule,
     HttpClientModule,
     FontAwesomeModule,
@@ -134,7 +139,7 @@ registerLocaleData(localePl);
     MatRadioModule,
     MatDividerModule,
     NgbModule,
-    NgxEditorModule
+    NgxEditorModule,
   ],
   providers: [
     {

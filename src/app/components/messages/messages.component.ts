@@ -10,6 +10,10 @@ export class MessagesComponent implements OnInit {
 
   mailboxTypes = [MailboxType.Inbox, MailboxType.Sent, MailboxType.Trash];
 
+  currentMailbox = MailboxType.Inbox;
+
+  creatingMessage = false;
+
   constructor() { }
 
   ngOnInit(): void {
@@ -26,4 +30,24 @@ export class MessagesComponent implements OnInit {
     }
   }
 
+  changeMailbox(mailbox: MailboxType) {
+    switch(mailbox) {
+      case MailboxType.Inbox:
+        this.currentMailbox = MailboxType.Inbox;
+        this.creatingMessage = false;
+        break;
+      case MailboxType.Sent:
+        this.currentMailbox = MailboxType.Sent;
+        this.creatingMessage = false;
+        break;
+      case MailboxType.Trash:
+        this.currentMailbox = MailboxType.Trash;
+        this.creatingMessage = false;
+        break;
+    }
+  }
+
+  createMessage() {
+    this.creatingMessage = true;
+  }
 }

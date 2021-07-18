@@ -2,10 +2,10 @@
   <div class="row">
     <div style="width: 25%;">
       <mat-card class="mailbox-card">
-        <button color="primary" class="new-message-button" mat-raised-button>
+        <button color="primary" class="new-message-button" mat-raised-button (click)="createMessage()">
           Nowa wiadomość
         </button>
-        <button *ngFor="let mailbox of mailboxTypes" class="mailbox-button" mat-raised-button>
+        <button *ngFor="let mailbox of mailboxTypes" class="mailbox-button" mat-raised-button (click)="changeMailbox(mailbox)">
           <mat-icon [ngClass]="getMailboxIcon(mailbox)" aria-hidden="true" style="margin-right: 4px;"></mat-icon>
           <mailbox-type-i18n [key]="mailbox"></mailbox-type-i18n>
         </button>
@@ -13,7 +13,14 @@
     </div>
     <div style="width: 75%;">
       <mat-card class="mailbox-card">
-        <app-inbox></app-inbox>
+        <div *ngIf="!creatingMessage; else newMessage" [ngSwitch]="currentMailbox">
+          <app-inbox *ngSwitchCase='0'></app-inbox>
+          <app-sent *ngSwitchCase='1'></app-sent>
+          <app-trash *ngSwitchCase='2'></app-trash>
+        </div>
+        <ng-template #newMessage>
+          <app-create-message></app-create-message>
+        </ng-template>
       </mat-card>
     </div>
   </div>
