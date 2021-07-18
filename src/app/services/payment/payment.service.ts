@@ -11,6 +11,6 @@ export class PaymentService {
   constructor(private http: HttpClient) { }
 
   makePayment(paymentRequest: Payment) {
-    return this.http.post<Payment>(`${environment.apiUrl}/api/Payment/MakePayment`, paymentRequest);
+    return this.http.post<Payment>(`${environment.apiUrl}/api/Payment/MakePayment`, paymentRequest, { withCredentials: true });
   }
 }

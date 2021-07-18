@@ -8,7 +8,6 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { MessagesComponent } from './components/messages/messages.component';
 import { RegisterComponent } from './components/register/register.component';
-import { SearchComponent } from './components/search/search.component';
 import { AuthGuard } from './services/authentication/auth.guard';
 import { OfferComponent } from './components/offer/offer.component';
 import { YourOffersComponent } from './components/your-offers/your-offers.component';
@@ -18,6 +17,7 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { ChangeUserInfoComponent } from './components/change-user-info/change-user-info.component';
 import { UserRole } from './enums/user-role';
 import { NoPermissionComponent } from './components/no-permission/no-permission.component';
+import { SearchComponent } from './components/search/search.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },

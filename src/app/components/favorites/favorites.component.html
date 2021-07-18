@@ -1,3 +1,30 @@
+<mat-card>
+  <mat-form-field appearance="outline" style="width: 30%; padding-right: 16px;">
+    <mat-label>Kategoria</mat-label>
+    <mat-select [(ngModel)]="selectedCategory" name="selectedCategory" [disableOptionCentering]="true"
+      (selectionChange)="applyFilters()">
+      <mat-option>--</mat-option>
+      <mat-option *ngFor="let category of categories" [value]="category">
+        {{category.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="outline" style="width: 30%; padding-right: 16px;">
+    <mat-label>Sortowanie</mat-label>
+    <mat-select [(ngModel)]="selectedSortType" name="selectedSortType" [disableOptionCentering]="true"
+      (selectionChange)="applyFilters()">
+      <mat-option *ngFor="let type of sortTypes" [value]="type.value">
+        {{type.viewValue}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="outline" floatLabel="never" style="width: 40%;">
+    <input matInput type="text" [(ngModel)]="searchText" (keydown.enter)="applyFilters()"
+      [placeholder]="'Szukaj oferty'">
+    <mat-icon matSuffix class="fa fa-search" aria-hidden="true" (click)="applyFilters()"></mat-icon>
+  </mat-form-field>
+</mat-card>
+
 <div *ngIf="offers">
   <app-offers [offers]="offers.items" [totalSize]="offers.totalCount" (pageChange)="getData($event)"></app-offers>
 </div>

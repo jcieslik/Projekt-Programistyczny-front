@@ -14,7 +14,7 @@ export class ProductCategoryService {
     return this.http.get<Category[]>(`${environment.apiUrl}/api/ProductCategory/GetProductCategories`);
   }
 
-  getProductCategoriesByIds(ids: number[]) {
-    return this.http.post<Category[]>(`${environment.apiUrl}/api/ProductCategory/GetProductCategoriesByIds`, ids);
+  getProductCategoriesFromWishes() {
+    return this.http.get<Category[]>(`${environment.apiUrl}/api/ProductCategory/GetProductCategoriesFromUserWishes`, { withCredentials: true });
   }
 }
