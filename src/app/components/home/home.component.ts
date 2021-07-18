@@ -26,7 +26,6 @@ export class HomeComponent implements OnInit {
     if (this.searchText == undefined)
       this.searchText = "";
     this.model.searchText = this.searchText;
-    console.log(this.searchText);
     this.offerService.getOffers(this.model)
       .subscribe((response) => {
         this.offers = response;

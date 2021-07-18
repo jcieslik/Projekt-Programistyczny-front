@@ -65,7 +65,7 @@
 
     <mat-form-field appearance="fill">
       <mat-label>Województwo</mat-label>
-      <mat-select formControlName="selectedProvince" name="province">
+      <mat-select formControlName="selectedProvince" name="province" [disableOptionCentering]="true">
         <mat-option *ngFor="let province of provinces" [value]="province">
           {{province.name}}
         </mat-option>
@@ -75,7 +75,7 @@
 
     <mat-form-field appearance="fill" (click)="categorySelect.close(); openDialog()">
       <mat-label>Kategoria</mat-label>
-      <mat-select #categorySelect formControlName="selectedCategory" name="category">
+      <mat-select #categorySelect formControlName="selectedCategory" name="category" [disableOptionCentering]="true">
         <mat-option *ngFor="let category of chosenCategories" [value]="category">
           {{category.name}}
         </mat-option>

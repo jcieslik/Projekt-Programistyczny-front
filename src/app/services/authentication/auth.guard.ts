@@ -27,7 +27,7 @@ export class AuthGuard implements CanActivate {
   private checkPermission(allowedUserRoles: UserRole[]): Promise<boolean> {
     return new Promise((resolve, reject) => {
       for (const allowedRole of allowedUserRoles) {
-        if (allowedRole === this.authenticationService.userValue.role) {
+        if (this.authenticationService.userValue && allowedRole === this.authenticationService.userValue.role) {
           return resolve(true);
         }
       }

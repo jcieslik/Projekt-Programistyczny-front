@@ -15,10 +15,13 @@ export class UserProfileComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    let userId = +this.route.snapshot.paramMap.get('id');
-    this.userService.getUserInfo(userId)
-      .subscribe((result) => {
-        this.user = result;
-      });
+    let userId: number;
+    this.route.params.forEach(param => {
+      userId = param["id"];
+      this.userService.getUserInfo(userId)
+        .subscribe((result) => {
+          this.user = result;
+        });
+    });
   }
 }

@@ -17,4 +17,8 @@ export class WishService {
   hideWish(id: number) {
     return this.http.patch<Wish>(`${environment.apiUrl}/api/Wish/HideWish?id=${id}`, null, { withCredentials: true });
   }
+
+  checkForUserWish(id: number) {
+    return this.http.get<boolean>(`${environment.apiUrl}/api/Wish/CheckForUserWish?id=${id}`, { withCredentials: true })
+  }
 }

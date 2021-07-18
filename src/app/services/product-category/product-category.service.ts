@@ -13,4 +13,8 @@ export class ProductCategoryService {
   getProductCategories() {
     return this.http.get<Category[]>(`${environment.apiUrl}/api/ProductCategory/GetProductCategories`);
   }
+
+  getProductCategoriesFromWishes() {
+    return this.http.get<Category[]>(`${environment.apiUrl}/api/ProductCategory/GetProductCategoriesFromUserWishes`, { withCredentials: true });
+  }
 }

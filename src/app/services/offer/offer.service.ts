@@ -52,7 +52,7 @@ export class OfferService {
     return this.http.put<Offer>(`${environment.apiUrl}/api/Offer/UpdateOffer`, offer, { withCredentials: true });
   }
 
-  getOffersFromUserWishes(pagination: PaginationProperties) {
-    return this.http.post<PaginatedOffers>(`${environment.apiUrl}/api/Offer/GetOffersFromActiveUserWishes`, pagination, { withCredentials: true });
+  getOffersFromUserWishes(model: SearchModel) {
+    return this.http.post<PaginatedOffers>(`${environment.apiUrl}/api/Offer/GetOffersFromActiveUserWishes`, model, { withCredentials: true });
   }
 }

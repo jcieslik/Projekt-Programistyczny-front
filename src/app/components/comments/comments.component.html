@@ -10,8 +10,8 @@
       </ngb-rating>
       <a [routerLink]="['/offer/'+comment.offerId]"
         style="padding-right: 8px; font-size: 20px">{{comment.offerTitle}}</a>
-      <a [routerLink]="['/userProfile/'+comment.customer.id]" style="padding-right: 8px; font-size: 20px"
-        (click)="changeProfile(comment)">({{comment.customer.username}})</a>
+      <a [routerLink]="['/userProfile/'+comment.customer.id]"
+        style="padding-right: 8px; font-size: 20px">({{comment.customer.username}})</a>
     </div><br>
     <div>
       <h1>

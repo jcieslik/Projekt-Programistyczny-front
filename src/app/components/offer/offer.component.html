@@ -5,7 +5,11 @@
         <ngx-gallery [options]="galleryOptions" [images]="galleryImages" class="ngx-gallery"></ngx-gallery>
       </div>
       <div style="flex-basis: 45%">
-        <div class="title">{{offer.title}}</div>
+        <div class="title">{{offer.title}}
+          <button *ngIf="user" style="float: right;" (click)="makeFavorite()" mat-icon-button>
+            <mat-icon class="fas fa-star" [ngStyle]="{'color': getColor()}"></mat-icon>
+          </button>
+        </div>
         <div class="text">Od: <a [routerLink]="getRouterLink()">{{offer.seller.name}} {{offer.seller.surname}}
             ({{offer.seller.username}})</a></div>
         <div class="text">Koszt: {{offer.priceForOneProduct | currency:'':''}} zł</div>
