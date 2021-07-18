@@ -1,3 +1,20 @@
 <mat-card class="main-card">
-
+  <div class="row">
+    <div style="width: 25%;">
+      <mat-card class="mailbox-card">
+        <button color="primary" class="new-message-button" mat-raised-button>
+          Nowa wiadomość
+        </button>
+        <button *ngFor="let mailbox of mailboxTypes" class="mailbox-button" mat-raised-button>
+          <mat-icon [ngClass]="getMailboxIcon(mailbox)" aria-hidden="true" style="margin-right: 4px;"></mat-icon>
+          <mailbox-type-i18n [key]="mailbox"></mailbox-type-i18n>
+        </button>
+      </mat-card>
+    </div>
+    <div style="width: 75%;">
+      <mat-card class="mailbox-card">
+        <app-inbox></app-inbox>
+      </mat-card>
+    </div>
+  </div>
 </mat-card>

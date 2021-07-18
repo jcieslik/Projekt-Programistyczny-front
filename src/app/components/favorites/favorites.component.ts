@@ -72,6 +72,9 @@ export class FavoritesComponent implements OnInit {
     this.model.searchText = this.searchText;
     this.model.categoryId = this.selectedCategory?.id;
     this.model.orderBy = this.selectedSortType;
+    this.model.pageIndex = 1;
+    this.model.pageSize = 10;
+    
     this.offerService.getOffersFromUserWishes(this.model)
       .subscribe((response) => {
         this.offers = response;

@@ -54,6 +54,15 @@ import { ConfirmationDialogComponent } from './dialogs/dialog-confirmation/confi
 import { CommentsComponent } from './components/comments/comments.component';
 import { NoPermissionComponent } from './components/no-permission/no-permission.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { EnumToArrayPipe } from './pipes/enum-to-array.pipe';
+import { MailboxTypeTranslationComponent } from './enum-translations/mailbox-type-translation/mailbox-type-translation.component';
+import { NgxEditorModule } from 'ngx-editor';
+import { InboxComponent } from './components/messages/inbox/inbox.component';
+import { CreateMessageComponent } from './components/messages/create-message/create-message.component';
+import { registerLocaleData } from '@angular/common';
+import localePl from '@angular/common/locales/pl';
+
+registerLocaleData(localePl);
 
 @NgModule({
   declarations: [
@@ -71,6 +80,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     OfferComponent,
     ProductStateTranslationComponent,
     OrderStatusTranslationComponent,
+    MailboxTypeTranslationComponent,
     OffersComponent,
     YourOffersComponent,
     UserOffersComponent,
@@ -81,7 +91,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     ChangeUserInfoComponent,
     ConfirmationDialogComponent,
     CommentsComponent,
-    NoPermissionComponent
+    NoPermissionComponent,
+    EnumToArrayPipe,
+    InboxComponent,
+    CreateMessageComponent
   ],
   imports: [
     BrowserModule,
@@ -120,14 +133,16 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MatStepperModule,
     MatRadioModule,
     MatDividerModule,
-    NgbModule
+    NgbModule,
+    NgxEditorModule
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: SpinnerInterceptor,
       multi: true,
-    }
+    },
+    { provide: LOCALE_ID, useValue: "pl" }
   ],
   bootstrap: [AppComponent]
 })
