@@ -63,6 +63,7 @@ import { InboxComponent } from './components/messages/inbox/inbox.component';
 import { CreateMessageComponent } from './components/messages/create-message/create-message.component';
 import { SentComponent } from './components/messages/sent/sent.component';
 import { TrashComponent } from './components/messages/trash/trash.component';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 
 registerLocaleData(localePl);
 
@@ -140,6 +141,7 @@ registerLocaleData(localePl);
     MatDividerModule,
     NgbModule,
     NgxEditorModule,
+    NgxMatSelectSearchModule
   ],
   providers: [
     {

@@ -1,9 +1,11 @@
+<mat-form-field appearance="outline" style="margin-bottom: -1.25em">
+  <input matInput type="text" [placeholder]="'Odbiorcy'">
+</mat-form-field>
+<mat-form-field appearance="outline" style="margin-bottom: -1.25em">
+  <input matInput type="text" [(ngModel)]="newMessage.topic" [placeholder]="'Temat'">
+</mat-form-field>
 <div class="NgxEditor__Wrapper">
-    <ngx-editor-menu [editor]="editor"> </ngx-editor-menu>
-    <ngx-editor
-      [editor]="editor"
-      [ngModel]="html"
-      [disabled]="false"
-      [placeholder]="'Type here...'"
-    ></ngx-editor>
-  </div>
+  <ngx-editor [editor]="editor" [(ngModel)]="newMessage.content"  [disabled]="false" [placeholder]="'Treść wiadomości'">
+  </ngx-editor>
+  <ngx-editor-menu [editor]="editor"> </ngx-editor-menu>
+</div>
