@@ -22,15 +22,14 @@ export class OfferComponent implements OnInit {
   offerId: number;
 
   offer: Offer;
-  
+
   user: User = JSON.parse(localStorage.getItem('user'))
 
   constructor(
-    private offerService: OfferService, 
-    private cartService: CartService, 
+    private offerService: OfferService,
+    private cartService: CartService,
     private route: ActivatedRoute,
     private wishService: WishService) { }
-  user: User = JSON.parse(localStorage.getItem('user'));
 
   isFavorite: boolean = true;
 
@@ -76,7 +75,8 @@ export class OfferComponent implements OnInit {
       .subscribe((result) => {
         this.isFavorite = result;
       })
-  addToCart(){
+  }
+  addToCart() {
     this.cartService.addOfferToCart(this.offerId).subscribe();
   }
 

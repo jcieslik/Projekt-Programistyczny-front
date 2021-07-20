@@ -4,6 +4,8 @@ import { CartOfferDTO } from 'src/app/models/cart-offer';
 import { CartService } from 'src/app/services/cart/cart.service';
 import { OfferService } from 'src/app/services/offer/offer.service';
 import { Offer } from 'src/app/models/offer';
+import { SummarizeOrderService } from 'src/app/services/summarize-order/summarize-order.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart',
@@ -14,7 +16,9 @@ export class CartComponent implements OnInit {
 
   constructor(
     private cartService: CartService,
-    private offerService: OfferService) { }
+    private offerService: OfferService,
+    private summarizeOrderService: SummarizeOrderService,
+    private router: Router) { }
 
   offers: CartOfferDTO[] = [];
 
@@ -65,4 +69,8 @@ export class CartComponent implements OnInit {
     return cost;
   }
 
+  summarizeOrder(){
+    this.summarizeOrderService.setOrderOffers(this.offers);
+    this.router.navigateByUrl('/checkout')
+  }
 }

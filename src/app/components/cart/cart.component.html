@@ -42,7 +42,7 @@
   <mat-card style="flex-basis: 30%; text-align: center; height: 150px;">
         <div class="summary-information container">
           <h2>Sumaryczny koszt: {{getTotalCost()}}</h2>
-          <button mat-raised-button color="primary" type="submit" style="height: 50px; width: 400px">
+          <button mat-raised-button color="primary" type="submit" style="height: 50px; width: 400px" (click)="summarizeOrder()">
             Przejdź do realizacji zamówienia
           </button>
         </div>

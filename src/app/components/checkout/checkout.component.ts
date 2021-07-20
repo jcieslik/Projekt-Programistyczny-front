@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 import { StripeService, StripeCardComponent } from 'ngx-stripe';
@@ -9,12 +9,14 @@ import {
 import { PaymentService } from 'src/app/services/payment/payment.service';
 import { Payment } from 'src/app/models/payment';
 import { DeliveryMethodService } from 'src/app/services/delivery-method/delivery-method.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { DeliveryMethodWithOffer } from 'src/app/models/delivery-method-with-offer';
 import { OrderService } from 'src/app/services/order/order.service';
 import { Order } from 'src/app/models/order';
 import { User } from 'src/app/models/user';
 import { OrderStatus } from 'src/app/enums/order-status';
+import { CartOfferDTO } from 'src/app/models/cart-offer';
+import { SummarizeOrderService } from 'src/app/services/summarize-order/summarize-order.service';
 
 @Component({
   selector: 'app-checkout',
@@ -24,9 +26,13 @@ import { OrderStatus } from 'src/app/enums/order-status';
 export class CheckoutComponent implements OnInit {
   @ViewChild(StripeCardComponent) card: StripeCardComponent;
 
-  offerId: number;
+  //offerId: number;
 
-  deliveryMethods: DeliveryMethodWithOffer[] = [];
+  offers: CartOfferDTO[] = [];
+
+  //deliveryMethods: DeliveryMethodWithOffer[] = [];
+
+  offerWithDeliveryMethods: Map<CartOfferDTO, DeliveryMethodWithOffer[]> = new Map<CartOfferDTO, DeliveryMethodWithOffer[]>()
 
   user: User = JSON.parse(localStorage.getItem('user'));
 
@@ -54,30 +60,49 @@ export class CheckoutComponent implements OnInit {
     private stripeService: StripeService,
     private paymentService: PaymentService,
     private deliveryMethodService: DeliveryMethodService,
-    private route: ActivatedRoute,
     private router: Router,
-    private orderService: OrderService) { }
+    private orderService: OrderService,
+    private summarizeOrderService: SummarizeOrderService,
+    private cdRef: ChangeDetectorRef) {}
 
   ngOnInit(): void {
-    this.offerId = +this.route.snapshot.paramMap.get('id')
-    this.deliveryMethodService.getDeliveryMethodsFromOffer(this.offerId)
-      .subscribe((result) => {
-        this.deliveryMethods = result;
-        this.f.option.setValue(this.deliveryMethods[0])
-      })
+     
+    this.summarizeOrderService.getOrderOffers().subscribe(d=> {
+      this.offers = d;
+      this.getDeliveryMethods();
+    });
+    //this.getDeliveryMethods();
+
+    //this.offerId = +this.route.snapshot.paramMap.get('id')
+
     this.stripeTest = this.fb.group({
       name: ['', [Validators.required]]
     });
     this.deliveryMethodForm = this.fb.group({
       option: [new DeliveryMethodWithOffer(), [Validators.required]]
     });
+
+  }
+
+  private getDeliveryMethods(): void {
+    this.offerWithDeliveryMethods.clear();
+
+    this.offers.forEach(d => {
+      this.deliveryMethodService.getDeliveryMethodsFromOffer(d.offerId)
+      .subscribe((result) => {
+        this.offerWithDeliveryMethods.set(d, result);
+        //this.deliveryMethods = result;
+     // this.f.option.setValue(this.deliveryMethods[0])
+    });
+    this.cdRef.detectChanges();
+  });
   }
 
   get f() { return this.deliveryMethodForm.controls; }
 
-  createOrder(): void {
+  createOrder(offerId: number): void {
     let order = new Order();
-    order.offerId = this.offerId;
+    order.offerId = offerId;
     order.customerId = this.user.id;
     order.orderStatus = 0;
     this.orderService.createOrder(order)

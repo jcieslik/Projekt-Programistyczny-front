@@ -56,6 +56,9 @@ import { CommentsComponent } from './components/comments/comments.component';
 import { NoPermissionComponent } from './components/no-permission/no-permission.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatExpansionModule} from '@angular/material/expansion';
+import { SummarizeOrderService } from 'src/app/services/summarize-order/summarize-order.service';
+
 
 @NgModule({
   declarations: [
@@ -83,7 +86,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     ChangeUserInfoComponent,
     ConfirmationDialogComponent,
     CommentsComponent,
-    NoPermissionComponent
+    NoPermissionComponent,
   ],
   imports: [
     BrowserModule,
@@ -113,6 +116,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
     MatDialogModule,
     NgxGalleryModule,
     MatGridListModule,
+    MatExpansionModule,
     MatCheckboxModule,
     MatStepperModule,
     LayoutModule,
@@ -132,7 +136,8 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
       provide: HTTP_INTERCEPTORS,
       useClass: SpinnerInterceptor,
       multi: true,
-    }
+    }, 
+    [SummarizeOrderService]
   ],
   bootstrap: [AppComponent]
 })
