@@ -1,3 +1,4 @@
+import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { Component, OnInit } from '@angular/core';
 import { MailboxType } from 'src/app/enums/mailbox-type';
 
@@ -13,6 +14,10 @@ export class MessagesComponent implements OnInit {
   currentMailbox = MailboxType.Inbox;
 
   creatingMessage = false;
+  
+  displayedMessage: Message = null;
+
+  displayingMessage = false;
 
   constructor() { }
 
@@ -35,6 +40,8 @@ export class MessagesComponent implements OnInit {
   }
 
   changeMailbox(mailbox: MailboxType) {
+    this.displayingMessage = false;
+    this.creatingMessage = false;
     switch(mailbox) {
       case MailboxType.Inbox:
         this.currentMailbox = MailboxType.Inbox;
@@ -52,11 +59,17 @@ export class MessagesComponent implements OnInit {
   }
 
   createMessage() {
+    this.displayingMessage = false;
     this.creatingMessage = true;
   }
 
   goBackToMailbox(event: boolean) {
     this.creatingMessage = event;
     this.currentMailbox = MailboxType.Sent;
+  }
+
+  displayMessage(event: Message) {
+    this.displayedMessage = event;
+    this.displayingMessage = true;
   }
 }

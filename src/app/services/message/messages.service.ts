@@ -27,4 +27,8 @@ export class MessagesService {
   getNumberOfUnreadMessages() {
     return this.http.get<number>(`${environment.apiUrl}/api/Messages/GetNumberOfUnreadMessages`, { withCredentials: true })
   }
+
+  changeMessageStatus(messageIds: number[], isRead: boolean) {
+    return this.http.put<Message>(`${environment.apiUrl}/api/Messages/ChangeMessagesStatus?isRead=${isRead}`, messageIds, { withCredentials: true })
+  }
 }

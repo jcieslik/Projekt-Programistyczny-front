@@ -7,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MailboxToolbarComponent implements OnInit {
 
+  searchText: string;
+
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  search() {
+    
+  }
 }

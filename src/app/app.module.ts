@@ -27,6 +27,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatBadgeModule } from '@angular/material/badge';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -67,6 +68,7 @@ import { SentComponent } from './components/messages/sent/sent.component';
 import { TrashComponent } from './components/messages/trash/trash.component';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MailboxToolbarComponent } from './components/messages/mailbox-toolbar/mailbox-toolbar.component';
+import { DisplayMessageComponent } from './components/messages/display-message/display-message.component';
 
 registerLocaleData(localePl);
 
@@ -103,7 +105,8 @@ registerLocaleData(localePl);
     CreateMessageComponent,
     SentComponent,
     TrashComponent,
-    MailboxToolbarComponent
+    MailboxToolbarComponent,
+    DisplayMessageComponent
   ],
   imports: [
     BrowserModule,
@@ -122,7 +125,10 @@ registerLocaleData(localePl);
     MatButtonModule,
     MatInputModule,
     MatCardModule,
+    MatTooltipModule,
     MatTabsModule,
+    MatChipsModule,
+    MatBadgeModule,
     MatSelectModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
@@ -146,8 +152,6 @@ registerLocaleData(localePl);
     NgbModule,
     NgxEditorModule,
     NgxMatSelectSearchModule,
-    MatChipsModule,
-    MatBadgeModule
   ],
   providers: [
     {

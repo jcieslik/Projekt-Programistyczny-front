@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MailboxType } from 'src/app/enums/mailbox-type';
 import { PaginationProperties } from 'src/app/enums/pagination-properties';
+import { Message } from 'src/app/models/message';
 import { PaginatedMessages } from 'src/app/models/paginatedMessages';
 import { MessagesService } from 'src/app/services/message/messages.service';
 
@@ -10,6 +11,8 @@ import { MessagesService } from 'src/app/services/message/messages.service';
   styleUrls: ['./inbox.component.scss']
 })
 export class InboxComponent implements OnInit {
+  @Output()
+  displayingMessage: EventEmitter<Message> = new EventEmitter<Message>();
 
   displayedColumns: string[] = ['checkbox', 'sender', 'topic', 'sendDate'];
 
@@ -49,6 +52,10 @@ export class InboxComponent implements OnInit {
       .subscribe((result) => {
         this.messagesPaginated = result;
       });
+  }
+
+  displayMessage(message: Message) {
+    this.displayingMessage.emit(message);
   }
 
 }

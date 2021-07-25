@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MailboxType } from 'src/app/enums/mailbox-type';
 import { PaginationProperties } from 'src/app/enums/pagination-properties';
+import { Message } from 'src/app/models/message';
 import { PaginatedMessages } from 'src/app/models/paginatedMessages';
 import { MessagesService } from 'src/app/services/message/messages.service';
 
@@ -10,7 +11,9 @@ import { MessagesService } from 'src/app/services/message/messages.service';
   styleUrls: ['./sent.component.scss']
 })
 export class SentComponent implements OnInit {
-
+  @Output()
+  displayingMessage: EventEmitter<Message> = new EventEmitter<Message>();
+  
   displayedColumns: string[] = ['checkbox', 'recipients', 'topic', 'sendDate'];
 
   defaultSort: string = "creation";
@@ -51,4 +54,7 @@ export class SentComponent implements OnInit {
       });
   }
 
+  displayMessage(message: Message) {
+    this.displayingMessage.emit(message);
+  }
 }

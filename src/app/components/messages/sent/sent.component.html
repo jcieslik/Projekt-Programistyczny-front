@@ -1,3 +1,5 @@
+<app-mailbox-toolbar></app-mailbox-toolbar>
+
 <table *ngIf="messagesPaginated && messagesPaginated.items.length > 0; else noMessages" mat-table
   [dataSource]="messagesPaginated.items" style="width: 100%;">
 
@@ -9,10 +11,13 @@
       <mat-checkbox style="margin-top: 8px;"></mat-checkbox>
     </td>
   </ng-container>
-  
+
   <ng-container matColumnDef="recipients">
     <th class="recipients" mat-header-cell *matHeaderCellDef> Odbiorca </th>
-    <td mat-cell *matCellDef="let message"> {{message.recipients}} </td>
+    <td mat-cell *matCellDef="let message">
+      <div *ngFor="let recipient of message.recipients">{{message.recipientsString}}
+      </div>
+    </td>
   </ng-container>
 
   <ng-container matColumnDef="topic">

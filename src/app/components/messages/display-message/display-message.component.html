@@ -1,0 +1,14 @@
+<div>
+  <hr>
+  <div>
+    <h3>Nadawca: <a [routerLink]="['/userProfile/'+message.senderId]">{{message.sender}}</a></h3>
+    <h3>Odbiorcy: <a *ngFor="let recipient of message.recipients; index as i"
+        [routerLink]="['/userProfile/'+recipient.key]">{{recipient.value}}<span
+          *ngIf="message.recipients.length > 1 && i < message.recipients.length - 1">, </span></a></h3>
+    <h3>Data wysłania: {{message.sendDate | date:'short'}}</h3>
+    <h1>Temat: {{message.topic}}</h1>
+  </div>
+  <hr>
+  <mat-card [innerHTML]="message.content">
+  </mat-card>
+</div>

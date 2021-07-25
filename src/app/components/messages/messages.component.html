@@ -14,14 +14,17 @@
     </div>
     <div style="width: 75%;">
       <mat-card class="mailbox-card">
-        <div *ngIf="!creatingMessage; else newMessage" [ngSwitch]="currentMailbox">
-          <app-inbox *ngSwitchCase='0'></app-inbox>
-          <app-sent *ngSwitchCase='1'></app-sent>
-          <app-trash *ngSwitchCase='2'></app-trash>
+        <div *ngIf="displayingMessage">
+          <app-display-message [message]="displayedMessage"></app-display-message>
         </div>
-        <ng-template #newMessage>
+        <div *ngIf="!creatingMessage && !displayingMessage" [ngSwitch]="currentMailbox">
+          <app-inbox *ngSwitchCase='0' (displayingMessage)="displayMessage($event)"></app-inbox>
+          <app-sent *ngSwitchCase='1' (displayingMessage)="displayMessage($event)"></app-sent>
+          <app-trash *ngSwitchCase='2' (displayingMessage)="displayMessage($event)"></app-trash>
+        </div>
+        <div *ngIf="creatingMessage">
           <app-create-message (creatingMessage)="goBackToMailbox($event)"></app-create-message>
-        </ng-template>
+        </div>
       </mat-card>
     </div>
   </div>

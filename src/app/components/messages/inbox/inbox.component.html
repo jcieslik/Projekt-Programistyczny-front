@@ -1,3 +1,5 @@
+<app-mailbox-toolbar></app-mailbox-toolbar>
+
 <table *ngIf="messagesPaginated && messagesPaginated.items.length > 0; else noMessages" mat-table
   [dataSource]="messagesPaginated.items" style="width: 100%;">
 
@@ -12,19 +14,19 @@
 
   <ng-container matColumnDef="sender">
     <th class="sender" mat-header-cell *matHeaderCellDef> Nadawca </th>
-    <td [ngStyle]="{'font-weight':message.isRead === false ? 'bold' : '' }" mat-cell *matCellDef="let message">
+    <td [ngStyle]="{'font-weight':message.isRead === false ? 'bold' : '' }" mat-cell *matCellDef="let message" (click)="displayMessage(message)">
       {{message.sender}} </td>
   </ng-container>
 
   <ng-container matColumnDef="topic">
     <th class="topic" mat-header-cell *matHeaderCellDef> Tytuł </th>
-    <td [ngStyle]="{'font-weight':message.isRead === false ? 'bold' : '' }" mat-cell *matCellDef="let message">
+    <td [ngStyle]="{'font-weight':message.isRead === false ? 'bold' : '' }" mat-cell *matCellDef="let message" (click)="displayMessage(message)">
       {{message.topic}} </td>
   </ng-container>
 
   <ng-container matColumnDef="sendDate">
     <th mat-header-cell *matHeaderCellDef> Data wysłania </th>
-    <td [ngStyle]="{'font-weight':message.isRead === false ? 'bold' : '' }" mat-cell *matCellDef="let message">
+    <td [ngStyle]="{'font-weight':message.isRead === false ? 'bold' : '' }" mat-cell *matCellDef="let message" (click)="displayMessage(message)">
       {{message.sendDate | date:'short'}} </td>
   </ng-container>
 

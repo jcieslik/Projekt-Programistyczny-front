@@ -1,1 +1,11 @@
-<p>mailbox-toolbar works!</p>
+<mat-card>
+  <button mat-fab color="primary" aria-label="Example icon button with a delete icon"
+    matTooltip="Usuń zaznaczone wiadomości">
+    <mat-icon>delete</mat-icon>
+  </button>
+  <mat-form-field appearance="outline" floatLabel="never" style="width: 90%; float: right;">
+    <input matInput type="text" [(ngModel)]="searchText" (keydown.enter)="search()"
+      [placeholder]="'Przeszukaj skrzynkę'">
+    <mat-icon matSuffix class="fa fa-search" aria-hidden="true" (click)="search()"></mat-icon>
+  </mat-form-field>
+</mat-card>
