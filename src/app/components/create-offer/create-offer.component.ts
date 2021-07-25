@@ -86,11 +86,11 @@ export class CreateOfferComponent implements OnInit {
         this.categories = results[1];
         this.deliveryMethods = results[2];
         this.deliveryMethods.forEach(method => {
-          let deliveryMethod = new DeliveryMethodWithOffer();
-          deliveryMethod.deliveryMethodId = method.id;
-          deliveryMethod.fullPrice = method.price;
-          deliveryMethod.name = method.name;
-          this.chosenDeliveryMethods.push(deliveryMethod);
+        //  // let deliveryMethod = new DeliveryMethodWithOffer();
+        //   deliveryMethod.deliveryMethodId = method.id;
+        //   deliveryMethod.fullPrice = method.price;
+        //   deliveryMethod.deliveryMethodName = method.name;
+        //   this.chosenDeliveryMethods.push(deliveryMethod);
         })
       })
   }
@@ -112,9 +112,9 @@ export class CreateOfferComponent implements OnInit {
 
   submit(): void {
     this.offer.deliveryMethods = this.chosenDeliveryMethods.filter(method => {
-      if (method.isSelected) {
-        return method;
-      }
+      //if (method.isSelected) {
+      //  return method;
+     // }
     })
 
     if (this.form.invalid) {

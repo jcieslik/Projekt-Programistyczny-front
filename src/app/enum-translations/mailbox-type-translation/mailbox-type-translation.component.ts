@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { MailboxType } from 'src/app/enums/mailbox-type';
 
 @Component({
-  selector: 'Mailbox-Type-i18n',
+  selector: 'mailbox-type-i18n',
   template: `
   <ng-container i18n>
     {key, select,

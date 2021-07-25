@@ -1,0 +1,14 @@
+::ng-deep { /* to penetrate <ngx-editor> CSS styling */
+
+  .NgxEditor {
+    height: 250px;
+  }
+
+  .NgxEditor__Content {
+    min-height: 250px; /* make all of the editor area clickable */
+  }
+}
+
+mat-form-field {
+  width: 100%;
+}

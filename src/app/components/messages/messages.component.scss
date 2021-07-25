@@ -2,4 +2,27 @@
   margin: 1em auto;
   width: 80%;
   min-height: 600px;
+  background-color: #ece5e4;
+}
+
+.mailbox-card {
+  margin: 1em auto;
+  width: 100%;
+  min-height: 600px;
+}
+
+.mailbox-button {
+  text-align: left;
+  width: 100%;
+  min-height: 60px;
+  margin-top: 16px;
+  overflow-x: hidden !important;
+}
+
+.new-message-button {
+  width: 100%;
+  min-height: 40px;
+  margin-top: 16px;
+  margin-bottom: 8px;
+  overflow-x: hidden !important;
 }

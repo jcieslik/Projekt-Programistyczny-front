@@ -54,9 +54,4 @@ export class CommentsComponent implements OnInit {
         this.commentsPaginated = result;
       })
   }
-
-  changeProfile(comment: UserComment) {
-    this.router.navigateByUrl('/userProfile/' + comment.customer.id);
-    window.location.reload();
-  }
 }

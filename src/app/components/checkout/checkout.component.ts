@@ -17,6 +17,8 @@ import { User } from 'src/app/models/user';
 import { OrderStatus } from 'src/app/enums/order-status';
 import { CartOfferDTO } from 'src/app/models/cart-offer';
 import { SummarizeOrderService } from 'src/app/services/summarize-order/summarize-order.service';
+import { throwToolbarMixedModesError } from '@angular/material/toolbar';
+import { KeyValuePipe } from '@angular/common';
 
 @Component({
   selector: 'app-checkout',
@@ -81,7 +83,6 @@ export class CheckoutComponent implements OnInit {
     this.deliveryMethodForm = this.fb.group({
       option: [new DeliveryMethodWithOffer(), [Validators.required]]
     });
-
   }
 
   private getDeliveryMethods(): void {
@@ -91,11 +92,20 @@ export class CheckoutComponent implements OnInit {
       this.deliveryMethodService.getDeliveryMethodsFromOffer(d.offerId)
       .subscribe((result) => {
         this.offerWithDeliveryMethods.set(d, result);
+        this.printCollections();
         //this.deliveryMethods = result;
      // this.f.option.setValue(this.deliveryMethods[0])
     });
     this.cdRef.detectChanges();
   });
+  }
+
+  public printCollections(): void {
+    for(let [key, value] of this.offerWithDeliveryMethods){
+      console.log(key.title);
+      value.forEach(e => console.log(e.deliveryMethodName + " " + e.deliveryFullPrice));
+      console.log(" ");
+    }
   }
 
   get f() { return this.deliveryMethodForm.controls; }

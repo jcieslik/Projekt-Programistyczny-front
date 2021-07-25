@@ -28,4 +28,8 @@ export class UserService {
   getUserInfo(userId: number) {
     return this.http.get<UserInfo>(`${environment.apiUrl}/api/User/GetUserInfo?userId=${userId}`, { withCredentials: true });
   }
+
+  getMessageRecipients() {
+    return this.http.get<UserInfo[]>(`${environment.apiUrl}/api/User/GetAllMessageRecipients`, { withCredentials: true });
+  }
 }

@@ -1,4 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { CommonModule, registerLocaleData } from '@angular/common';
+import localePl from '@angular/common/locales/pl';
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 import { AppRoutingModule } from './app-routing.module';
@@ -59,6 +61,16 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { SummarizeOrderService } from 'src/app/services/summarize-order/summarize-order.service';
 
+import { EnumToArrayPipe } from './pipes/enum-to-array.pipe';
+import { MailboxTypeTranslationComponent } from './enum-translations/mailbox-type-translation/mailbox-type-translation.component';
+import { NgxEditorModule } from 'ngx-editor';
+import { InboxComponent } from './components/messages/inbox/inbox.component';
+import { CreateMessageComponent } from './components/messages/create-message/create-message.component';
+import { SentComponent } from './components/messages/sent/sent.component';
+import { TrashComponent } from './components/messages/trash/trash.component';
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+
+registerLocaleData(localePl);
 
 @NgModule({
   declarations: [
@@ -76,6 +88,7 @@ import { SummarizeOrderService } from 'src/app/services/summarize-order/summariz
     OfferComponent,
     ProductStateTranslationComponent,
     OrderStatusTranslationComponent,
+    MailboxTypeTranslationComponent,
     OffersComponent,
     YourOffersComponent,
     UserOffersComponent,
@@ -87,9 +100,15 @@ import { SummarizeOrderService } from 'src/app/services/summarize-order/summariz
     ConfirmationDialogComponent,
     CommentsComponent,
     NoPermissionComponent,
+    EnumToArrayPipe,
+    InboxComponent,
+    CreateMessageComponent,
+    SentComponent,
+    TrashComponent
   ],
   imports: [
     BrowserModule,
+    CommonModule,
     AppRoutingModule,
     HttpClientModule,
     FontAwesomeModule,
@@ -129,14 +148,18 @@ import { SummarizeOrderService } from 'src/app/services/summarize-order/summariz
     MatStepperModule,
     MatRadioModule,
     MatDividerModule,
-    NgbModule
+    NgbModule,
+    NgxEditorModule,
+    NgxMatSelectSearchModule
   ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: SpinnerInterceptor,
       multi: true,
-    }, 
+    },
+    { provide: LOCALE_ID, useValue: "pl" }
+    ,
     [SummarizeOrderService]
   ],
   bootstrap: [AppComponent]
