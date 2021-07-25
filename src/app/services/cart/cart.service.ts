@@ -20,7 +20,7 @@ export class CartService {
   }
 
   removeOfferFromCart(offerId: number) {
-    return this.http.post(`${environment.apiUrl}/api/Cart/RemoveOfferFromCart?offerId=${offerId}`, null, { withCredentials: true });
+    return this.http.put(`${environment.apiUrl}/api/Cart/RemoveOfferFromCart?offerId=${offerId}`, null, { withCredentials: true });
   }
 
   decrementOfferCountInCart(offerId: number) {
