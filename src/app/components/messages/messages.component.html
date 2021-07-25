@@ -5,7 +5,8 @@
         <button color="primary" class="new-message-button" mat-raised-button (click)="createMessage()">
           Nowa wiadomość
         </button>
-        <button *ngFor="let mailbox of mailboxTypes" class="mailbox-button" mat-raised-button (click)="changeMailbox(mailbox)">
+        <button [color]="getButtonColor(mailbox)" *ngFor="let mailbox of mailboxTypes" class="mailbox-button"
+          mat-raised-button (click)="changeMailbox(mailbox)">
           <mat-icon [ngClass]="getMailboxIcon(mailbox)" aria-hidden="true" style="margin-right: 4px;"></mat-icon>
           <mailbox-type-i18n [key]="mailbox"></mailbox-type-i18n>
         </button>
@@ -19,7 +20,7 @@
           <app-trash *ngSwitchCase='2'></app-trash>
         </div>
         <ng-template #newMessage>
-          <app-create-message></app-create-message>
+          <app-create-message (creatingMessage)="goBackToMailbox($event)"></app-create-message>
         </ng-template>
       </mat-card>
     </div>

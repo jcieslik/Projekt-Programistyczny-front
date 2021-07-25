@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { Editor } from 'ngx-editor';
 import { CreateMessage } from 'src/app/models/create-message';
+import { User } from 'src/app/models/user';
 import { UserInfo } from 'src/app/models/user-info';
+import { MessagesService } from 'src/app/services/message/messages.service';
 import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
@@ -10,23 +13,82 @@ import { UserService } from 'src/app/services/user/user.service';
   styleUrls: ['./create-message.component.scss']
 })
 export class CreateMessageComponent implements OnInit {
+  @Output()
+  creatingMessage: EventEmitter<boolean> = new EventEmitter<boolean>();
+
+  user: User = JSON.parse(localStorage.getItem('user'));
+
   editor: Editor;
+
+  recipientsControl = new FormControl([]);
+
+  recipientSearch: string;
   
   newMessage: CreateMessage = new CreateMessage();
 
   recipients: UserInfo[];
+
+  recipientsDisplayed: UserInfo[];
+
+  isAlertDisplayed = false;
   
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private messagesService: MessagesService) { }
   
   ngOnInit(): void {
     this.editor = new Editor();
+    this.newMessage.content = '';
     this.userService.getMessageRecipients()
       .subscribe((result) => {
         this.recipients = result;
+        this.recipientsDisplayed = result;
       })
   }
 
   ngOnDestroy(): void {
     this.editor.destroy();
+  }
+
+  onRecipientRemoved(recipient: UserInfo) {
+    const recipients = this.recipientsControl.value as UserInfo[];
+    this.removeFirst(recipients, recipient);
+    this.recipientsControl.setValue(recipients); 
+  }
+
+  private removeFirst<T>(array: T[], toRemove: T): void {
+    const index = array.indexOf(toRemove);
+    if (index !== -1) {
+      array.splice(index, 1);
+    }
+  }
+
+  filterMyOptions(event: any) {
+    let recipientsDispl: UserInfo[] = [];
+    this.recipients.forEach((element) => {
+      if(element.username.search(this.recipientSearch) != -1) {
+        recipientsDispl.push(element);
+      }
+    })
+    this.recipientsDisplayed = recipientsDispl;
+  }
+
+  closeAlert() {
+    this.isAlertDisplayed = false;
+  }
+
+  sendMessage() {
+    if(!this.newMessage.content || !this.newMessage.topic || this.recipientsControl.value.length < 1) {
+      this.isAlertDisplayed = true;
+    }
+    else {
+      this.newMessage.senderId = this.user.id;
+      this.newMessage.recipientsIds = [];
+      this.recipientsControl.value.forEach(element => {
+        this.newMessage.recipientsIds.push(element.id);
+      });
+      this.messagesService.sendMessage(this.newMessage)
+        .subscribe((result) => {
+          this.creatingMessage.emit(false);
+        })
+    }
   }
 }

@@ -24,3 +24,8 @@ mat-toolbar {
 mat-icon:hover {
   cursor: pointer;
 }
+
+::ng-deep .mat-badge-content {
+  left: 92px !important;
+  top: -8px !important;
+}

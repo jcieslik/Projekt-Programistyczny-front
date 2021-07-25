@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MessagesService } from './services/message/messages.service';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,13 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Projekt-Programistyczny-front';
+
+  constructor(private messagesService: MessagesService) { }
+
+  changeOfRoutes() {
+    this.messagesService.getNumberOfUnreadMessages()
+      .subscribe((result) => {
+        this.messagesService.numberOfUnreadMessages.emit((result));
+      })
+  }
 }

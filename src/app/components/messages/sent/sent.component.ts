@@ -11,7 +11,7 @@ import { MessagesService } from 'src/app/services/message/messages.service';
 })
 export class SentComponent implements OnInit {
 
-  displayedColumns: string[] = ['recipient', 'topic', 'sendDate'];
+  displayedColumns: string[] = ['checkbox', 'recipients', 'topic', 'sendDate'];
 
   defaultSort: string = "creation";
 

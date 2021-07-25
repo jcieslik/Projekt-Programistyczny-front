@@ -11,7 +11,7 @@ import { MessagesService } from 'src/app/services/message/messages.service';
 })
 export class TrashComponent implements OnInit {
 
-  displayedColumns: string[] = ['sender', 'topic', 'sendDate'];
+  displayedColumns: string[] = ['checkbox', 'sender', 'topic', 'sendDate'];
 
   defaultSort: string = "creation";
 

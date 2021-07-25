@@ -2,6 +2,6 @@ export class CreateMessage {
   topic: string;
   content: string;
   sendDate: string;
-  recipientIds: number[];
+  recipientsIds: number[];
   senderId: number; 
 }

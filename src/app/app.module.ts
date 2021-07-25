@@ -26,7 +26,9 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatBadgeModule } from '@angular/material/badge';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatChipsModule } from '@angular/material/chips';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -64,6 +66,7 @@ import { CreateMessageComponent } from './components/messages/create-message/cre
 import { SentComponent } from './components/messages/sent/sent.component';
 import { TrashComponent } from './components/messages/trash/trash.component';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { MailboxToolbarComponent } from './components/messages/mailbox-toolbar/mailbox-toolbar.component';
 
 registerLocaleData(localePl);
 
@@ -99,7 +102,8 @@ registerLocaleData(localePl);
     InboxComponent,
     CreateMessageComponent,
     SentComponent,
-    TrashComponent
+    TrashComponent,
+    MailboxToolbarComponent
   ],
   imports: [
     BrowserModule,
@@ -141,7 +145,9 @@ registerLocaleData(localePl);
     MatDividerModule,
     NgbModule,
     NgxEditorModule,
-    NgxMatSelectSearchModule
+    NgxMatSelectSearchModule,
+    MatChipsModule,
+    MatBadgeModule
   ],
   providers: [
     {

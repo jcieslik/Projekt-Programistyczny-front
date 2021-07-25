@@ -30,6 +30,10 @@ export class MessagesComponent implements OnInit {
     }
   }
 
+  getButtonColor(mailbox: MailboxType) {
+    return this.currentMailbox === mailbox ? 'primary' : '';
+  }
+
   changeMailbox(mailbox: MailboxType) {
     switch(mailbox) {
       case MailboxType.Inbox:
@@ -49,5 +53,10 @@ export class MessagesComponent implements OnInit {
 
   createMessage() {
     this.creatingMessage = true;
+  }
+
+  goBackToMailbox(event: boolean) {
+    this.creatingMessage = event;
+    this.currentMailbox = MailboxType.Sent;
   }
 }
