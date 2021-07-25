@@ -1,4 +1,16 @@
 <div>
+  <button mat-mini-fab color="primary" style="margin-right: 8px;" (click)="goBackToMailbox()">
+    <mat-icon class="fa fa-arrow-left"></mat-icon>
+  </button>
+  <button mat-mini-fab color="primary" style="margin-right: 8px;" (click)="deleteMessage()">
+    <mat-icon>delete</mat-icon>
+  </button>
+  <button mat-mini-fab color="primary" style="margin-right: 8px;" (click)="replyToMessage()">
+    <mat-icon class="fa fa-reply"></mat-icon>
+  </button>
+  <button mat-mini-fab color="primary" style="margin-right: 8px;" (click)="replyToMessageAll()">
+    <mat-icon class="fa fa-reply-all"></mat-icon>
+  </button>
   <hr>
   <div>
     <h3>Nadawca: <a [routerLink]="['/userProfile/'+message.senderId]">{{message.sender}}</a></h3>
@@ -9,6 +21,7 @@
     <h1>Temat: {{message.topic}}</h1>
   </div>
   <hr>
-  <mat-card [innerHTML]="message.content">
-  </mat-card>
+  <div class="message-border">
+    <div class="message-content" [innerHTML]="message.content"></div>
+  </div>
 </div>

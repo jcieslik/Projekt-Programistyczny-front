@@ -31,4 +31,8 @@ export class MessagesService {
   changeMessageStatus(messageIds: number[], isRead: boolean) {
     return this.http.put<Message>(`${environment.apiUrl}/api/Messages/ChangeMessagesStatus?isRead=${isRead}`, messageIds, { withCredentials: true })
   }
+
+  deleteMessages(messageIds: number[]) {
+    return this.http.delete<Message>(`${environment.apiUrl}/api/Messages/DeleteMessages`, { body: messageIds, withCredentials: true })
+  }
 }

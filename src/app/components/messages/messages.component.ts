@@ -1,5 +1,6 @@
 import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { MailboxType } from 'src/app/enums/mailbox-type';
 
 @Component({
@@ -19,9 +20,15 @@ export class MessagesComponent implements OnInit {
 
   displayingMessage = false;
 
-  constructor() { }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.route.params.forEach(param => {
+      let userId = param["id"];
+      if(userId) {
+        this.creatingMessage = true;
+      }
+    });
   }
 
   getMailboxIcon(mailbox: MailboxType) {
@@ -71,5 +78,9 @@ export class MessagesComponent implements OnInit {
   displayMessage(event: Message) {
     this.displayedMessage = event;
     this.displayingMessage = true;
+  }
+
+  stopDisplayingMessage() {
+    this.displayingMessage = false;
   }
 }

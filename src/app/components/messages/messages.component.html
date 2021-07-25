@@ -15,7 +15,7 @@
     <div style="width: 75%;">
       <mat-card class="mailbox-card">
         <div *ngIf="displayingMessage">
-          <app-display-message [message]="displayedMessage"></app-display-message>
+          <app-display-message [message]="displayedMessage" (displayingMessage)="stopDisplayingMessage()"></app-display-message>
         </div>
         <div *ngIf="!creatingMessage && !displayingMessage" [ngSwitch]="currentMailbox">
           <app-inbox *ngSwitchCase='0' (displayingMessage)="displayMessage($event)"></app-inbox>

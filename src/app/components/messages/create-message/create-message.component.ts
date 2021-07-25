@@ -1,5 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { Editor } from 'ngx-editor';
 import { CreateMessage } from 'src/app/models/create-message';
 import { User } from 'src/app/models/user';
@@ -23,7 +24,7 @@ export class CreateMessageComponent implements OnInit {
   recipientsControl = new FormControl([]);
 
   recipientSearch: string;
-  
+
   newMessage: CreateMessage = new CreateMessage();
 
   recipients: UserInfo[];
@@ -31,16 +32,27 @@ export class CreateMessageComponent implements OnInit {
   recipientsDisplayed: UserInfo[];
 
   isAlertDisplayed = false;
-  
-  constructor(private userService: UserService, private messagesService: MessagesService) { }
-  
+
+  contactedUserId: number;
+
+  constructor(private userService: UserService,
+    private messagesService: MessagesService,
+    private route: ActivatedRoute) { }
+
   ngOnInit(): void {
     this.editor = new Editor();
     this.newMessage.content = '';
+    this.route.params.forEach(param => {
+      this.contactedUserId = +param["id"];
+    });
     this.userService.getMessageRecipients()
       .subscribe((result) => {
         this.recipients = result;
         this.recipientsDisplayed = result;
+        if (this.contactedUserId) {
+          let recipient = this.findRecipient(this.contactedUserId);
+          this.recipientsControl.value.push(recipient);
+        }
       })
   }
 
@@ -51,7 +63,7 @@ export class CreateMessageComponent implements OnInit {
   onRecipientRemoved(recipient: UserInfo) {
     const recipients = this.recipientsControl.value as UserInfo[];
     this.removeFirst(recipients, recipient);
-    this.recipientsControl.setValue(recipients); 
+    this.recipientsControl.setValue(recipients);
   }
 
   private removeFirst<T>(array: T[], toRemove: T): void {
@@ -61,10 +73,10 @@ export class CreateMessageComponent implements OnInit {
     }
   }
 
-  filterMyOptions(event: any) {
+  filterMyOptions() {
     let recipientsDispl: UserInfo[] = [];
     this.recipients.forEach((element) => {
-      if(element.username.search(this.recipientSearch) != -1) {
+      if (element.username.search(this.recipientSearch) != -1) {
         recipientsDispl.push(element);
       }
     })
@@ -76,7 +88,7 @@ export class CreateMessageComponent implements OnInit {
   }
 
   sendMessage() {
-    if(!this.newMessage.content || !this.newMessage.topic || this.recipientsControl.value.length < 1) {
+    if (!this.newMessage.content || !this.newMessage.topic || this.recipientsControl.value.length < 1) {
       this.isAlertDisplayed = true;
     }
     else {
@@ -90,5 +102,14 @@ export class CreateMessageComponent implements OnInit {
           this.creatingMessage.emit(false);
         })
     }
+  }
+
+  findRecipient(id: number) {
+    for (let i = 0; i < this.recipients.length; i++) {
+      if (this.recipients[i].id === id) {
+        return this.recipients[i];
+      }
+    }
+    return null
   }
 }

@@ -15,6 +15,10 @@ export class MailboxToolbarComponent implements OnInit {
   }
 
   search() {
-    
+
+  }
+
+  deleteMessages() {
+
   }
 }

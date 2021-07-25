@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Message } from 'src/app/models/message';
 import { MessagesService } from 'src/app/services/message/messages.service';
 
@@ -9,7 +9,10 @@ import { MessagesService } from 'src/app/services/message/messages.service';
 })
 export class DisplayMessageComponent implements OnInit {
   @Input()
-  message: Message
+  message: Message;
+
+  @Output()
+  displayingMessage = new EventEmitter<boolean>();
 
   constructor(private messagesService: MessagesService) { }
 
@@ -21,5 +24,24 @@ export class DisplayMessageComponent implements OnInit {
             this.messagesService.numberOfUnreadMessages.emit((result));
           })
       })
+  }
+
+  replyToMessage() {
+
+  }
+
+  replyToMessageAll() {
+
+  }
+
+  deleteMessage() {
+    this.messagesService.deleteMessages([this.message.id])
+      .subscribe((result) => {
+        this.displayingMessage.emit(false);
+      })
+  }
+
+  goBackToMailbox() {
+    this.displayingMessage.emit(false);
   }
 }
