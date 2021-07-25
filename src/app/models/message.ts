@@ -11,4 +11,5 @@ export class Message {
   sendDate: string;
   mailboxType: MailboxType;  
   isRead: boolean;
+  isSelected: boolean;
 }

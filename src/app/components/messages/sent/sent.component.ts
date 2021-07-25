@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { MailboxType } from 'src/app/enums/mailbox-type';
 import { PaginationProperties } from 'src/app/enums/pagination-properties';
 import { Message } from 'src/app/models/message';
@@ -13,6 +13,8 @@ import { MessagesService } from 'src/app/services/message/messages.service';
 export class SentComponent implements OnInit {
   @Output()
   displayingMessage: EventEmitter<Message> = new EventEmitter<Message>();
+
+  isAllCheckboxChecked = false;
   
   displayedColumns: string[] = ['checkbox', 'recipients', 'topic', 'sendDate'];
 
@@ -43,6 +45,7 @@ export class SentComponent implements OnInit {
   public handlePageMessages(e: any) {
     this.model.pageIndex = e.pageIndex + 1;
     this.model.pageSize = e.pageSize;
+    this.isAllCheckboxChecked = false;
 
     this.getMessages();
   }
@@ -56,5 +59,21 @@ export class SentComponent implements OnInit {
 
   displayMessage(message: Message) {
     this.displayingMessage.emit(message);
+  }
+
+  onAllSelected(event: any) {
+    if(event.checked === true) {
+      this.messagesPaginated.items.forEach(element => {
+        element.isSelected = true;
+      })
+    } else {
+      this.messagesPaginated.items.forEach(element => {
+        element.isSelected = false;
+      })
+    }
+  }
+
+  onOneSelected() {
+    this.isAllCheckboxChecked = false;
   }
 }

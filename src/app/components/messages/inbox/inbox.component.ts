@@ -14,6 +14,8 @@ export class InboxComponent implements OnInit {
   @Output()
   displayingMessage: EventEmitter<Message> = new EventEmitter<Message>();
 
+  isAllCheckboxChecked = false;
+
   displayedColumns: string[] = ['checkbox', 'sender', 'topic', 'sendDate'];
 
   defaultSort: string = "creation";
@@ -43,6 +45,7 @@ export class InboxComponent implements OnInit {
   public handlePageMessages(e: any) {
     this.model.pageIndex = e.pageIndex + 1;
     this.model.pageSize = e.pageSize;
+    this.isAllCheckboxChecked = false;
 
     this.getMessages();
   }
@@ -56,6 +59,22 @@ export class InboxComponent implements OnInit {
 
   displayMessage(message: Message) {
     this.displayingMessage.emit(message);
+  }
+
+  onAllSelected(event: any) {
+    if(event.checked === true) {
+      this.messagesPaginated.items.forEach(element => {
+        element.isSelected = true;
+      })
+    } else {
+      this.messagesPaginated.items.forEach(element => {
+        element.isSelected = false;
+      })
+    }
+  }
+
+  onOneSelected() {
+    this.isAllCheckboxChecked = false;
   }
 
 }
