@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Editor } from 'ngx-editor';
@@ -14,6 +14,9 @@ import { UserService } from 'src/app/services/user/user.service';
   styleUrls: ['./create-message.component.scss']
 })
 export class CreateMessageComponent implements OnInit {
+  @Input()
+  reply: CreateMessage;
+
   @Output()
   creatingMessage: EventEmitter<boolean> = new EventEmitter<boolean>();
 
@@ -41,6 +44,7 @@ export class CreateMessageComponent implements OnInit {
 
   ngOnInit(): void {
     this.editor = new Editor();
+
     this.newMessage.content = '';
     this.route.params.forEach(param => {
       this.contactedUserId = +param["id"];
@@ -49,6 +53,14 @@ export class CreateMessageComponent implements OnInit {
       .subscribe((result) => {
         this.recipients = result;
         this.recipientsDisplayed = result;
+        if (this.reply) {
+          this.newMessage.topic = this.reply.topic;
+          this.newMessage.content = this.reply.content;
+          this.reply.recipientsIds.forEach(element => {
+            let recipient = this.findRecipient(element);
+            this.recipientsControl.value.push(recipient);
+          })
+        }
         if (this.contactedUserId) {
           let recipient = this.findRecipient(this.contactedUserId);
           this.recipientsControl.value.push(recipient);

@@ -2,6 +2,7 @@ import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MailboxType } from 'src/app/enums/mailbox-type';
+import { CreateMessage } from 'src/app/models/create-message';
 
 @Component({
   selector: 'app-messages',
@@ -19,6 +20,8 @@ export class MessagesComponent implements OnInit {
   displayedMessage: Message = null;
 
   displayingMessage = false;
+
+  reply: CreateMessage = null;
 
   constructor(private route: ActivatedRoute) { }
 
@@ -82,5 +85,11 @@ export class MessagesComponent implements OnInit {
 
   stopDisplayingMessage() {
     this.displayingMessage = false;
+  }
+
+  createReply(e: CreateMessage) {
+    this.reply = e;
+    this.displayingMessage = false;
+    this.creatingMessage = true;
   }
 }

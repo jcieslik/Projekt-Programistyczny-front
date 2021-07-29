@@ -15,7 +15,7 @@
     <div style="width: 75%;">
       <mat-card class="mailbox-card">
         <div *ngIf="displayingMessage">
-          <app-display-message [message]="displayedMessage" (displayingMessage)="stopDisplayingMessage()"></app-display-message>
+          <app-display-message [message]="displayedMessage" (displayingMessage)="stopDisplayingMessage()" (reply)="createReply($event)"></app-display-message>
         </div>
         <div *ngIf="!creatingMessage && !displayingMessage" [ngSwitch]="currentMailbox">
           <app-inbox *ngSwitchCase='0' (displayingMessage)="displayMessage($event)"></app-inbox>
@@ -23,7 +23,7 @@
           <app-trash *ngSwitchCase='2' (displayingMessage)="displayMessage($event)"></app-trash>
         </div>
         <div *ngIf="creatingMessage">
-          <app-create-message (creatingMessage)="goBackToMailbox($event)"></app-create-message>
+          <app-create-message [reply]="reply" (creatingMessage)="goBackToMailbox($event)"></app-create-message>
         </div>
       </mat-card>
     </div>
