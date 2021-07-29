@@ -1,4 +1,5 @@
-<app-mailbox-toolbar></app-mailbox-toolbar>
+<app-mailbox-toolbar [messages]="messagesPaginated" [mailboxType]="mailboxType"
+  (updatedMessages)="updateMessages($event)" (searchMessages)="search($event)"></app-mailbox-toolbar>
 
 <table *ngIf="messagesPaginated && messagesPaginated.items.length > 0; else noMessages" mat-table
   [dataSource]="messagesPaginated.items" style="width: 100%;">

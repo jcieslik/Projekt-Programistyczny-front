@@ -14,6 +14,8 @@ export class SentComponent implements OnInit {
   @Output()
   displayingMessage: EventEmitter<Message> = new EventEmitter<Message>();
 
+  mailboxType = MailboxType.Sent;
+
   isAllCheckboxChecked = false;
   
   displayedColumns: string[] = ['checkbox', 'recipients', 'topic', 'sendDate'];
@@ -23,6 +25,8 @@ export class SentComponent implements OnInit {
   model: PaginationProperties = new PaginationProperties();
   paginationMessages: PaginationProperties = new PaginationProperties();
   messagesPaginated: PaginatedMessages;
+
+  searchText = '';
   
   constructor(private messagesService: MessagesService) { }
 
@@ -51,7 +55,7 @@ export class SentComponent implements OnInit {
   }
 
   getMessages() {
-    this.messagesService.getMessagesByMailbox(MailboxType.Sent, this.model)
+    this.messagesService.getMessagesByMailbox(MailboxType.Sent, this.model, this.searchText)
       .subscribe((result) => {
         this.messagesPaginated = result;
       });
@@ -75,5 +79,19 @@ export class SentComponent implements OnInit {
 
   onOneSelected() {
     this.isAllCheckboxChecked = false;
+  }
+
+  updateMessages(e: boolean) {
+    if(e) {
+      this.model.pageIndex = 1;
+      this.isAllCheckboxChecked = false;
+  
+      this.getMessages();
+    }
+  }
+  
+  search(e: string) {
+    this.searchText = e;
+    this.getMessages();
   }
 }

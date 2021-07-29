@@ -16,8 +16,8 @@ export class MessagesService {
 
   constructor(private http: HttpClient) { }
 
-  getMessagesByMailbox(mailboxType: MailboxType, pagination: PaginationProperties) {
-    return this.http.post<PaginatedMessages>(`${environment.apiUrl}/api/Messages/GetMessagesFromUser?mailboxType=${mailboxType}`, pagination, { withCredentials: true })
+  getMessagesByMailbox(mailboxType: MailboxType, pagination: PaginationProperties, searchText: string) {
+    return this.http.post<PaginatedMessages>(`${environment.apiUrl}/api/Messages/GetMessagesFromUser?mailboxType=${mailboxType}&searchText=${searchText}`, pagination, { withCredentials: true })
   }
 
   sendMessage(message: CreateMessage) {
@@ -29,10 +29,14 @@ export class MessagesService {
   }
 
   changeMessageStatus(messageIds: number[], isRead: boolean) {
-    return this.http.put<Message>(`${environment.apiUrl}/api/Messages/ChangeMessagesStatus?isRead=${isRead}`, messageIds, { withCredentials: true })
+    return this.http.put<boolean>(`${environment.apiUrl}/api/Messages/ChangeMessagesStatus?isRead=${isRead}`, messageIds, { withCredentials: true })
   }
 
   deleteMessages(messageIds: number[]) {
-    return this.http.delete<Message>(`${environment.apiUrl}/api/Messages/DeleteMessages`, { body: messageIds, withCredentials: true })
+    return this.http.delete<boolean>(`${environment.apiUrl}/api/Messages/DeleteMessages`, { body: messageIds, withCredentials: true })
+  }
+
+  takeMessagesFromTrash(messageIds: number[]) {
+    return this.http.put<boolean>(`${environment.apiUrl}/api/Messages/TakeMessagesFromTrash`, messageIds, { withCredentials: true })
   }
 }

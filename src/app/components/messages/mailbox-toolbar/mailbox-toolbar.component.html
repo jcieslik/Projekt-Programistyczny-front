@@ -1,9 +1,19 @@
 <mat-card>
   <button mat-fab color="primary" (click)="deleteMessages()" aria-label="Example icon button with a delete icon"
-    matTooltip="Usuń zaznaczone wiadomości">
+    matTooltip="Usuń zaznaczone wiadomości" style="margin-right: 8px;">
     <mat-icon>delete</mat-icon>
   </button>
-  <mat-form-field appearance="outline" floatLabel="never" style="width: 90%; float: right;">
+  <button *ngIf="mailboxType === 0" mat-fab color="primary" (click)="markMessagesAsRead()"
+    aria-label="Example icon button with a message icon" matTooltip="Oznacz wiadomości jako nieprzeczytane"
+    style="margin-right: 8px;">
+    <mat-icon>email</mat-icon>
+  </button>
+  <button *ngIf="mailboxType === 2" mat-fab color="primary" (click)="takeBackMessages()"
+    aria-label="Example icon button with a message icon" matTooltip="Przywróć wiadomości z kosza"
+    style="margin-right: 8px;">
+    <mat-icon>email</mat-icon>
+  </button>
+  <mat-form-field appearance="outline" floatLabel="never" style="width: 80%; float: right;">
     <input matInput type="text" [(ngModel)]="searchText" (keydown.enter)="search()"
       [placeholder]="'Przeszukaj skrzynkę'">
     <mat-icon matSuffix class="fa fa-search" aria-hidden="true" (click)="search()"></mat-icon>

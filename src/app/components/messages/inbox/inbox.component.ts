@@ -14,6 +14,8 @@ export class InboxComponent implements OnInit {
   @Output()
   displayingMessage: EventEmitter<Message> = new EventEmitter<Message>();
 
+  mailboxType = MailboxType.Inbox;
+
   isAllCheckboxChecked = false;
 
   displayedColumns: string[] = ['checkbox', 'sender', 'topic', 'sendDate'];
@@ -23,6 +25,8 @@ export class InboxComponent implements OnInit {
   model: PaginationProperties = new PaginationProperties();
   paginationMessages: PaginationProperties = new PaginationProperties();
   messagesPaginated: PaginatedMessages;
+
+  searchText = '';
   
   constructor(private messagesService: MessagesService) { }
 
@@ -51,7 +55,7 @@ export class InboxComponent implements OnInit {
   }
 
   getMessages() {
-    this.messagesService.getMessagesByMailbox(MailboxType.Inbox, this.model)
+    this.messagesService.getMessagesByMailbox(MailboxType.Inbox, this.model, this.searchText)
       .subscribe((result) => {
         this.messagesPaginated = result;
       });
@@ -75,6 +79,20 @@ export class InboxComponent implements OnInit {
 
   onOneSelected() {
     this.isAllCheckboxChecked = false;
+  }
+
+  updateMessages(e: boolean) {
+    if(e) {
+      this.model.pageIndex = 1;
+      this.isAllCheckboxChecked = false;
+  
+      this.getMessages();
+    }
+  }
+
+  search(e: string) {
+    this.searchText = e;
+    this.getMessages();
   }
 
 }
