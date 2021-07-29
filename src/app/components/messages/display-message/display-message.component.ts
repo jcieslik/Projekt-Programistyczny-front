@@ -40,8 +40,8 @@ export class DisplayMessageComponent implements OnInit {
     let message = new CreateMessage();
     message.recipientsIds = [this.message.senderId];
     message.topic = "Odp: " + this.message.topic;
-    message.content = "<br><br><br>_________________________________________________________<br>Od: " + this.message.sender + "<br>Do: " + this.message.recipientsString + 
-        "<br>Data: " + this.dateTimePipe.transform(this.message.sendDate, 'short') + "<br>Temat: " + this.message.topic + "<br>" + this.message.content;
+    message.content = "<br><br><br>_________________________________________________________<br>Od: " + this.message.sender + "<br>Do: " + this.message.recipientsString +
+      "<br>Data: " + this.dateTimePipe.transform(this.message.sendDate, 'short') + "<br>Temat: " + this.message.topic + "<br>" + this.message.content;
     this.reply.emit(message);
   }
 
@@ -49,14 +49,14 @@ export class DisplayMessageComponent implements OnInit {
     let message = new CreateMessage();
     message.recipientsIds = [];
     this.message.recipients.forEach((element) => {
-      if (this.currentUser.id != element[1]) {
-        message.recipientsIds.push(element[1]);
+      if (this.currentUser.id != element['key']) {
+        message.recipientsIds.push(element['key']);
       }
     })
     message.recipientsIds.push(this.message.senderId);
     message.topic = "Odp: " + this.message.topic;
-    message.content = "<br><br><br>_________________________________________________________<br>Od: " + this.message.sender + "<br>Do: " + this.message.recipientsString + 
-        "<br>Data: " + this.dateTimePipe.transform(this.message.sendDate, 'short') + "<br>Temat: " + this.message.topic + "<br>" + this.message.content;
+    message.content = "<br><br><br>_________________________________________________________<br>Od: " + this.message.sender + "<br>Do: " + this.message.recipientsString +
+      "<br>Data: " + this.dateTimePipe.transform(this.message.sendDate, 'short') + "<br>Temat: " + this.message.topic + "<br>" + this.message.content;
     this.reply.emit(message);
   }
 
