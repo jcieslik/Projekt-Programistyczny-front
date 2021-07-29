@@ -35,10 +35,11 @@ export class AuthenticationService {
   }
 
   logout() {
-    // remove user from local storage and set current user to null
-    localStorage.removeItem('user');
-    this.userSubject.next(null);
-    this.router.navigate(['/home']);
+    if(localStorage.getItem('user')) {
+      localStorage.removeItem('user');
+      this.userSubject.next(null);
+      this.router.navigate(['/home']);
+    }
   }
 
 }

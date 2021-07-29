@@ -69,6 +69,7 @@ import { TrashComponent } from './components/messages/trash/trash.component';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MailboxToolbarComponent } from './components/messages/mailbox-toolbar/mailbox-toolbar.component';
 import { DisplayMessageComponent } from './components/messages/display-message/display-message.component';
+import { ErrorInterceptor } from './helpers/error.interceptor';
 
 registerLocaleData(localePl);
 
@@ -157,6 +158,11 @@ registerLocaleData(localePl);
     {
       provide: HTTP_INTERCEPTORS,
       useClass: SpinnerInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
       multi: true,
     },
     { provide: LOCALE_ID, useValue: "pl" }
