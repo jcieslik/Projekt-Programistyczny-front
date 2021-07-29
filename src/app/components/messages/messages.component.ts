@@ -52,6 +52,7 @@ export class MessagesComponent implements OnInit {
   changeMailbox(mailbox: MailboxType) {
     this.displayingMessage = false;
     this.creatingMessage = false;
+    this.reply = null;
     switch(mailbox) {
       case MailboxType.Inbox:
         this.currentMailbox = MailboxType.Inbox;
