@@ -1,6 +1,6 @@
 <mat-card style="width: 60vw;">
   <mat-stepper orientation="vertical" [linear]="true" #stepper *ngIf="offerWithDeliveryMethods">
-    <mat-step>
+    <mat-step  [stepControl]="deliveryMethods">
       <div *ngFor="let offer of offerWithDeliveryMethods | keyvalue">
         <mat-expansion-panel>
           <mat-expansion-panel-header>
@@ -11,9 +11,9 @@
           </ng-container>
         </mat-expansion-panel>
       </div>
-      <button mat-raised-button color="primary" matStepperNext style="margin: 10px 0px 10px 0px;">Dalej</button>
+      <button mat-raised-button color="primary" matStepperNext style="margin: 10px 0px 10px 0px;" (click)="allSelected()">Dalej</button>
     </mat-step>
-    <mat-step [stepControl]="allSelected()">
+    <mat-step>
       <form novalidate [formGroup]="stripeTest">
         <ng-template matStepLabel>Wypełnij informacje o karcie</ng-template>
         <mat-form-field appearance="outline" class="fill-container">
@@ -36,19 +36,24 @@
 
 <ng-template #card let-offer='offer' let-deliveryMethods='deliveryMethods'>
   <h2>{{offer.title}}</h2>
+  Ilość produktów: {{offer.productsCount}}
+  <br>
   <b>
-    Ilość produktów: {{offer.productsCount}}
-    <br>
-    Cena zamówienia: {{offer.priceForOneProduct * offer.productsCount}}
+    Cena zamówienia: {{offer.priceForOneProduct * offer.productsCount}} zł
   </b>
+  <br>
   <br>
   <ng-template matStepLabel>Wybierz sposób dostawy</ng-template>
   <mat-radio-group>
-    <mat-radio-button class="col-md-6" *ngFor="let deliveryMethod of deliveryMethods" [value]="deliveryMethod" (change)="printOffer(offer, deliveryMethod)">
-      {{deliveryMethod.deliveryMethodName}} - {{deliveryMethod.deliveryFullPrice}}zł
+    <mat-radio-button class="col-md-6" *ngFor="let deliveryMethod of deliveryMethods" [value]="deliveryMethod"
+      (change)="setOfferDeliveryMethod(offer, deliveryMethod)">
+      {{deliveryMethod.deliveryMethodName}} - {{deliveryMethod.deliveryFullPrice}} zł
     </mat-radio-button>
-    Wybrane : {{offer.selectedDeliveryMethod}}
-  </mat-radio-group><br>
 
-
+  </mat-radio-group>
+  <br>
+  <br>
+  <div *ngIf="offer.selectedDeliveryMethod">
+    Wybrane : <b>{{offer.selectedDeliveryMethod.deliveryMethodName}}</b>
+  </div>
 </ng-template>

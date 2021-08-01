@@ -50,7 +50,7 @@ export class CheckoutComponent implements OnInit {
 
   stripeTest: FormGroup;
 
-  deliveryMethodForm: FormGroup;
+  deliveryMethods: FormGroup;
 
   constructor(private fb: FormBuilder,
     private stripeService: StripeService,
@@ -63,8 +63,8 @@ export class CheckoutComponent implements OnInit {
     this.stripeTest = this.fb.group({
       name: ['', [Validators.required]]
     });
-    this.deliveryMethodForm = this.fb.group({
-      option: [new DeliveryMethodWithOffer(), [Validators.required]]
+    this.deliveryMethods = this.fb.group({
+      done: ['', [Validators.required]]
     });
   }
 
@@ -87,51 +87,56 @@ export class CheckoutComponent implements OnInit {
     });
   }
 
-  get f() { return this.deliveryMethodForm.controls; }
+  get f() { return this.deliveryMethods.controls; }
 
   allSelected(): boolean {
     if(this.offers.find(e => e.selectedDeliveryMethod === undefined)){
       console.log("nah")
+      this.deliveryMethods.setValue({done: ''});
       return false;
     }
     console.log("yas")
+    this.deliveryMethods.setValue({done: 'done'});
     return true;
   }
-  createOrder(offerId: number): void {
-    let order = new Order();
-    order.offerId = offerId;
-    order.customerId = this.user.id;
-    order.orderStatus = 0;
-    this.orderService.createOrder(order)
-      .subscribe((response) => {
-        const name = this.stripeTest.get('name').value;
-        this.stripeService
-          .createToken(this.card.element, { name })
-          .subscribe((result) => {
-            if (result.token) {
-              let paymentRequest = new Payment();
-              paymentRequest.tokenId = result.token.id;
-              paymentRequest.amount = 2000;
-              this.paymentService.makePayment(paymentRequest)
-                .subscribe(() => {
-                  order.id = response.id;
-                  order.paymentDate = new Date();
-                  order.orderStatus = OrderStatus.InDelivery;
-                  this.orderService.changeStatus(order)
-                    .subscribe(() => {
-                      this.router.navigate(['account']);
-                    });
-                })
-            }
-            else {
-              alert("Wystąpił błąd płatności");
-            }
-          });
-      });
+  createOrders(): void {
+    this.offers.forEach(e => {
+      let order = new Order();
+      order.offerWithDeliveryId = e.offerId;
+      order.customerId = this.user.id;
+      order.orderStatus = OrderStatus.AwaitingForPayment;
+      this.orderService.createOrder(order)
+        .subscribe((response) => {
+          const name = this.stripeTest.get('name').value;
+          this.stripeService
+            .createToken(this.card.element, { name })
+            .subscribe((result) => {
+              if (result.token) {
+                let paymentRequest = new Payment();
+                paymentRequest.tokenId = result.token.id;
+                paymentRequest.amount = 2000;
+                this.paymentService.makePayment(paymentRequest)
+                  .subscribe(() => {
+                    order.id = response.id;
+                    order.paymentDate = new Date();
+                    order.orderStatus = OrderStatus.InDelivery;
+                    this.orderService.changeStatus(order)
+                      .subscribe(() => {
+                        this.router.navigate(['account']);
+                      });
+                  })
+              }
+              else {
+                alert("Wystąpił błąd płatności");
+              }
+            });
+        });
+    });
   }
 
-  printOffer(offer: CartOfferDTO, deliveryMethod: DeliveryMethodWithOffer){
+  setOfferDeliveryMethod(offer: CartOfferDTO, deliveryMethod: DeliveryMethodWithOffer){
     offer.selectedDeliveryMethod = deliveryMethod;
     console.log(offer.selectedDeliveryMethod.deliveryMethodName)
+    this.allSelected();
   }
 }

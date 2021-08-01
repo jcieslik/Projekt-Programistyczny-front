@@ -11,6 +11,7 @@ import { Wish } from 'src/app/models/wish';
 import { BidService } from 'src/app/services/bid/bid.service';
 import { OfferService } from 'src/app/services/offer/offer.service';
 import { WishService } from 'src/app/services/wish/wish.service';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-offer',
