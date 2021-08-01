@@ -24,7 +24,7 @@
         <button *ngIf="offer.offerType === 0" mat-raised-button color="primary" type="submit" class="buy-button"
           [routerLink]="['/checkout/'+offer.id]" [disabled]="checkIfCanBuy()">Kup teraz</button>
         <button *ngIf="offer.offerType === 0" mat-raised-button color="primary" type="submit" class="buy-button"
-          [disabled]="checkIfCanBuy()">Dodaj do
+          [disabled]="checkIfCanBuy()" (click)="addToCart()">Dodaj do
           koszyka</button>
         <button *ngIf="offer.offerType === 1" mat-raised-button color="primary" type="submit" class="buy-button"
           [disabled]="checkIfCanBuy()" (click)="makeBid()">Licytuj</button>

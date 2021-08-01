@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user';
 import { CartOfferDTO } from 'src/app/models/cart-offer';
 import { CartService } from 'src/app/services/cart/cart.service';
@@ -17,6 +17,7 @@ export class CartComponent implements OnInit {
   constructor(
     private cartService: CartService,
     private offerService: OfferService,
+    private cdRef: ChangeDetectorRef,
     private summarizeOrderService: SummarizeOrderService,
     private router: Router) { }
 
@@ -37,7 +38,6 @@ export class CartComponent implements OnInit {
     return false;
   }
 
-  getProductCount(offer: CartOfferDTO): number { return 10; }
   decrementOfferCount(offer: CartOfferDTO) {
 
     if (offer.productsCount > 1) {
@@ -46,6 +46,7 @@ export class CartComponent implements OnInit {
       this.offers.splice(this.offers.indexOf(offer), 1);
     }
     this.cartService.decrementOfferCountInCart(offer.offerId).subscribe();
+    this.cdRef.detectChanges();
   }
 
   getOffersFromCart() {
@@ -54,9 +55,11 @@ export class CartComponent implements OnInit {
     });;
   }
 
-  removeOfferFromCart(offerId: number) {
-    this.cartService.removeOfferFromCart(offerId).subscribe();
-    this.offers = this.offers.filter(elem => elem.offerId !== offerId);
+  removeOfferFromCart(offer: CartOfferDTO) {
+    this.cartService.removeOfferFromCart(offer.id).subscribe(e => {
+      this.offers.splice(this.offers.indexOf(offer), 1);
+
+    });
   }
 
   validateQuantity(offer: CartOfferDTO){ 
