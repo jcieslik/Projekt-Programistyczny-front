@@ -1,5 +1,5 @@
 export class DeliveryMethodWithOffer {
-  Id: number;
+  id: number;
   deliveryMethodName: string;
   deliveryFullPrice: number;
   offerId: number;

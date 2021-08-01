@@ -102,7 +102,9 @@ export class CheckoutComponent implements OnInit {
   createOrders(): void {
     this.offers.forEach(e => {
       let order = new Order();
-      order.offerWithDeliveryId = e.offerId;
+      order.offerWithDeliveryId = e.selectedDeliveryMethod.id;
+      console.log( e)
+
       order.customerId = this.user.id;
       order.orderStatus = OrderStatus.AwaitingForPayment;
       this.orderService.createOrder(order)
@@ -114,11 +116,13 @@ export class CheckoutComponent implements OnInit {
               if (result.token) {
                 let paymentRequest = new Payment();
                 paymentRequest.tokenId = result.token.id;
-                paymentRequest.amount = 2000;
+                paymentRequest.amount = Math.round((e.priceForOneProduct * e.productsCount + e.selectedDeliveryMethod.deliveryFullPrice) * 100);
+                paymentRequest.description = "ID Oferty: " + e.id + "; Nazwa oferty: " + e.title + "; ID sposobu dostawy: " + e.selectedDeliveryMethod.id + 
+                "; Nazwa sposobu dostawy: " + e.selectedDeliveryMethod.deliveryMethodName + "; ";
                 this.paymentService.makePayment(paymentRequest)
                   .subscribe(() => {
                     order.id = response.id;
-                    order.paymentDate = new Date();
+                    order.paymentDate = new Date(Date.now());
                     order.orderStatus = OrderStatus.InDelivery;
                     this.orderService.changeStatus(order)
                       .subscribe(() => {
