@@ -1,4 +1,5 @@
 import { UserRole } from "../enums/user-role";
+import { Province } from "./province";
 
 export class UserInfo {
   id: number;
@@ -11,6 +12,6 @@ export class UserInfo {
   city: string;
   street: string;
   postCode: string;
-  provinceId: number;
+  province: Province;
   bankAccountNumber: string;
 }

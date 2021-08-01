@@ -72,6 +72,7 @@ import { ErrorInterceptor } from './helpers/error.interceptor';
 import { OfferTypeTranslationComponent } from './enum-translations/offer-type-translation/offer-type-translation.component';
 import { CreateCommentDialogComponent } from './dialogs/create-comment/create-comment-dialog.component';
 import { CreateBidComponent } from './dialogs/create-bid/create-bid.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 registerLocaleData(localePl);
 
@@ -140,6 +141,7 @@ registerLocaleData(localePl);
     FormsModule,
     NgxSpinnerModule,
     MatPaginatorModule,
+    MatFormFieldModule,
     MatTableModule,
     MatDialogModule,
     NgxGalleryModule,
