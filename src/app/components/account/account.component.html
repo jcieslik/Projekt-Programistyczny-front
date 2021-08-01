@@ -4,6 +4,18 @@
   <h3>Email: {{user.email}}</h3>
   <mat-tab-group>
     <mat-tab label="Twoje dane">
+      <div *ngIf="error" class="alert alert-warning alert-dismissible fade show" role="alert">
+        <button type="button" class="close" aria-label="Close" (click)="closeError()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        Wypełnij wszystkie wymagane pola
+      </div>
+      <div *ngIf="isAlertDisplayed" class="alert alert-warning alert-dismissible fade show" role="alert">
+        <button type="button" class="close" aria-label="Close" (click)="closeAlert()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        Wypełnij numer konta bankowego poprawnie
+      </div>
       <br>
       <button color="primary" style="float: right; min-width: 100px;" mat-raised-button
         (click)="editUserData()">Edytuj</button>
@@ -29,7 +41,7 @@
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Numer konta bankowego</mat-label>
-        <input [disabled]="!editable" matInput [(ngModel)]="user.bankAccountNumber" name="bankAccountNumber">
+        <input [disabled]="!editable" matInput [(ngModel)]="user.bankAccountNumber" name="bankAccountNumber" maxlength="26">
       </mat-form-field><br>
       <button *ngIf="editable" color="primary" style="min-width: 100px;" mat-raised-button
         (click)="submit()">Zapisz</button>

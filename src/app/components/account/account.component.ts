@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AbstractControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from 'src/app/dialogs/dialog-confirmation/confirmation-dialog.component';
 import { OfferState } from 'src/app/enums/offer-state';
@@ -36,11 +37,13 @@ export class AccountComponent implements OnInit {
 
   editable = false;
 
-  error = false;
-
   user: UserInfo;
 
   defaultSort: string = "creation";
+
+  isAlertDisplayed = false;
+
+  error = false;
 
   selectedProvince: Province;
 
@@ -146,6 +149,10 @@ export class AccountComponent implements OnInit {
       this.error = true;
       return;
     }
+    if(!(this.user.bankAccountNumber.length === 26 || this.user.bankAccountNumber.length === 0)) {
+      this.isAlertDisplayed = true;
+      return;
+    }
     let updatedUser = new UpdateUser();
     updatedUser.id = this.user.id;
     updatedUser.city = this.user.city;
@@ -157,5 +164,13 @@ export class AccountComponent implements OnInit {
       .subscribe((result) => {
         window.location.reload();
       })
+  }
+
+  closeAlert() {
+    this.isAlertDisplayed = false;
+  }
+
+  closeError() {
+    this.error = false;
   }
 }
