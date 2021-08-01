@@ -1,7 +1,7 @@
 import { OfferState } from "../enums/offer-state";
 import { OfferType } from "../enums/offer-type";
 import { ProductState } from "../enums/product-state";
-import { DeliveryMethodWithOffer } from "./delivery-method-with-offer";
+import { Bid } from "./bid";
 import { Image } from "./image" 
 import { User } from "./user";
 
@@ -22,4 +22,6 @@ export class Offer {
   state: OfferState;
   offerType: OfferType;
   images: Image[] = [];
+  bestBid: Bid;
+  minimalBid: number;
 }

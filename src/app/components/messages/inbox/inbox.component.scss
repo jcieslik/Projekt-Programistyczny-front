@@ -1,6 +1,20 @@
-.sender {
-  width: 25%;  
+.checkbox {
+  width: 10%;
 }
+
+.sender {
+  width: 30%;  
+}
+
 .topic {
   width: 40%; 
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.mat-row:hover {
+  background-color: #E8EAF6;
+  cursor: pointer;
 }

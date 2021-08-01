@@ -10,7 +10,6 @@ import { MessagesComponent } from './components/messages/messages.component';
 import { RegisterComponent } from './components/register/register.component';
 import { AuthGuard } from './services/authentication/auth.guard';
 import { OfferComponent } from './components/offer/offer.component';
-import { YourOffersComponent } from './components/your-offers/your-offers.component';
 import { UserOffersComponent } from './components/user-offers/user-offers.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
@@ -69,12 +68,6 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'userOffers/:id', component: UserOffersComponent },
   { path: 'userProfile/:id', component: UserProfileComponent },
-  {
-    path: 'yourOffers', component: YourOffersComponent, canActivate: [AuthGuard],
-    data: {
-      userRoles: [UserRole.Customer]
-    }
-  },
   { path: 'offer/:id', component: OfferComponent },
   {
     path: 'checkout', component: CheckoutComponent, canActivate: [AuthGuard],

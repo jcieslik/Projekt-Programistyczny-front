@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { User } from 'src/app/models/user';
 
 @Component({
   selector: 'app-no-permission',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NoPermissionComponent implements OnInit {
 
-  constructor() { }
+  user: User = JSON.parse(localStorage.getItem('user'));
+
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
+    if (!this.user) {
+      this.router.navigateByUrl('/login')
+    }
   }
 
 }

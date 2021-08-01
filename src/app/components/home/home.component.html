@@ -1,7 +1,11 @@
-<div *ngIf="model">
-  <app-filterbar (pageChange)="getSearchModel($event)"> </app-filterbar>
-</div>
+<div class="main-card">
+  <div class="row">
+    <div *ngIf="model" style="width: 25%">
+      <app-filterbar (pageChange)="getSearchModel($event)"> </app-filterbar>
+    </div>
 
-<div *ngIf="offers">
-  <app-offers [offers]="offers.items" [totalSize]="offers.totalCount" (pageChange)="getData($event)"></app-offers>
+    <div *ngIf="offers" style="width: 50%">
+      <app-offers [offers]="offers.items" [totalSize]="offers.totalCount" (pageChange)="getData($event)"></app-offers>
+    </div>
+  </div>
 </div>

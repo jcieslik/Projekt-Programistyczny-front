@@ -1,5 +1,8 @@
+import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { MailboxType } from 'src/app/enums/mailbox-type';
+import { CreateMessage } from 'src/app/models/create-message';
 
 @Component({
   selector: 'app-messages',
@@ -13,10 +16,22 @@ export class MessagesComponent implements OnInit {
   currentMailbox = MailboxType.Inbox;
 
   creatingMessage = false;
+  
+  displayedMessage: Message = null;
 
-  constructor() { }
+  displayingMessage = false;
+
+  reply: CreateMessage = null;
+
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.route.params.forEach(param => {
+      let userId = param["id"];
+      if(userId) {
+        this.creatingMessage = true;
+      }
+    });
   }
 
   getMailboxIcon(mailbox: MailboxType) {
@@ -30,7 +45,14 @@ export class MessagesComponent implements OnInit {
     }
   }
 
+  getButtonColor(mailbox: MailboxType) {
+    return this.currentMailbox === mailbox ? 'primary' : '';
+  }
+
   changeMailbox(mailbox: MailboxType) {
+    this.displayingMessage = false;
+    this.creatingMessage = false;
+    this.reply = null;
     switch(mailbox) {
       case MailboxType.Inbox:
         this.currentMailbox = MailboxType.Inbox;
@@ -48,6 +70,27 @@ export class MessagesComponent implements OnInit {
   }
 
   createMessage() {
+    this.displayingMessage = false;
+    this.creatingMessage = true;
+  }
+
+  goBackToMailbox(event: boolean) {
+    this.creatingMessage = event;
+    this.currentMailbox = MailboxType.Sent;
+  }
+
+  displayMessage(event: Message) {
+    this.displayedMessage = event;
+    this.displayingMessage = true;
+  }
+
+  stopDisplayingMessage() {
+    this.displayingMessage = false;
+  }
+
+  createReply(e: CreateMessage) {
+    this.reply = e;
+    this.displayingMessage = false;
     this.creatingMessage = true;
   }
 }

@@ -26,7 +26,10 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatBadgeModule } from '@angular/material/badge';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatChipsModule } from '@angular/material/chips';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -42,7 +45,6 @@ import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { ProductStateTranslationComponent } from './enum-translations/product-state-translation/product-state-translation.component';
 import { OrderStatusTranslationComponent } from './enum-translations/order-status-translation/order-status-translation.component';
 import { OffersComponent } from './components/offers/offers.component';
-import { YourOffersComponent } from './components/your-offers/your-offers.component';
 import { UserOffersComponent } from './components/user-offers/user-offers.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { CheckoutComponent } from './components/checkout/checkout.component';
@@ -69,6 +71,12 @@ import { CreateMessageComponent } from './components/messages/create-message/cre
 import { SentComponent } from './components/messages/sent/sent.component';
 import { TrashComponent } from './components/messages/trash/trash.component';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
+import { MailboxToolbarComponent } from './components/messages/mailbox-toolbar/mailbox-toolbar.component';
+import { DisplayMessageComponent } from './components/messages/display-message/display-message.component';
+import { ErrorInterceptor } from './helpers/error.interceptor';
+import { OfferTypeTranslationComponent } from './enum-translations/offer-type-translation/offer-type-translation.component';
+import { CreateCommentDialogComponent } from './dialogs/create-comment/create-comment-dialog.component';
+import { CreateBidComponent } from './dialogs/create-bid/create-bid.component';
 
 registerLocaleData(localePl);
 
@@ -90,7 +98,6 @@ registerLocaleData(localePl);
     OrderStatusTranslationComponent,
     MailboxTypeTranslationComponent,
     OffersComponent,
-    YourOffersComponent,
     UserOffersComponent,
     CheckoutComponent,
     FilterbarComponent,
@@ -104,7 +111,12 @@ registerLocaleData(localePl);
     InboxComponent,
     CreateMessageComponent,
     SentComponent,
-    TrashComponent
+    TrashComponent,
+    MailboxToolbarComponent,
+    DisplayMessageComponent,
+    OfferTypeTranslationComponent,
+    CreateCommentDialogComponent,
+    CreateBidComponent
   ],
   imports: [
     BrowserModule,
@@ -124,7 +136,10 @@ registerLocaleData(localePl);
     MatButtonToggleModule,
     MatInputModule,
     MatCardModule,
+    MatTooltipModule,
     MatTabsModule,
+    MatChipsModule,
+    MatBadgeModule,
     MatSelectModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
@@ -156,6 +171,11 @@ registerLocaleData(localePl);
     {
       provide: HTTP_INTERCEPTORS,
       useClass: SpinnerInterceptor,
+      multi: true,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
       multi: true,
     },
     { provide: LOCALE_ID, useValue: "pl" }

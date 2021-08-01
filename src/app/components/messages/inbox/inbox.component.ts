@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MailboxType } from 'src/app/enums/mailbox-type';
 import { PaginationProperties } from 'src/app/enums/pagination-properties';
+import { Message } from 'src/app/models/message';
 import { PaginatedMessages } from 'src/app/models/paginatedMessages';
 import { MessagesService } from 'src/app/services/message/messages.service';
 
@@ -10,14 +11,22 @@ import { MessagesService } from 'src/app/services/message/messages.service';
   styleUrls: ['./inbox.component.scss']
 })
 export class InboxComponent implements OnInit {
+  @Output()
+  displayingMessage: EventEmitter<Message> = new EventEmitter<Message>();
 
-  displayedColumns: string[] = ['sender', 'topic', 'sendDate'];
+  mailboxType = MailboxType.Inbox;
+
+  isAllCheckboxChecked = false;
+
+  displayedColumns: string[] = ['checkbox', 'sender', 'topic', 'sendDate'];
 
   defaultSort: string = "creation";
 
   model: PaginationProperties = new PaginationProperties();
   paginationMessages: PaginationProperties = new PaginationProperties();
   messagesPaginated: PaginatedMessages;
+
+  searchText = '';
   
   constructor(private messagesService: MessagesService) { }
 
@@ -40,15 +49,50 @@ export class InboxComponent implements OnInit {
   public handlePageMessages(e: any) {
     this.model.pageIndex = e.pageIndex + 1;
     this.model.pageSize = e.pageSize;
+    this.isAllCheckboxChecked = false;
 
     this.getMessages();
   }
 
   getMessages() {
-    this.messagesService.getMessagesByMailbox(MailboxType.Inbox, this.model)
+    this.messagesService.getMessagesByMailbox(MailboxType.Inbox, this.model, this.searchText)
       .subscribe((result) => {
         this.messagesPaginated = result;
       });
+  }
+
+  displayMessage(message: Message) {
+    this.displayingMessage.emit(message);
+  }
+
+  onAllSelected(event: any) {
+    if(event.checked === true) {
+      this.messagesPaginated.items.forEach(element => {
+        element.isSelected = true;
+      })
+    } else {
+      this.messagesPaginated.items.forEach(element => {
+        element.isSelected = false;
+      })
+    }
+  }
+
+  onOneSelected() {
+    this.isAllCheckboxChecked = false;
+  }
+
+  updateMessages(e: boolean) {
+    if(e) {
+      this.model.pageIndex = 1;
+      this.isAllCheckboxChecked = false;
+  
+      this.getMessages();
+    }
+  }
+
+  search(e: string) {
+    this.searchText = e;
+    this.getMessages();
   }
 
 }

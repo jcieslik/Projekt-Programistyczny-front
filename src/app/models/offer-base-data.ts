@@ -12,4 +12,5 @@ export class OfferWithBaseData {
   productState: ProductState;
   image: Image;
   bestBid: Bid;
+  minimalBid: number;
 }

@@ -5,7 +5,8 @@
         <button color="primary" class="new-message-button" mat-raised-button (click)="createMessage()">
           Nowa wiadomość
         </button>
-        <button *ngFor="let mailbox of mailboxTypes" class="mailbox-button" mat-raised-button (click)="changeMailbox(mailbox)">
+        <button [color]="getButtonColor(mailbox)" *ngFor="let mailbox of mailboxTypes" class="mailbox-button"
+          mat-raised-button (click)="changeMailbox(mailbox)">
           <mat-icon [ngClass]="getMailboxIcon(mailbox)" aria-hidden="true" style="margin-right: 4px;"></mat-icon>
           <mailbox-type-i18n [key]="mailbox"></mailbox-type-i18n>
         </button>
@@ -13,14 +14,15 @@
     </div>
     <div style="width: 75%;">
       <mat-card class="mailbox-card">
-        <div *ngIf="!creatingMessage; else newMessage" [ngSwitch]="currentMailbox">
-          <app-inbox *ngSwitchCase='0'></app-inbox>
-          <app-sent *ngSwitchCase='1'></app-sent>
-          <app-trash *ngSwitchCase='2'></app-trash>
+        <app-display-message *ngIf="displayingMessage" [message]="displayedMessage"
+          (displayingMessage)="stopDisplayingMessage()" (reply)="createReply($event)"></app-display-message>
+        <div *ngIf="!creatingMessage && !displayingMessage" [ngSwitch]="currentMailbox">
+          <app-inbox *ngSwitchCase='0' (displayingMessage)="displayMessage($event)"></app-inbox>
+          <app-sent *ngSwitchCase='1' (displayingMessage)="displayMessage($event)"></app-sent>
+          <app-trash *ngSwitchCase='2' (displayingMessage)="displayMessage($event)"></app-trash>
         </div>
-        <ng-template #newMessage>
-          <app-create-message></app-create-message>
-        </ng-template>
+        <app-create-message *ngIf="creatingMessage" [reply]="reply" (creatingMessage)="goBackToMailbox($event)">
+        </app-create-message>
       </mat-card>
     </div>
   </div>

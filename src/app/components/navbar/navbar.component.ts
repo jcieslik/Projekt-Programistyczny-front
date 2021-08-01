@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from 'src/app/models/user';
+import { MessagesService } from 'src/app/services/message/messages.service';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
 
 @Component({
@@ -11,14 +12,19 @@ import { AuthenticationService } from '../../services/authentication/authenticat
 export class NavbarComponent implements OnInit {
  
   expanded: boolean = false;
+
   searchText: string;
 
   user: User = JSON.parse(localStorage.getItem('user'));
 
-  constructor(private authenticationService: AuthenticationService, private router: Router) { }
+  messagesNumber: number = 0;
+
+  constructor(private authenticationService: AuthenticationService, private router: Router, private messagesService: MessagesService) { }
 
   ngOnInit(): void {
-    
+    this.messagesService.numberOfUnreadMessages.subscribe((result) => {
+      this.messagesNumber = result;
+    })
   }
 
   expandMenu(){
@@ -46,5 +52,9 @@ export class NavbarComponent implements OnInit {
     this.router.navigateByUrl('/search').then(() => {
       this.router.navigate(['/home']);
     });
+  }
+
+  getBadgeText() {
+    return this.messagesNumber < 1 ? '' : this.messagesNumber;
   }
 }

@@ -1,26 +1,28 @@
 <mat-toolbar color="primary">
-  <a mat-button [routerLink]="'./home'" (click)="gotoHome()"><h1>Serwis aukcyjny</h1></a>
+  <a mat-button [routerLink]="'./home'" (click)="gotoHome()">
+    <h1>Serwis aukcyjny</h1>
+  </a>
   <div class="spacer"></div>
   <mat-form-field class="spacer" floatLabel="never">
     <input matInput type="text" [(ngModel)]="searchText" (keydown.enter)="find()" [placeholder]="'Czego szukasz?'">
-    <mat-icon matSuffix class="fa fa-search" aria-hidden="true" (click)="find()" ></mat-icon>
+    <mat-icon matSuffix class="fa fa-search" aria-hidden="true" (click)="find()"></mat-icon>
   </mat-form-field>
   <div class="spacer"></div>
-  <a mat-button [routerLink]="'./yourOffers'">Twoje oferty</a>
   <a mat-button [routerLink]="'./account'">Twoje konto</a>
-  <a mat-button [routerLink]="'./messages'">Wiadomości</a>
+  <a mat-button [routerLink]="'./messages'" [matBadge]="getBadgeText()"
+    matBadgeColor="accent">Wiadomości</a>
   <a mat-button [routerLink]="'./favorites'">Ulubione</a>
   <a mat-button [routerLink]="'./createOffer'">Dodaj ofertę</a>
   <a mat-button [routerLink]="'./cart'">Koszyk</a>
 
   <div *ngIf="!isLoggedIn(); else else_block">
-  <button mat-icon-button>
-    <mat-icon [routerLink]="'./login'" class="fas fa-sign-in-alt"></mat-icon>
-  </button>
-</div>
-<ng-template #else_block>
-  <button mat-icon-button (click)="logout()">
-    <mat-icon class="fas fa-sign-out-alt"></mat-icon>
-  </button>
-</ng-template>
+    <button mat-icon-button>
+      <mat-icon [routerLink]="'./login'" class="fas fa-sign-in-alt"></mat-icon>
+    </button>
+  </div>
+  <ng-template #else_block>
+    <button mat-icon-button (click)="logout()">
+      <mat-icon class="fas fa-sign-out-alt"></mat-icon>
+    </button>
+  </ng-template>
 </mat-toolbar>

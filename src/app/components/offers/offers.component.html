@@ -1,12 +1,19 @@
 <div *ngIf="offers.length > 0; else noOffers">
   <mat-card *ngFor="let offer of offers" [routerLink]="['/offer/'+offer.id]">
-    <div class="container">
-      <img [src]="offer.image.imageData" class="image">
-    </div>
-    <div class="offer-information">
-      <h1>{{offer.title}}</h1>
-      <h4>Stan: <product-state-i18n [key]="offer.productState"></product-state-i18n></h4>
-      <h2>Cena za sztukę: {{offer.priceForOneProduct | currency:'':''}} zł</h2>
+    <div style="display: flex">
+      <div class="container">
+        <img [src]="offer.image.imageData" class="image">
+      </div>
+      <div class="offer-information">
+        <h1>{{offer.title}}</h1>
+        <h4>Stan: <product-state-i18n [key]="offer.productState"></product-state-i18n>
+        </h4>
+        <h3><offer-type-i18n [key]="offer.offerType"></offer-type-i18n>
+        </h3>
+        <h2><span *ngIf="offer.offerType === 0">Cena za sztukę: {{offer.priceForOneProduct | currency:'':''}} zł</span>
+          <span *ngIf="offer.offerType === 1 && offer.bestBid">Obecna stawka: {{offer.bestBid.value | currency:'':''}} zł</span>
+          <span *ngIf="offer.offerType === 1 && !offer.bestBid">Cena wywoławcza: {{offer.minimalBid | currency:'':''}} zł</span></h2>
+      </div>
     </div>
   </mat-card>
 </div>
@@ -17,6 +24,6 @@
 </ng-template>
 <div class="paginator" *ngIf="offers.length > 0">
   <mat-paginator #paginator [pageSize]="pagination.pageSize" [pageSizeOptions]="[5, 10, 20, 50]" [length]="totalSize"
-      [pageIndex]="pagination.pageIndex" (page)="pageEvent = handlePage($event)">
+    [pageIndex]="pagination.pageIndex" (page)="pageEvent = handlePage($event)">
   </mat-paginator>
 </div>
