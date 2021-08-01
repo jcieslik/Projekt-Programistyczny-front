@@ -45,7 +45,6 @@ import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { ProductStateTranslationComponent } from './enum-translations/product-state-translation/product-state-translation.component';
 import { OrderStatusTranslationComponent } from './enum-translations/order-status-translation/order-status-translation.component';
 import { OffersComponent } from './components/offers/offers.component';
-import { YourOffersComponent } from './components/your-offers/your-offers.component';
 import { UserOffersComponent } from './components/user-offers/user-offers.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { CheckoutComponent } from './components/checkout/checkout.component';
@@ -91,7 +90,6 @@ registerLocaleData(localePl);
     OrderStatusTranslationComponent,
     MailboxTypeTranslationComponent,
     OffersComponent,
-    YourOffersComponent,
     UserOffersComponent,
     CheckoutComponent,
     FilterbarComponent,

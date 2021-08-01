@@ -22,4 +22,5 @@ export class CreateOffer {
   offerType: OfferType;
   images: Image[] = [];
   deliveryMethods: DeliveryMethodWithOffer[] = [];
+  minimalBid: number;
 }

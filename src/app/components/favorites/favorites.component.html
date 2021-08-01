@@ -24,7 +24,6 @@
     <mat-icon matSuffix class="fa fa-search" aria-hidden="true" (click)="applyFilters()"></mat-icon>
   </mat-form-field>
 </mat-card>
-
-<div *ngIf="offers">
+<div *ngIf="offers" style="width: 60%; margin: 0 auto; min-width: 500px;">
   <app-offers [offers]="offers.items" [totalSize]="offers.totalCount" (pageChange)="getData($event)"></app-offers>
 </div>

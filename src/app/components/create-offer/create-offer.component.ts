@@ -11,6 +11,8 @@ import { DeliveryMethodWithOffer } from 'src/app/models/delivery-method-with-off
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogCategoryComponent } from 'src/app/dialogs/dialog-category/dialog-category.component';
+import { OfferType } from 'src/app/enums/offer-type';
+import { ProductState } from 'src/app/enums/product-state';
 
 @Component({
   selector: 'app-create-offer',
@@ -39,6 +41,10 @@ export class CreateOfferComponent implements OnInit {
 
   chosenCategories: Category[] = [];
 
+  auctionTypes = [OfferType.BuyNow, OfferType.Auction]
+
+  productStates = [ProductState.New, ProductState.VeryGood, ProductState.Used]
+
   form: FormGroup = this.fb.group({
     title: ['', [Validators.required]],
     description: ['', [Validators.required]],
@@ -49,7 +55,10 @@ export class CreateOfferComponent implements OnInit {
     selectedCity: ['', [Validators.required]],
     selectedBrand: ['', [Validators.required]],
     startDate: ['', [Validators.required]],
-    endDate: ['', [Validators.required]]
+    endDate: ['', [Validators.required]],
+    selectedType: [OfferType.BuyNow],
+    selectedState: [ProductState.New, [Validators.required]],
+    minimalBid: ['', [Validators.required]]
   });
 
   get f() { return this.form.controls; }
@@ -72,6 +81,7 @@ export class CreateOfferComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.f.minimalBid.disable();
     this.today = this.roundMinutes(this.today)
     let startDate = new Date(this.today);
     let endDate = new Date(this.today);
@@ -128,14 +138,22 @@ export class CreateOfferComponent implements OnInit {
       return;
     }
 
+    if(this.f.selectedType.value === OfferType.BuyNow) {
+      this.offer.productCount = this.f.productCount.value;
+      this.offer.priceForOneProduct = this.f.priceForOneProduct.value;
+    } else {
+      this.offer.productCount = 1;
+      this.offer.priceForOneProduct = 0;
+      this.offer.minimalBid = this.f.minimalBid.value;
+    }
+
     this.offer.title = this.f.title.value;
     this.offer.description = this.f.description.value;
-    this.offer.productCount = this.f.productCount.value;
-    this.offer.priceForOneProduct = this.f.priceForOneProduct.value;
     this.offer.startDate = this.f.startDate.value;
     this.offer.endDate = this.f.endDate.value;
     this.offer.brand = this.f.selectedBrand.value;
     this.offer.city = this.f.selectedCity.value;
+    this.offer.offerType = this.f.selectedType.value;
     this.offer.provinceId = (this.province.value as Province).id;
     this.offer.categoryId = (this.category.value as Category).id;
     this.offer.images[0].isMainProductImage = true;
@@ -178,5 +196,17 @@ export class CreateOfferComponent implements OnInit {
     let date = new Date(this.today)
     date.setDate(this.f.startDate.value.getDate() + 1)
     return date;
+  }
+
+  changeAuctionType(type: any) {
+    if(type.value === OfferType.BuyNow) {
+      this.f.minimalBid.disable()
+      this.f.priceForOneProduct.enable()
+      this.f.productCount.enable();
+    } else {
+      this.f.minimalBid.enable()
+      this.f.priceForOneProduct.disable()
+      this.f.productCount.disable();
+    }
   }
 }
