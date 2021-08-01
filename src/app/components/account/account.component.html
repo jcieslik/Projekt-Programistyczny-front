@@ -5,11 +5,34 @@
   <mat-tab-group>
     <mat-tab label="Twoje dane">
       <br>
-      <h3>Województwo: {{user.province || '-'}}</h3>
-      <h3>Miejscowość: {{user.city || '-'}}</h3>
-      <h3>Kod pocztowy: {{user.zipCode || '-'}}</h3>
-      <h3>Ulica: {{user.street || '-'}}</h3>
-      <h3>Numer konta bankowego: {{user.bankAccountNumber || '-'}}</h3>
+      <button color="primary" style="float: right; min-width: 100px;" mat-raised-button
+        (click)="editUserData()">Edytuj</button>
+      <mat-form-field appearance="outline">
+        <mat-label>Województwo</mat-label>
+        <mat-select [disabled]="!editable" [(ngModel)]="selectedProvince" name="province" [(value)]="selectedProvince" ngDefaultControl>
+          <mat-option *ngFor="let province of provinces" [value]="province">
+            {{province.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Miejscowość</mat-label>
+        <input [disabled]="!editable" matInput [(ngModel)]="user.city" name="city">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Kod pocztowy</mat-label>
+        <input [disabled]="!editable" matInput [(ngModel)]="user.postCode" name="postCode">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Ulica</mat-label>
+        <input [disabled]="!editable" matInput [(ngModel)]="user.street" name="street">
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Numer konta bankowego</mat-label>
+        <input [disabled]="!editable" matInput [(ngModel)]="user.bankAccountNumber" name="bankAccountNumber">
+      </mat-form-field><br>
+      <button *ngIf="editable" color="primary" style="min-width: 100px;" mat-raised-button
+        (click)="submit()">Zapisz</button>
     </mat-tab>
     <mat-tab label="Twoje oferty">
       <div *ngIf="offersPaginated && offersPaginated.items.length > 0; else noOffers">

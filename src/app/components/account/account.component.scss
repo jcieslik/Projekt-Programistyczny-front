@@ -1,6 +1,7 @@
 .main-card {
   margin: 1em auto;
   width: 60%;
+  overflow-x: hidden;
 }
 
 .paginator {
@@ -45,4 +46,8 @@ mat-card:hover {
   max-width: 150px;
   max-height: 150px;
   vertical-align: middle;
+}
+
+mat-form-field {
+  width: 60%;
 }

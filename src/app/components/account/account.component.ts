@@ -7,11 +7,14 @@ import { Offer } from 'src/app/models/offer';
 import { OfferWithBaseData } from 'src/app/models/offer-base-data';
 import { PaginatedOffers } from 'src/app/models/paginatedOffers';
 import { PaginatedOrders } from 'src/app/models/paginatedOrders';
+import { Province } from 'src/app/models/province';
 import { SearchModel } from 'src/app/models/searchModel';
+import { UpdateUser } from 'src/app/models/updateUser';
 import { User } from 'src/app/models/user';
 import { UserInfo } from 'src/app/models/user-info';
 import { OfferService } from 'src/app/services/offer/offer.service';
 import { OrderService } from 'src/app/services/order/order.service';
+import { ProvinceService } from 'src/app/services/province/province.service';
 import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
@@ -24,13 +27,22 @@ export class AccountComponent implements OnInit {
   constructor(private userService: UserService,
     private offerService: OfferService,
     private orderService: OrderService,
+    private provinceService: ProvinceService,
     public dialog: MatDialog) { }
 
   currentUser: User = JSON.parse(localStorage.getItem('user'));
 
+  provinces: Province[];
+
+  editable = false;
+
+  error = false;
+
   user: UserInfo;
 
   defaultSort: string = "creation";
+
+  selectedProvince: Province;
 
   offersModel: SearchModel = new SearchModel();
   paginationOffers: PaginationProperties = new PaginationProperties();
@@ -46,6 +58,13 @@ export class AccountComponent implements OnInit {
     this.userService.getUserInfo(this.currentUser.id)
       .subscribe((result) => {
         this.user = result;
+        this.provinceService.getProvinces()
+          .subscribe((result) => {
+            this.provinces = result;
+            this.selectedProvince = result.filter(elem => {
+              return elem.id === this.user.province.id;
+            })[0]
+          })
       })
 
     this.getOffers();
@@ -116,5 +135,27 @@ export class AccountComponent implements OnInit {
           })
       }
     });
+  }
+
+  editUserData() {
+    this.editable = !this.editable;
+  }
+
+  submit() {
+    if (!this.user.city || !this.user.postCode || !this.user.street) {
+      this.error = true;
+      return;
+    }
+    let updatedUser = new UpdateUser();
+    updatedUser.id = this.user.id;
+    updatedUser.city = this.user.city;
+    updatedUser.postCode = this.user.postCode;
+    updatedUser.bankAccountNumber = this.user.bankAccountNumber;
+    updatedUser.street = this.user.street;
+    updatedUser.provinceId = this.selectedProvince.id;
+    this.userService.updateUser(updatedUser)
+      .subscribe((result) => {
+        window.location.reload();
+      })
   }
 }
