@@ -10,11 +10,11 @@ export class ConfirmationDialogComponent {
 
   constructor(public dialogRef: MatDialogRef<ConfirmationDialogComponent>) { }
 
-    onNoClick(): void {
-      this.dialogRef.close(false);
-    }
+  onNoClick(): void {
+    this.dialogRef.close(false);
+  }
 
-    submit() {
-      this.dialogRef.close(true);
-    }
+  submit() {
+    this.dialogRef.close(true);
+  }
 }

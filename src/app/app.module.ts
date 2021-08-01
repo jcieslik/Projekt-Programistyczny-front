@@ -69,6 +69,9 @@ import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { MailboxToolbarComponent } from './components/messages/mailbox-toolbar/mailbox-toolbar.component';
 import { DisplayMessageComponent } from './components/messages/display-message/display-message.component';
 import { ErrorInterceptor } from './helpers/error.interceptor';
+import { OfferTypeTranslationComponent } from './enum-translations/offer-type-translation/offer-type-translation.component';
+import { CreateCommentDialogComponent } from './dialogs/create-comment/create-comment-dialog.component';
+import { CreateBidComponent } from './dialogs/create-bid/create-bid.component';
 
 registerLocaleData(localePl);
 
@@ -105,7 +108,10 @@ registerLocaleData(localePl);
     SentComponent,
     TrashComponent,
     MailboxToolbarComponent,
-    DisplayMessageComponent
+    DisplayMessageComponent,
+    OfferTypeTranslationComponent,
+    CreateCommentDialogComponent,
+    CreateBidComponent
   ],
   imports: [
     BrowserModule,

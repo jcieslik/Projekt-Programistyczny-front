@@ -2,9 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryImageSize, NgxGalleryOptions } from '@kolkov/ngx-gallery';
+import { CreateBidComponent } from 'src/app/dialogs/create-bid/create-bid.component';
+import { OfferType } from 'src/app/enums/offer-type';
+import { Bid } from 'src/app/models/bid';
 import { Offer } from 'src/app/models/offer';
 import { User } from 'src/app/models/user';
 import { Wish } from 'src/app/models/wish';
+import { BidService } from 'src/app/services/bid/bid.service';
 import { OfferService } from 'src/app/services/offer/offer.service';
 import { WishService } from 'src/app/services/wish/wish.service';
 
@@ -29,7 +33,9 @@ export class OfferComponent implements OnInit {
 
   constructor(private offerService: OfferService,
     private route: ActivatedRoute,
-    private wishService: WishService) { }
+    private wishService: WishService,
+    private bidService: BidService,
+    public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.offerId = +this.route.snapshot.paramMap.get('id')
@@ -74,11 +80,21 @@ export class OfferComponent implements OnInit {
   }
 
   checkIfCanBuy(): boolean {
-    return this.offer.seller.id === this.user.id;
+    if (this.user) {
+      if (this.offer.offerType === OfferType.BuyNow) {
+        return this.offer.seller.id === this.user.id;
+      } else if (this.offer.offerType === OfferType.Auction && this.offer.bestBid) {
+        return this.offer.seller.id === this.user.id || this.offer.bestBid.bidderId === this.user.id;
+      }
+    }
+    return true;
   }
 
   getRouterLink(): string {
-    return this.offer.seller.id === this.user.id ? '/account/' : '/userProfile/' + this.offer.seller.id;
+    if (this.user) {
+      return this.offer.seller.id === this.user.id ? '/account/' : '/userProfile/' + this.offer.seller.id;
+    }
+    return '/userProfile/' + this.offer.seller.id;
   }
 
   makeFavorite() {
@@ -100,5 +116,26 @@ export class OfferComponent implements OnInit {
 
   getColor() {
     return this.isFavorite ? 'gold' : '';
+  }
+
+  makeBid() {
+    const dialogRef = this.dialog.open(CreateBidComponent, {
+      width: '300px',
+      height: '200px',
+      data: this.offer.bestBid ? this.offer.bestBid.value : this.offer.minimalBid
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        let bid = new Bid();
+        bid.value = result;
+        bid.offerId = this.offerId;
+        bid.bidderId = this.user.id;
+        this.bidService.createBid(bid)
+          .subscribe((result) => {
+            window.location.reload();
+          });
+      }
+    });
   }
 }

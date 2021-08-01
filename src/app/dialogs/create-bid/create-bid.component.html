@@ -1,0 +1,13 @@
+<form [formGroup]="form">
+  <h1 mat-dialog-title>Podaj kwotę</h1>
+  <div mat-dialog-content>
+    <mat-form-field style="width: 100%;">
+      <input matInput formControlName="bid" type="number" name="bid" placeholder="Kwota" [min]="minimumBid">
+      <mat-error *ngIf="f.bid.invalid">Wprowadź kwotę</mat-error>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-raised-button color="warn" (click)="submit('close')">Anuluj</button>
+    <button mat-raised-button (click)="submit('submit')">Zatwierdź</button>
+  </div>
+</form>
