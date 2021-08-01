@@ -23,7 +23,7 @@ export class SummarizeOrderService {
     if (this.offers) {
 
       //this.offers.forEach(val => clonedOffers.push(Object.assign({}, val)))
-      this.offers.subscribe(val => val.forEach(e => clonedOffers.push(Object.assign({}, e))));
+      this.offers.getValue().forEach(e => clonedOffers.push(Object.assign({}, e)));
       return of(clonedOffers);
         
     }

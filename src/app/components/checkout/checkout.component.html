@@ -1,16 +1,19 @@
-<mat-card>
+<mat-card style="width: 60vw;">
   <mat-stepper orientation="vertical" [linear]="true" #stepper *ngIf="offerWithDeliveryMethods">
     <mat-step>
       <div *ngFor="let offer of offerWithDeliveryMethods | keyvalue">
-        <div *ngFor="let method of offer.value">
-        </div>
-        <ng-container [ngTemplateOutlet]="card"
-          [ngTemplateOutletContext]="{offer: offer.key, deliveryMethods: offer.value}">
-        </ng-container>
+        <mat-expansion-panel>
+          <mat-expansion-panel-header>
+            {{offer.key.title}}
+          </mat-expansion-panel-header>
+          <ng-container [ngTemplateOutlet]="card"
+            [ngTemplateOutletContext]="{offer: offer.key, deliveryMethods: offer.value}">
+          </ng-container>
+        </mat-expansion-panel>
       </div>
       <button mat-raised-button color="primary" matStepperNext style="margin: 10px 0px 10px 0px;">Dalej</button>
     </mat-step>
-    <mat-step [stepControl]="stripeTest">
+    <mat-step [stepControl]="allSelected()">
       <form novalidate [formGroup]="stripeTest">
         <ng-template matStepLabel>Wypełnij informacje o karcie</ng-template>
         <mat-form-field appearance="outline" class="fill-container">
@@ -32,18 +35,20 @@
 
 
 <ng-template #card let-offer='offer' let-deliveryMethods='deliveryMethods'>
-    <h2>{{offer.title}}</h2>
-    <b> 
-      Ilość produktów: {{offer.productsCount}}
-      <br>
-      Cena zamówienia: {{offer.priceForOneProduct * offer.productsCount}}
-    </b>
+  <h2>{{offer.title}}</h2>
+  <b>
+    Ilość produktów: {{offer.productsCount}}
     <br>
+    Cena zamówienia: {{offer.priceForOneProduct * offer.productsCount}}
+  </b>
+  <br>
   <ng-template matStepLabel>Wybierz sposób dostawy</ng-template>
   <mat-radio-group>
-    <mat-radio-button *ngFor="let deliveryMethod of deliveryMethods" [value]="deliveryMethod">
+    <mat-radio-button class="col-md-6" *ngFor="let deliveryMethod of deliveryMethods" [value]="deliveryMethod" (change)="printOffer(offer, deliveryMethod)">
       {{deliveryMethod.deliveryMethodName}} - {{deliveryMethod.deliveryFullPrice}}zł
     </mat-radio-button>
+    Wybrane : {{offer.selectedDeliveryMethod}}
   </mat-radio-group><br>
+
 
 </ng-template>

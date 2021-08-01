@@ -17,8 +17,6 @@ import { User } from 'src/app/models/user';
 import { OrderStatus } from 'src/app/enums/order-status';
 import { CartOfferDTO } from 'src/app/models/cart-offer';
 import { SummarizeOrderService } from 'src/app/services/summarize-order/summarize-order.service';
-import { throwToolbarMixedModesError } from '@angular/material/toolbar';
-import { KeyValuePipe } from '@angular/common';
 
 @Component({
   selector: 'app-checkout',
@@ -28,11 +26,7 @@ import { KeyValuePipe } from '@angular/common';
 export class CheckoutComponent implements OnInit {
   @ViewChild(StripeCardComponent) card: StripeCardComponent;
 
-  //offerId: number;
-
   offers: CartOfferDTO[] = [];
-
-  //deliveryMethods: DeliveryMethodWithOffer[] = [];
 
   offerWithDeliveryMethods: Map<CartOfferDTO, DeliveryMethodWithOffer[]> = new Map<CartOfferDTO, DeliveryMethodWithOffer[]>()
 
@@ -65,18 +59,7 @@ export class CheckoutComponent implements OnInit {
     private router: Router,
     private orderService: OrderService,
     private summarizeOrderService: SummarizeOrderService,
-    private cdRef: ChangeDetectorRef) {}
-
-  ngOnInit(): void {
-     
-    this.summarizeOrderService.getOrderOffers().subscribe(d=> {
-      this.offers = d;
-      this.getDeliveryMethods();
-    });
-    //this.getDeliveryMethods();
-
-    //this.offerId = +this.route.snapshot.paramMap.get('id')
-
+    private cdRef: ChangeDetectorRef) {
     this.stripeTest = this.fb.group({
       name: ['', [Validators.required]]
     });
@@ -85,31 +68,35 @@ export class CheckoutComponent implements OnInit {
     });
   }
 
+  ngOnInit(): void {
+    this.summarizeOrderService.getOrderOffers().subscribe(d => {
+      this.offers = d;
+      this.getDeliveryMethods();
+    });
+  }
+
   private getDeliveryMethods(): void {
     this.offerWithDeliveryMethods.clear();
 
     this.offers.forEach(d => {
       this.deliveryMethodService.getDeliveryMethodsFromOffer(d.offerId)
-      .subscribe((result) => {
-        this.offerWithDeliveryMethods.set(d, result);
-        this.printCollections();
-        //this.deliveryMethods = result;
-     // this.f.option.setValue(this.deliveryMethods[0])
+        .subscribe((result) => {
+          this.offerWithDeliveryMethods.set(d, result);
+        });
+      this.cdRef.detectChanges();
     });
-    this.cdRef.detectChanges();
-  });
-  }
-
-  public printCollections(): void {
-    for(let [key, value] of this.offerWithDeliveryMethods){
-      console.log(key.title);
-      value.forEach(e => console.log(e.deliveryMethodName + " " + e.deliveryFullPrice));
-      console.log(" ");
-    }
   }
 
   get f() { return this.deliveryMethodForm.controls; }
 
+  allSelected(): boolean {
+    if(this.offers.find(e => e.selectedDeliveryMethod === undefined)){
+      console.log("nah")
+      return false;
+    }
+    console.log("yas")
+    return true;
+  }
   createOrder(offerId: number): void {
     let order = new Order();
     order.offerId = offerId;
@@ -141,5 +128,10 @@ export class CheckoutComponent implements OnInit {
             }
           });
       });
+  }
+
+  printOffer(offer: CartOfferDTO, deliveryMethod: DeliveryMethodWithOffer){
+    offer.selectedDeliveryMethod = deliveryMethod;
+    console.log(offer.selectedDeliveryMethod.deliveryMethodName)
   }
 }

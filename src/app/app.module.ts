@@ -150,7 +150,7 @@ registerLocaleData(localePl);
     MatDividerModule,
     NgbModule,
     NgxEditorModule,
-    NgxMatSelectSearchModule
+    NgxMatSelectSearchModule,
   ],
   providers: [
     {
