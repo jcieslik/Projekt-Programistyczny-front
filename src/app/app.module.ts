@@ -78,6 +78,7 @@ import { OfferTypeTranslationComponent } from './enum-translations/offer-type-tr
 import { CreateCommentDialogComponent } from './dialogs/create-comment/create-comment-dialog.component';
 import { CreateBidComponent } from './dialogs/create-bid/create-bid.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { AngularInpostGeowidgetModule } from 'angular-inpost-geowidget';
 
 registerLocaleData(localePl);
 
@@ -126,6 +127,7 @@ registerLocaleData(localePl);
     HttpClientModule,
     FontAwesomeModule,
     CheckboxModule,
+    AngularInpostGeowidgetModule,
     WavesModule,
     ButtonsModule,
     InputsModule,

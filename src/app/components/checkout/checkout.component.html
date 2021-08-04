@@ -1,6 +1,6 @@
 <mat-card style="width: 60vw;">
   <mat-stepper orientation="vertical" [linear]="true" #stepper *ngIf="offerWithDeliveryMethods">
-    <mat-step  [stepControl]="deliveryMethods">
+    <mat-step [stepControl]="deliveryMethods">
       <div *ngFor="let offer of offerWithDeliveryMethods | keyvalue">
         <mat-expansion-panel>
           <mat-expansion-panel-header>
@@ -11,7 +11,8 @@
           </ng-container>
         </mat-expansion-panel>
       </div>
-      <button mat-raised-button color="primary" matStepperNext style="margin: 10px 0px 10px 0px;" (click)="allSelected()">Dalej</button>
+      <button mat-raised-button color="primary" matStepperNext style="margin: 10px 0px 10px 0px;"
+        (click)="allSelected()">Dalej</button>
     </mat-step>
     <mat-step>
       <form novalidate [formGroup]="stripeTest">
@@ -33,7 +34,6 @@
   </mat-stepper>
 </mat-card>
 
-
 <ng-template #card let-offer='offer' let-deliveryMethods='deliveryMethods'>
   <h2>{{offer.title}}</h2>
   Ilość produktów: {{offer.productsCount}}
@@ -52,8 +52,14 @@
 
   </mat-radio-group>
   <br>
+
+  <lib-angular-inpost-geowidget [mapType]="mapType" [widgetType]="GeowidgetTypeEnum.MODAL" (onPointSelect)="selectPoint($event)">
+  </lib-angular-inpost-geowidget>
+  <button mat-raised-button color="primary" (click)="angularInpostGeowidgetService.openModalWidget.next()">Wybierz punkt dostawy</button>
+
   <br>
   <div *ngIf="offer.selectedDeliveryMethod">
     Wybrane : <b>{{offer.selectedDeliveryMethod.deliveryMethodName}}</b>
   </div>
+
 </ng-template>

@@ -17,6 +17,7 @@ import { User } from 'src/app/models/user';
 import { OrderStatus } from 'src/app/enums/order-status';
 import { CartOfferDTO } from 'src/app/models/cart-offer';
 import { SummarizeOrderService } from 'src/app/services/summarize-order/summarize-order.service';
+import { AngularInpostGeowidgetModule, AngularInpostGeowidgetService, GeoWidgetMapTypeEnum, GeowidgetTypeEnum } from 'angular-inpost-geowidget';
 
 @Component({
   selector: 'app-checkout',
@@ -31,6 +32,10 @@ export class CheckoutComponent implements OnInit {
   offerWithDeliveryMethods: Map<CartOfferDTO, DeliveryMethodWithOffer[]> = new Map<CartOfferDTO, DeliveryMethodWithOffer[]>()
 
   user: User = JSON.parse(localStorage.getItem('user'));
+
+  mapType: GeoWidgetMapTypeEnum = GeoWidgetMapTypeEnum.GOOGLE_MAPS;
+
+  public GeowidgetTypeEnum = GeowidgetTypeEnum;
 
   cardOptions: StripeCardElementOptions = {
     style: {
@@ -59,6 +64,7 @@ export class CheckoutComponent implements OnInit {
     private router: Router,
     private orderService: OrderService,
     private summarizeOrderService: SummarizeOrderService,
+    public angularInpostGeowidgetService: AngularInpostGeowidgetService,
     private cdRef: ChangeDetectorRef) {
     this.stripeTest = this.fb.group({
       name: ['', [Validators.required]]
@@ -142,5 +148,9 @@ export class CheckoutComponent implements OnInit {
     offer.selectedDeliveryMethod = deliveryMethod;
     console.log(offer.selectedDeliveryMethod.deliveryMethodName)
     this.allSelected();
+  }
+
+  selectPoint(event){
+    console.log(event);
   }
 }

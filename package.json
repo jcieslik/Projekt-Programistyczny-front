@@ -32,6 +32,7 @@
     "@ng-bootstrap/ng-bootstrap": "^10.0.0",
     "@stripe/stripe-js": "^1.15.1",
     "angular-bootstrap-md": "^11.1.0",
+    "angular-inpost-geowidget": "^11.0.2",
     "bootstrap": "^5.0.2",
     "mdb-angular-ui-kit": "^1.0.0-beta7",
     "ng-material-datetimepicker": "^1.19.7",
@@ -41,6 +42,7 @@
     "ngx-stripe": "^12.2.1",
     "rxjs": "~6.6.0",
     "rxjs-compat": "^6.6.7",
+    "scriptjs": "^2.5.9",
     "tslib": "^2.3.0",
     "zone.js": "~0.11.4"
   },
