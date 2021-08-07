@@ -1,6 +1,6 @@
 export class OfferDeliveryDTO {
-  public id: number;
-  public offerId: number;
-  public deliveryFullPrice: number;
-  public deliveryMethodName: string;
+  id: number;
+  offerId: number;
+  deliveryFullPrice: number;
+  deliveryMethodName: string;
 }

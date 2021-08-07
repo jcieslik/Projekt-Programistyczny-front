@@ -20,7 +20,11 @@ export class OrderService {
     return this.http.patch<Order>(`${environment.apiUrl}/api/Order/ChangeStatus`, order, { withCredentials: true });
   }
 
-  getOrdersFromUser(pagination: PaginationProperties) {
-    return this.http.post<PaginatedOrders>(`${environment.apiUrl}/api/Order/GetOrdersFromUser`, pagination, { withCredentials: true })
+  getOrdersByCustomer(pagination: PaginationProperties) {
+    return this.http.post<PaginatedOrders>(`${environment.apiUrl}/api/Order/GetOrdersByCustomer`, pagination, { withCredentials: true })
+  }
+
+  getOrdersBySeller(pagination: PaginationProperties) {
+    return this.http.post<PaginatedOrders>(`${environment.apiUrl}/api/Order/GetOrdersBySeller`, pagination, { withCredentials: true })
   }
 }

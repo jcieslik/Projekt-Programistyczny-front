@@ -113,13 +113,13 @@
       <div style="flex: 0.5">
         <mat-checkbox [(ngModel)]="deliveryMethod.isSelected" [ngModelOptions]="{standalone: true}" name="isSelected"
           class="example-margin">
-          {{deliveryMethod.name}}
+          {{deliveryMethod.deliveryMethodName}}
         </mat-checkbox>
       </div>
       <div style="flex: 1; padding-left: 5%;">
         <mat-form-field appearance="outline">
           <mat-label>Cena przesyłki (zł)</mat-label>
-          <input type="number" [(ngModel)]="deliveryMethod.fullPrice" [ngModelOptions]="{standalone: true}"
+          <input type="number" [(ngModel)]="deliveryMethod.deliveryFullPrice" [ngModelOptions]="{standalone: true}"
             name="fullPrice{{deliveryMethod.deliveryMethodId}}" step="0.1" matInput>
         </mat-form-field>
       </div>

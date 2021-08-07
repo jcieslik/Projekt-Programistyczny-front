@@ -7,4 +7,9 @@ export class Order {
   orderStatus: OrderStatus;
   paymentDate: Date;
   ProductCount: number;
+  destinationCity: string;
+  destinationStreet: string;
+  destinationPostCode: string;
+  cartOfferId: number;
+  fullPrice: number;
 }

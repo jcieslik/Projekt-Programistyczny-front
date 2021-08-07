@@ -76,7 +76,19 @@
     </mat-tab>
     <mat-tab label="Zakupione">
       <div *ngIf="ordersPaginated && ordersPaginated.items.length > 0; else noOrders">
-        <mat-card class="offers-card"></mat-card>
+        <mat-card class="offers-card" *ngFor="let order of ordersPaginated.items" style="display: flex;">
+          <div class="container" style="flex-basis: 10%" [routerLink]="['/offer/'+order.offer.id]">
+            <img [src]="order.offer.image.imageData" class="image">
+          </div>
+          <div class="offer-information" style="flex-basis: 80%" [routerLink]="['/offer/'+order.offer.id]">
+            <h1>{{order.offer.title}}</h1>
+            <h2>Status zamówienia: <order-status-i18n [key]="order.orderStatus"></order-status-i18n></h2>
+            <h2>Cena zamówienia: {{order.fullPrice | currency:'':''}} zł</h2>
+          </div>
+          <div style="flex-basis: 10%">
+            <button *ngIf="order.orderStatus === 0" mat-raised-button color="warn" type="submit" (click)="endAuction(offer)">Zakończ aukcję</button>
+          </div>
+        </mat-card>
       </div>
       <ng-template #noOrders>
         <mat-card class="mat-offers-card" style="text-align: center;">
@@ -86,7 +98,35 @@
       <div class="paginator" *ngIf="ordersPaginated && ordersPaginated.items.length > 0">
         <mat-paginator #paginatorOrders [pageSize]="paginationOrders.pageSize" [pageSizeOptions]="[5, 10, 20, 50]"
           [length]="ordersPaginated.totalCount" [pageIndex]="paginationOrders.pageIndex"
-          (page)="pageEvent = handlePageOrder($event)">
+          (page)="pageEvent = handlePageOrders($event)">
+        </mat-paginator>
+      </div>
+    </mat-tab>
+    <mat-tab label="Sprzedane">
+      <div *ngIf="ordersSoldPaginated && ordersSoldPaginated.items.length > 0; else noOrdersSold">
+        <mat-card class="offers-card" *ngFor="let order of ordersSoldPaginated.items" style="display: flex;">
+          <div class="container" style="flex-basis: 10%" [routerLink]="['/offer/'+order.offer.id]">
+            <img [src]="order.offer.image.imageData" class="image">
+          </div>
+          <div class="offer-information" style="flex-basis: 80%" [routerLink]="['/offer/'+order.offer.id]">
+            <h1>{{order.offer.title}}</h1>
+            <h2>Status zamówienia: <order-status-i18n [key]="order.orderStatus"></order-status-i18n></h2>
+            <h2>Cena zamówienia: {{order.fullPrice | currency:'':''}} zł</h2>
+          </div>
+          <div style="flex-basis: 10%">
+            <button *ngIf="order.orderStatus === 0" mat-raised-button color="warn" type="submit" (click)="endAuction(offer)">Zakończ aukcję</button>
+          </div>
+        </mat-card>
+      </div>
+      <ng-template #noOrdersSold>
+        <mat-card class="mat-offers-card" style="text-align: center;">
+          <mat-card-content style="text-align: center;">Brak zamówień</mat-card-content>
+        </mat-card>
+      </ng-template>
+      <div class="paginator" *ngIf="ordersSoldPaginated && ordersSoldPaginated.items.length > 0">
+        <mat-paginator #paginatorOrders [pageSize]="paginationOrdersSold.pageSize" [pageSizeOptions]="[5, 10, 20, 50]"
+          [length]="ordersSoldPaginated.totalCount" [pageIndex]="paginationOrdersSold.pageIndex"
+          (page)="pageEvent = handlePageOrdersSold($event)">
         </mat-paginator>
       </div>
     </mat-tab>

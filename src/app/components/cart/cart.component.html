@@ -18,7 +18,7 @@
               <mat-form-field appearance="outline" style="width: 100px">
                 <mat-label>Ilość</mat-label>
                 <input matInput type="number" name="quantity" [min]="1" [max]="offer.availableProducts"
-                  [(ngModel)]="offer.productsCount" />
+                  [(ngModel)]="offer.productsCount" (ngModelChange)="updateProductCount(offer)"/>
               </mat-form-field>
             </mat-button-toggle>
             <mat-button-toggle (click)="incrementOfferCount(offer)">

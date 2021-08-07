@@ -1,5 +1,7 @@
 export enum OrderStatus {
   AwaitingForPayment = 0,
-  InDelivery = 1,
-  Delivered = 2
+  Paid = 1,
+  InDelivery = 2,
+  Delivered = 3,
+  Canceled = 4
 }

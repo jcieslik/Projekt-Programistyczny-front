@@ -1,6 +1,7 @@
 export class DeliveryMethodWithOffer {
-  id: number;
+  deliveryMethodId: number;
   deliveryMethodName: string;
   deliveryFullPrice: number;
   offerId: number;
+  isSelected: boolean;
 }

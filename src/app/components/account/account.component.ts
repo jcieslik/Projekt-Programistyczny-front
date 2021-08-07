@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AbstractControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from 'src/app/dialogs/dialog-confirmation/confirmation-dialog.component';
 import { OfferState } from 'src/app/enums/offer-state';
@@ -55,6 +54,10 @@ export class AccountComponent implements OnInit {
   paginationOrders: PaginationProperties = new PaginationProperties();
   ordersPaginated: PaginatedOrders;
 
+  ordersSoldModel: PaginationProperties = new PaginationProperties();
+  paginationOrdersSold: PaginationProperties = new PaginationProperties();
+  ordersSoldPaginated: PaginatedOrders;
+
   ngOnInit(): void {
     this.initModel();
 
@@ -72,6 +75,7 @@ export class AccountComponent implements OnInit {
 
     this.getOffers();
     this.getOrders();
+    this.getOrdersSold();
   }
 
   private initModel() {
@@ -91,6 +95,14 @@ export class AccountComponent implements OnInit {
     this.paginationOrders.pageIndex = 0;
     this.paginationOrders.pageSize = 10;
     this.paginationOrders.orderBy = this.defaultSort;
+
+    this.ordersSoldModel.pageIndex = 1;
+    this.ordersSoldModel.pageSize = 10;
+    this.ordersSoldModel.orderBy = this.defaultSort;
+
+    this.paginationOrdersSold.pageIndex = 0;
+    this.paginationOrdersSold.pageSize = 10;
+    this.paginationOrdersSold.orderBy = this.defaultSort;
   }
 
   public handlePageOffers(e: any) {
@@ -100,11 +112,18 @@ export class AccountComponent implements OnInit {
     this.getOffers();
   }
 
-  public handlePageOrder(e: any) {
+  public handlePageOrders(e: any) {
     this.ordersModel.pageIndex = e.pageIndex + 1;
     this.ordersModel.pageSize = e.pageSize;
 
     this.getOrders();
+  }
+
+  public handlePageOrdersSold(e: any) {
+    this.ordersSoldModel.pageIndex = e.pageIndex + 1;
+    this.ordersSoldModel.pageSize = e.pageSize;
+
+    this.getOrdersSold();
   }
 
   getOffers() {
@@ -115,9 +134,16 @@ export class AccountComponent implements OnInit {
   }
 
   getOrders() {
-    this.orderService.getOrdersFromUser(this.ordersModel)
+    this.orderService.getOrdersByCustomer(this.ordersModel)
       .subscribe((result) => {
         this.ordersPaginated = result;
+      });
+  }
+
+  getOrdersSold() {
+    this.orderService.getOrdersBySeller(this.ordersSoldModel)
+      .subscribe((result) => {
+        this.ordersSoldPaginated = result;
       })
   }
 
@@ -149,7 +175,7 @@ export class AccountComponent implements OnInit {
       this.error = true;
       return;
     }
-    if(!(this.user.bankAccountNumber.length === 26 || this.user.bankAccountNumber.length === 0)) {
+    if (!(this.user.bankAccountNumber.length === 26 || this.user.bankAccountNumber.length === 0)) {
       this.isAlertDisplayed = true;
       return;
     }
