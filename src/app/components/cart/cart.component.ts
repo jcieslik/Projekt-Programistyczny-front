@@ -62,13 +62,14 @@ export class CartComponent implements OnInit {
   }
 
   summarizeOrder(){
-    this.offers.forEach(element => {
-      if(!this.validateQuantity(element)) {
-        alert("Ustal prawidłowe ilości ")
+    for (let offer of this.offers) {
+      if(!this.validateQuantity(offer)) {
+        alert("Ustal prawidłowe ilości ");
+        return;
       }
-    })
+    }
     this.summarizeOrderService.setOrderOffers(this.offers);
-    this.router.navigateByUrl('/checkout')
+    this.router.navigateByUrl('/checkout');
   }
 
   updateProductCount(offer: CartOfferDTO) {

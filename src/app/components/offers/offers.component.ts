@@ -13,6 +13,8 @@ export class OffersComponent implements OnInit {
   offers: OfferWithBaseData[];
   @Input()
   totalSize: number;
+  @Input()
+  isHomeComponent: boolean = false;
 
   @Output()
   pageChange = new EventEmitter<PaginationProperties>();

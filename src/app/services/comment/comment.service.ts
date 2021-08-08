@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { CommentPagination } from 'src/app/models/comment-pagination';
 import { CreateComment } from 'src/app/models/create-comment';
 import { PaginatedComments } from 'src/app/models/paginatedComments';
+import { UpdateComment } from 'src/app/models/update-comment';
 import { UserComment } from 'src/app/models/user-comment';
 import { environment } from 'src/environments/environment';
 
@@ -17,8 +18,12 @@ export class CommentService {
     return this.http.post<UserComment>(`${environment.apiUrl}/api/Comment/CreateComment`, comment, { withCredentials: true });
   }
 
-  getCommentsFromOffer(offerId: number) {
-    return this.http.get<UserComment[]>(`${environment.apiUrl}/api/Comment/GetCommentsFromOffer?id=${offerId}`, { withCredentials: true });
+  updateComment(comment: UpdateComment) {
+    return this.http.put<UserComment>(`${environment.apiUrl}/api/Comment/UpdateComment`, comment, { withCredentials: true });
+  }
+
+  getCommentById(commentId: number) {
+    return this.http.get<UserComment>(`${environment.apiUrl}/api/Comment/GetCommentById?id=${commentId}`, { withCredentials: true });
   }
 
   getCommentsFromUser(userId: number) {

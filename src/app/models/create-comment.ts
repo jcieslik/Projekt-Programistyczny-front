@@ -1,8 +1,6 @@
 export class CreateComment {
-    id: number;
     content: string;
     rateValue: number;
-    offerId: number;
+    orderId: number;
     customerId: number;
-    sellerId: number;
   }

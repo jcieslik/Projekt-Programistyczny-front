@@ -21,7 +21,8 @@
         (click)="editUserData()">Edytuj</button>
       <mat-form-field appearance="outline">
         <mat-label>Województwo</mat-label>
-        <mat-select [disabled]="!editable" [(ngModel)]="selectedProvince" name="province" [(value)]="selectedProvince" ngDefaultControl>
+        <mat-select [disabled]="!editable" [(ngModel)]="selectedProvince" name="province" [(value)]="selectedProvince"
+          ngDefaultControl>
           <mat-option *ngFor="let province of provinces" [value]="province">
             {{province.name}}
           </mat-option>
@@ -41,7 +42,8 @@
       </mat-form-field>
       <mat-form-field appearance="outline">
         <mat-label>Numer konta bankowego</mat-label>
-        <input [disabled]="!editable" matInput [(ngModel)]="user.bankAccountNumber" name="bankAccountNumber" maxlength="26">
+        <input [disabled]="!editable" matInput [(ngModel)]="user.bankAccountNumber" name="bankAccountNumber"
+          maxlength="26">
       </mat-form-field><br>
       <button *ngIf="editable" color="primary" style="min-width: 100px;" mat-raised-button
         (click)="submit()">Zapisz</button>
@@ -82,11 +84,19 @@
           </div>
           <div class="offer-information" style="flex-basis: 80%" [routerLink]="['/offer/'+order.offer.id]">
             <h1>{{order.offer.title}}</h1>
-            <h2>Status zamówienia: <order-status-i18n [key]="order.orderStatus"></order-status-i18n></h2>
+            <h2>Status zamówienia: <order-status-i18n [key]="order.orderStatus"></order-status-i18n>
+            </h2>
             <h2>Cena zamówienia: {{order.fullPrice | currency:'':''}} zł</h2>
           </div>
           <div style="flex-basis: 10%">
-            <button *ngIf="order.orderStatus === 0" mat-raised-button color="warn" type="submit" (click)="endAuction(offer)">Zakończ aukcję</button>
+            <button *ngIf="order.orderStatus === orderStatus.AwaitingForPayment" mat-raised-button color="warn"
+              type="submit" (click)="completePayment(order)">Dokończ płatność</button>
+            <button *ngIf="order.orderStatus === orderStatus.InDelivery" mat-raised-button color="primary" type="submit"
+              (click)="markAsDelivered(order)">Przesyłka dostarczona</button>
+            <button *ngIf="order.orderStatus === orderStatus.Delivered && !order.comment" mat-raised-button
+              color="accent" type="submit" (click)="addComment(order)">Dodaj komentarz</button>
+              <button *ngIf="order.orderStatus === orderStatus.Delivered && order.comment" mat-raised-button
+              color="accent" type="submit" (click)="editComment(order)">Edytuj komentarz</button>
           </div>
         </mat-card>
       </div>
@@ -110,11 +120,14 @@
           </div>
           <div class="offer-information" style="flex-basis: 80%" [routerLink]="['/offer/'+order.offer.id]">
             <h1>{{order.offer.title}}</h1>
-            <h2>Status zamówienia: <order-status-i18n [key]="order.orderStatus"></order-status-i18n></h2>
+            <h2>Status zamówienia: <order-status-i18n [key]="order.orderStatus"></order-status-i18n>
+            </h2>
+            <h2>Wysyłka na adres: {{order.destinationCity}} {{order.destinationPostCode}} - {{order.destinationStreet}}</h2>
             <h2>Cena zamówienia: {{order.fullPrice | currency:'':''}} zł</h2>
           </div>
           <div style="flex-basis: 10%">
-            <button *ngIf="order.orderStatus === 0" mat-raised-button color="warn" type="submit" (click)="endAuction(offer)">Zakończ aukcję</button>
+            <button *ngIf="order.orderStatus === orderStatus.Paid" mat-raised-button color="primary" type="submit"
+              (click)="markAsInDelivery(order)">Przesyłka wysłana</button>
           </div>
         </mat-card>
       </div>

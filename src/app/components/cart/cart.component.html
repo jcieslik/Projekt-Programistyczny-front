@@ -1,4 +1,4 @@
-<div class="flex" >
+<div class="flex">
   <div *ngIf="offers.length > 0; else noOffers" style="flex-basis: 60%; margin: auto auto;">
     <mat-card *ngFor="let offer of offers">
       <div>
@@ -18,7 +18,7 @@
               <mat-form-field appearance="outline" style="width: 100px">
                 <mat-label>Ilość</mat-label>
                 <input matInput type="number" name="quantity" [min]="1" [max]="offer.availableProducts"
-                  [(ngModel)]="offer.productsCount" (ngModelChange)="updateProductCount(offer)"/>
+                  [(ngModel)]="offer.productsCount" (ngModelChange)="updateProductCount(offer)" />
               </mat-form-field>
             </mat-button-toggle>
             <mat-button-toggle (click)="incrementOfferCount(offer)">
@@ -39,12 +39,13 @@
     </mat-card>
   </ng-template>
 
-  <mat-card style="flex-basis: 30%; text-align: center; height: 150px;">
-        <div class="summary-information container">
-          <h2>Sumaryczny koszt: {{getTotalCost() | currency:'':''}} zł</h2>
-          <button mat-raised-button color="primary" type="submit" style="height: 50px; width: 400px" (click)="summarizeOrder()">
-            Przejdź do realizacji zamówienia
-          </button>
-        </div>
+  <mat-card *ngIf="offers.length > 0" style="flex-basis: 30%; text-align: center; height: 150px;">
+    <div class="summary-information container">
+      <h2>Sumaryczny koszt: {{getTotalCost() | currency:'':''}} zł</h2>
+      <button mat-raised-button color="primary" type="submit" style="height: 50px; width: 400px"
+        (click)="summarizeOrder()">
+        Przejdź do realizacji zamówienia
+      </button>
+    </div>
   </mat-card>
 </div>

@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ConfirmationDialog } from 'src/app/enums/confirmation-dialog';
 
 @Component({
   selector: 'app-confirmation-dialog',
@@ -7,8 +8,14 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./confirmation-dialog.component.scss']
 })
 export class ConfirmationDialogComponent {
+  confirmationType: ConfirmationDialog;
 
-  constructor(public dialogRef: MatDialogRef<ConfirmationDialogComponent>) { }
+  confirmationDialog = ConfirmationDialog;
+
+  constructor(public dialogRef: MatDialogRef<ConfirmationDialogComponent>, 
+    @Inject(MAT_DIALOG_DATA) public data: ConfirmationDialog) {
+      this.confirmationType = data;
+    }
 
   onNoClick(): void {
     this.dialogRef.close(false);

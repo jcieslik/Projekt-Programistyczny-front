@@ -7,7 +7,7 @@
   <mat-tab-group>
     <mat-tab label="Informacje o użytkowniku">
       <br>
-      <h3>Województwo: {{user.province || '-'}}</h3>
+      <h3>Województwo: {{user.province.name || '-'}}</h3>
       <h3>Miejscowość: {{user.city || '-'}}</h3>
       <h3>Kod pocztowy: {{user.zipCode || '-'}}</h3>
       <h3>Ulica: {{user.street || '-'}}</h3>

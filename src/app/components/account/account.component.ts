@@ -1,10 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { CreateCommentDialogComponent } from 'src/app/dialogs/create-comment/create-comment-dialog.component';
 import { ConfirmationDialogComponent } from 'src/app/dialogs/dialog-confirmation/confirmation-dialog.component';
+import { ConfirmationDialog } from 'src/app/enums/confirmation-dialog';
 import { OfferState } from 'src/app/enums/offer-state';
+import { OrderStatus } from 'src/app/enums/order-status';
 import { PaginationProperties } from 'src/app/enums/pagination-properties';
 import { Offer } from 'src/app/models/offer';
 import { OfferWithBaseData } from 'src/app/models/offer-base-data';
+import { Order } from 'src/app/models/order';
 import { PaginatedOffers } from 'src/app/models/paginatedOffers';
 import { PaginatedOrders } from 'src/app/models/paginatedOrders';
 import { Province } from 'src/app/models/province';
@@ -29,6 +33,8 @@ export class AccountComponent implements OnInit {
     private orderService: OrderService,
     private provinceService: ProvinceService,
     public dialog: MatDialog) { }
+
+  orderStatus = OrderStatus;
 
   currentUser: User = JSON.parse(localStorage.getItem('user'));
 
@@ -149,8 +155,9 @@ export class AccountComponent implements OnInit {
 
   endAuction(chosenOffer: OfferWithBaseData) {
     const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-      width: '300px',
+      width: '400px',
       height: '200px',
+      data: ConfirmationDialog.EndAuction
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -198,5 +205,73 @@ export class AccountComponent implements OnInit {
 
   closeError() {
     this.error = false;
+  }
+
+  markAsDelivered(order: Order) {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '400px',
+      height: '150px',
+      data: ConfirmationDialog.MarkAsDelivered
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        let updateOrder = new Order();
+        updateOrder.id = order.id;
+        updateOrder.orderStatus = OrderStatus.Delivered;
+        this.orderService.changeStatus(updateOrder)
+          .subscribe((result) => {
+            order.orderStatus = OrderStatus.Delivered;
+          })
+      }
+    });
+  }
+
+  markAsInDelivery(order: Order) {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '400px',
+      height: '200px',
+      data: ConfirmationDialog.MarkAsInDelivery
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        let updateOrder = new Order();
+        updateOrder.id = order.id;
+        updateOrder.orderStatus = OrderStatus.InDelivery;
+        this.orderService.changeStatus(updateOrder)
+          .subscribe((result) => {
+            order.orderStatus = OrderStatus.InDelivery;
+          })
+      }
+    });
+  }
+
+  addComment(order: Order) {
+    const dialogRef = this.dialog.open(CreateCommentDialogComponent, {
+      width: '600px',
+      height: '350px',
+      data: order,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        order.comment = result;
+      }
+    });
+  }
+
+  editComment(order: Order) {
+    const dialogRef = this.dialog.open(CreateCommentDialogComponent, {
+      width: '600px',
+      height: '350px',
+      data: order,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        order.comment = result;
+      }
+    });
   }
 }

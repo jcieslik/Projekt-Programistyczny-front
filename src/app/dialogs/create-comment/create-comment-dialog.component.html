@@ -1,1 +1,19 @@
-<p>create-comment-dialog works!</p>
+<h1 mat-dialog-title>Dodaj komentarz</h1>
+<div mat-dialog-content>
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <ngb-rating max="5" [(rate)]="rateValue" style="padding-right: 12px;">
+      <ng-template let-fill="fill">
+        <span [class.filled]="fill === 100" [class.notfilled]="fill === 0">
+          ★
+        </span>
+      </ng-template>
+    </ngb-rating>
+    <mat-error *ngIf="noStars">Dodaj ocenę</mat-error>
+    <mat-form-field appearance="outline" class="fill-container">
+      <mat-label>Opis produktu</mat-label>
+      <textarea formControlName="content" name="content" matInput rows="6"></textarea>
+      <mat-error *ngIf="f.content.invalid">Podaj treść komentarza</mat-error>
+    </mat-form-field>
+    <button type="submit" mat-raised-button color="primary">Dodaj</button>
+  </form>
+</div>

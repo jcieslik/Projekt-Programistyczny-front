@@ -17,6 +17,8 @@ import { OrderStatus } from 'src/app/enums/order-status';
 import { CartOfferDTO } from 'src/app/models/cart-offer';
 import { SummarizeOrderService } from 'src/app/services/summarize-order/summarize-order.service';
 import { AngularInpostGeowidgetService, GeoWidgetMapTypeEnum, GeowidgetTypeEnum } from 'angular-inpost-geowidget';
+import { UserInfo } from 'src/app/models/user-info';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-checkout',
@@ -31,6 +33,8 @@ export class CheckoutComponent implements OnInit {
   stripeCardValid: boolean = false;
 
   user: User = JSON.parse(localStorage.getItem('user'));
+
+  userInfo: UserInfo;
 
   mapType: GeoWidgetMapTypeEnum = GeoWidgetMapTypeEnum.GOOGLE_MAPS;
 
@@ -64,6 +68,7 @@ export class CheckoutComponent implements OnInit {
     private router: Router,
     private orderService: OrderService,
     private summarizeOrderService: SummarizeOrderService,
+    private userService: UserService,
     public angularInpostGeowidgetService: AngularInpostGeowidgetService) {
     this.stripeForm = this.fb.group({
       done: ['', [Validators.required]]
@@ -75,19 +80,33 @@ export class CheckoutComponent implements OnInit {
 
   ngOnInit(): void {
     this.summarizeOrderService.getOrderOffers().subscribe(d => {
-      this.offers = d;
+      if(d.length === 0) {
+        this.router.navigateByUrl('/home');
+      }
+      this.userService.getUserInfo(this.user.id)
+        .subscribe((result) => {
+          this.userInfo = result;
+          let offers: CartOfferDTO[] = [];
+          d.forEach((offer) => {
+            offer.destinationCity = this.userInfo.city;
+            offer.destinationStreet = this.userInfo.street;
+            offer.destinationPostCode = this.userInfo.postCode;
+            offers.push(offer);
+          })
+          this.offers = offers;
+        });
     });
   }
 
   get f() { return this.deliveryMethods.controls; }
 
   allSelected(): boolean {
-    if (this.offers.find(e => e.selectedDeliveryMethod === undefined) ) {
+    if (this.offers.find(e => e.selectedDeliveryMethod === undefined)) {
       this.deliveryMethods.setValue({ done: '' });
       return false;
     }
-    for(let offer of this.offers) {
-      if(!offer.destinationCity || !offer.destinationStreet || !offer.destinationPostCode) {
+    for (let offer of this.offers) {
+      if (!offer.destinationCity || !offer.destinationStreet || !offer.destinationPostCode) {
         return false;
       }
     }
@@ -119,7 +138,7 @@ export class CheckoutComponent implements OnInit {
                 paymentRequest.description = "ID Oferty: " + offer.id + "; Nazwa oferty: " + offer.title + "; ID sposobu dostawy: " + offer.selectedDeliveryMethod.deliveryMethodId +
                   "; Nazwa sposobu dostawy: " + offer.selectedDeliveryMethod.deliveryMethodName + "; ";
                 this.paymentService.makePayment(paymentRequest)
-                  .subscribe(() => {
+                  .subscribe((result) => {
                     order.id = response.id;
                     order.paymentDate = new Date(Date.now());
                     order.orderStatus = OrderStatus.Paid;
@@ -127,6 +146,8 @@ export class CheckoutComponent implements OnInit {
                       .subscribe(() => {
                         this.router.navigate(['account']);
                       });
+                  }, (error) => {
+                    alert("Wystąpił błąd płatności.");
                   })
               }
               else {
@@ -139,9 +160,15 @@ export class CheckoutComponent implements OnInit {
 
   setOfferDeliveryMethod(offer: CartOfferDTO, deliveryMethod: DeliveryMethodWithOffer) {
     offer.selectedDeliveryMethod = deliveryMethod;
-    offer.destinationCity = '';
-    offer.destinationStreet = '';
-    offer.destinationPostCode = '';
+    if (deliveryMethod.deliveryMethodName !== 'Paczkomaty InPost') {
+      offer.destinationCity = this.userInfo.city;
+      offer.destinationStreet = this.userInfo.street;
+      offer.destinationPostCode = this.userInfo.postCode;
+    } else {
+      offer.destinationCity = '';
+      offer.destinationStreet = '';
+      offer.destinationPostCode = '';
+    }
     this.allSelected();
   }
 

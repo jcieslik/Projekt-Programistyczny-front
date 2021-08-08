@@ -1,4 +1,5 @@
 import { OrderStatus } from "../enums/order-status";
+import { UserComment } from "./user-comment";
 
 export class Order {
   id: number;
@@ -12,4 +13,5 @@ export class Order {
   destinationPostCode: string;
   cartOfferId: number;
   fullPrice: number;
+  comment: UserComment;
 }
