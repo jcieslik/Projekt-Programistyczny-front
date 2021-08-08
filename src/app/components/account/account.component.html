@@ -91,8 +91,9 @@
           <div style="flex-basis: 10%">
             <button *ngIf="order.orderStatus === orderStatus.AwaitingForPayment" mat-raised-button class="green-button"
               type="submit" (click)="completePayment(order)">Dokończ płatność</button>
-            <button *ngIf="order.orderStatus === orderStatus.AwaitingForPayment" mat-raised-button color="warn" style="width: 145px; margin: 10px 0px 10px 0px"
-              type="submit" (click)="cancelOrder(order)">Anuluj zamówienie</button>
+            <button *ngIf="order.orderStatus === orderStatus.AwaitingForPayment" mat-raised-button color="warn"
+              style="width: 145px; margin: 10px 0px 10px 0px" type="submit" (click)="cancelOrder(order)">Anuluj
+              zamówienie</button>
             <button *ngIf="order.orderStatus === orderStatus.InDelivery" mat-raised-button color="primary" type="submit"
               (click)="markAsDelivered(order)">Przesyłka dostarczona</button>
             <button *ngIf="order.orderStatus === orderStatus.Delivered && !order.comment" mat-raised-button
@@ -124,8 +125,9 @@
             <h1>{{order.offer.title}}</h1>
             <h2>Status zamówienia: <order-status-i18n [key]="order.orderStatus"></order-status-i18n>
             </h2>
-            <h2>Wysyłka na adres: {{order.destinationCity}} {{order.destinationPostCode}} - {{order.destinationStreet}}
-            </h2>
+            <h4>Wysyłka na adres: {{order.destinationCity}} {{order.destinationPostCode}} - {{order.destinationStreet}}
+            </h4>
+            <h4>Sposób dostawy: {{order.delivery.deliveryMethodName}}</h4>
             <h2>Cena zamówienia: {{order.fullPrice | currency:'':''}} zł</h2>
           </div>
           <div style="flex-basis: 10%">

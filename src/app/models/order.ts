@@ -1,4 +1,5 @@
 import { OrderStatus } from "../enums/order-status";
+import { DeliveryMethodWithOffer } from "./delivery-method-with-offer";
 import { OfferWithBaseData } from "./offer-base-data";
 import { UserComment } from "./user-comment";
 
@@ -16,4 +17,5 @@ export class Order {
   cartOfferId: number;
   offer: OfferWithBaseData;
   comment: UserComment;
+  delivery: DeliveryMethodWithOffer;
 }

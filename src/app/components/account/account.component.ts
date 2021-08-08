@@ -284,14 +284,24 @@ export class AccountComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if(result){
+      if (result) {
         order.orderStatus = OrderStatus.Paid;
       }
     });
   }
 
   cancelOrder(order: Order) {
-    order.orderStatus = OrderStatus.Canceled;
-    this.orderService.changeStatus(order).subscribe();
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '400px',
+      height: '200px',
+      data: ConfirmationDialog.CancelOrder
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        order.orderStatus = OrderStatus.Canceled;
+        this.orderService.changeStatus(order).subscribe();
+      }
+    });
   }
 }
