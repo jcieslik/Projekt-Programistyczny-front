@@ -82,9 +82,12 @@ export class CreateOfferComponent implements OnInit {
 
   ngOnInit(): void {
     this.f.minimalBid.disable();
-    this.today = this.roundMinutes(this.today)
-    let startDate = new Date(this.today);
-    let endDate = new Date(this.today);
+    let startDate = new Date();
+    startDate.setSeconds(0)
+    startDate.setMinutes(startDate.getMinutes() + 2);
+    let endDate = new Date()
+    endDate.setSeconds(0)
+    endDate.setMinutes(startDate.getMinutes());
     endDate.setDate(endDate.getDate() + 7)
 
     this.f.startDate.setValue(startDate)
@@ -96,11 +99,11 @@ export class CreateOfferComponent implements OnInit {
         this.categories = results[1];
         this.deliveryMethods = results[2];
         this.deliveryMethods.forEach(method => {
-        //  // let deliveryMethod = new DeliveryMethodWithOffer();
-        //   deliveryMethod.deliveryMethodId = method.id;
-        //   deliveryMethod.fullPrice = method.price;
-        //   deliveryMethod.deliveryMethodName = method.name;
-        //   this.chosenDeliveryMethods.push(deliveryMethod);
+          let deliveryMethod = new DeliveryMethodWithOffer();
+          deliveryMethod.deliveryMethodId = method.id;
+          deliveryMethod.deliveryFullPrice = method.price;
+          deliveryMethod.deliveryMethodName = method.name;
+          this.chosenDeliveryMethods.push(deliveryMethod);
         })
       })
   }
@@ -122,10 +125,11 @@ export class CreateOfferComponent implements OnInit {
 
   submit(): void {
     this.offer.deliveryMethods = this.chosenDeliveryMethods.filter(method => {
-      //if (method.isSelected) {
-      //  return method;
-     // }
+      if (method.isSelected) {
+        return method;
+      }
     })
+    console.log(this.offer.deliveryMethods)
 
     if (this.form.invalid) {
       alert("Wypełnij wszystkie wymagane pola!")

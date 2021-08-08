@@ -12,6 +12,7 @@ import { BidService } from 'src/app/services/bid/bid.service';
 import { OfferService } from 'src/app/services/offer/offer.service';
 import { WishService } from 'src/app/services/wish/wish.service';
 import { MatDialog } from '@angular/material/dialog';
+import { OfferState } from 'src/app/enums/offer-state';
 
 @Component({
   selector: 'app-offer',
@@ -28,6 +29,10 @@ export class OfferComponent implements OnInit {
 
   offer: Offer;
 
+  offerType = OfferType;
+
+  offerState = OfferState;
+
   user: User = JSON.parse(localStorage.getItem('user'))
 
   constructor(
@@ -39,8 +44,6 @@ export class OfferComponent implements OnInit {
     public dialog: MatDialog) { }
 
   isFavorite: boolean = true;
-
-
 
   ngOnInit(): void {
     this.offerId = +this.route.snapshot.paramMap.get('id')

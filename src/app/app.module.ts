@@ -78,6 +78,9 @@ import { OfferTypeTranslationComponent } from './enum-translations/offer-type-tr
 import { CreateCommentDialogComponent } from './dialogs/create-comment/create-comment-dialog.component';
 import { CreateBidComponent } from './dialogs/create-bid/create-bid.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { AngularInpostGeowidgetModule } from 'angular-inpost-geowidget';
+import { OfferStateTranslationComponent } from './enum-translations/offer-state-translation/offer-state-translation.component';
+import { DialogPaymentComponent } from './dialogs/dialog-payment/dialog-payment.component';
 
 registerLocaleData(localePl);
 
@@ -117,7 +120,9 @@ registerLocaleData(localePl);
     DisplayMessageComponent,
     OfferTypeTranslationComponent,
     CreateCommentDialogComponent,
-    CreateBidComponent
+    CreateBidComponent,
+    OfferStateTranslationComponent,
+    DialogPaymentComponent
   ],
   imports: [
     BrowserModule,
@@ -126,6 +131,7 @@ registerLocaleData(localePl);
     HttpClientModule,
     FontAwesomeModule,
     CheckboxModule,
+    AngularInpostGeowidgetModule,
     WavesModule,
     ButtonsModule,
     InputsModule,

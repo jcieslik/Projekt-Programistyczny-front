@@ -12,8 +12,16 @@ export class SpinnerInterceptor implements HttpInterceptor {
 	constructor(private spinner: NgxSpinnerService) { }
 
 	intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-		this.spinner.show()
-		this.count++;
+		if(!req.url.match('Cart/UpdateProductCount')) {
+      this.spinner.show()
+      this.count++;
+		} else {
+      return next.handle(req)
+			.pipe(tap(), 
+			  finalize(() => {
+			  })
+		  );
+    }
 
 		return next.handle(req)
 			.pipe(tap(), 

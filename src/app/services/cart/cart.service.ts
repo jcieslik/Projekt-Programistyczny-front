@@ -23,10 +23,7 @@ export class CartService {
     return this.http.put(`${environment.apiUrl}/api/Cart/RemoveOfferFromCart?offerId=${offerId}`, null, { withCredentials: true });
   }
 
-  decrementOfferCountInCart(offerId: number) {
-    return this.http.put(`${environment.apiUrl}/api/Cart/DecrementOfferCountInCart?offerId=${offerId}`, null, { withCredentials: true });
+  updateProductCount(offerId: number, productCount: number) {
+    return this.http.put<boolean>(`${environment.apiUrl}/api/Cart/UpdateProductCount?offerId=${offerId}&productCount=${productCount}`, null, { withCredentials: true });
   }
-
-
-  
 }

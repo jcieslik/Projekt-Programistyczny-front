@@ -1,4 +1,9 @@
-<h1 mat-dialog-title>Czy na pewno chcesz zakończyć tę aukcje?</h1>
+<div [ngSwitch]="confirmationType">
+  <h1 mat-dialog-title *ngSwitchCase="confirmationDialog.EndAuction">Czy na pewno chcesz zakończyć tę aukcje?</h1>
+  <h1 mat-dialog-title *ngSwitchCase="confirmationDialog.MarkAsInDelivery">Czy na pewno przesyłka została wysłana?</h1>
+  <h1 mat-dialog-title *ngSwitchCase="confirmationDialog.MarkAsDelivered">Czy na pewno przesyłka dotarła?</h1>
+  <h1 mat-dialog-title *ngSwitchCase="confirmationDialog.CancelOrder">Czy na pewno chcesz anulować zamówienie?</h1>
+</div>
 <div mat-dialog-actions>
   <button mat-raised-button (click)="onNoClick()">Nie</button>
   <button mat-raised-button color="warn" (click)="submit()">Tak</button>

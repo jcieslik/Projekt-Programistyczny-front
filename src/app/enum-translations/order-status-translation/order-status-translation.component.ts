@@ -7,8 +7,10 @@ import { OrderStatus } from 'src/app/enums/order-status';
   <ng-container i18n>
     {key, select,
       0 {Oczekuje na płatność}
-      1 {Wysłana}
-      2 {Dostarczona}
+      1 {Opłacone}
+      2 {Wysłane}
+      3 {Dostarczone}
+      4 {Anulowane}
     }
   </ng-container>
   `,

@@ -12,22 +12,27 @@
         </div>
         <div class="text">Od: <a [routerLink]="getRouterLink()">{{offer.seller.name}} {{offer.seller.surname}}
             ({{offer.seller.username}})</a></div>
-        <div *ngIf="offer.offerType === 0" class="text">Koszt: {{offer.priceForOneProduct | currency:'':''}} zł</div>
-        <div *ngIf="offer.offerType === 1 && offer.bestBid" class="text">Obecna stawka: {{offer.bestBid.value |
+        <div *ngIf="offer.offerType === offerType.BuyNow" class="text">Koszt: {{offer.priceForOneProduct |
           currency:'':''}} zł</div>
-        <div *ngIf="offer.offerType === 1 && !offer.bestBid" class="text">Cena wywoławcza: {{offer.minimalBid |
+        <div *ngIf="offer.offerType === offerType.Auction && offer.bestBid" class="text">Obecna stawka:
+          {{offer.bestBid.value |
+          currency:'':''}} zł</div>
+        <div *ngIf="offer.offerType === offerType.Auction && !offer.bestBid" class="text">Cena wywoławcza:
+          {{offer.minimalBid |
           currency:'':''}} zł</div>
         <div class="text">Pozostała ilość sztuk: {{offer.productCount}}</div>
         <div class="text">Stan: <product-state-i18n [key]="offer.productState"></product-state-i18n>
         </div>
         <div class="text">Lokalizacja: {{offer.province}}, {{offer.city}}</div>
-        <button *ngIf="offer.offerType === 0" mat-raised-button color="primary" type="submit" class="buy-button"
-          [routerLink]="['/checkout/'+offer.id]" [disabled]="checkIfCanBuy()">Kup teraz</button>
-        <button *ngIf="offer.offerType === 0" mat-raised-button color="primary" type="submit" class="buy-button"
-          [disabled]="checkIfCanBuy()" (click)="addToCart()">Dodaj do
+        <button *ngIf="offer.offerType === offerType.BuyNow && offer.state === offerState.Awaiting" mat-raised-button
+          color="primary" type="submit" class="buy-button" [routerLink]="['/checkout/'+offer.id]"
+          [disabled]="checkIfCanBuy()">Kup teraz</button>
+        <button *ngIf="offer.offerType === offerType.BuyNow && offer.state === offerState.Awaiting" mat-raised-button
+          color="primary" type="submit" class="buy-button" [disabled]="checkIfCanBuy()" (click)="addToCart()">Dodaj do
           koszyka</button>
-        <button *ngIf="offer.offerType === 1" mat-raised-button color="primary" type="submit" class="buy-button"
-          [disabled]="checkIfCanBuy()" (click)="makeBid()">Licytuj</button>
+        <button *ngIf="offer.offerType === offerType.Auction && offer.state === offerState.Awaiting" mat-raised-button
+          color="primary" type="submit" class="buy-button" [disabled]="checkIfCanBuy()"
+          (click)="makeBid()">Licytuj</button>
       </div>
     </div>
   </mat-card>
