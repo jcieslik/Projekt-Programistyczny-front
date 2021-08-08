@@ -19,6 +19,7 @@ import { SummarizeOrderService } from 'src/app/services/summarize-order/summariz
 import { AngularInpostGeowidgetService, GeoWidgetMapTypeEnum, GeowidgetTypeEnum } from 'angular-inpost-geowidget';
 import { UserInfo } from 'src/app/models/user-info';
 import { UserService } from 'src/app/services/user/user.service';
+import { OfferWithBaseData } from 'src/app/models/offer-base-data';
 
 @Component({
   selector: 'app-checkout',
@@ -117,11 +118,11 @@ export class CheckoutComponent implements OnInit {
     this.offers.forEach(offer => {
       let order = new Order();
       order.offerWithDeliveryId = offer.selectedDeliveryMethod.deliveryMethodId;
-      order.ProductCount = offer.productsCount;
+      order.productCount = offer.productsCount;
       order.customerId = this.user.id;
       order.orderStatus = OrderStatus.AwaitingForPayment;
       order.cartOfferId = offer.id;
-      order.fullPrice = offer.priceForOneProduct * order.ProductCount + offer.selectedDeliveryMethod.deliveryFullPrice;
+      order.fullPrice = offer.priceForOneProduct * order.productCount + offer.selectedDeliveryMethod.deliveryFullPrice;
       order.destinationCity = offer.destinationCity;
       order.destinationStreet = offer.destinationStreet;
       order.destinationPostCode = offer.destinationPostCode;
@@ -135,8 +136,7 @@ export class CheckoutComponent implements OnInit {
                 let paymentRequest = new Payment();
                 paymentRequest.tokenId = result.token.id;
                 paymentRequest.amount = Math.round((offer.priceForOneProduct * offer.productsCount + offer.selectedDeliveryMethod.deliveryFullPrice) * 100);
-                paymentRequest.description = "ID Oferty: " + offer.id + "; Nazwa oferty: " + offer.title + "; ID sposobu dostawy: " + offer.selectedDeliveryMethod.deliveryMethodId +
-                  "; Nazwa sposobu dostawy: " + offer.selectedDeliveryMethod.deliveryMethodName + "; ";
+                paymentRequest.description = "ID Oferty: " + offer.id + "; Nazwa oferty: " + offer.title;
                 this.paymentService.makePayment(paymentRequest)
                   .subscribe((result) => {
                     order.id = response.id;

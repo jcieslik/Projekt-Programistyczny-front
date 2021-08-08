@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>Dodaj informacje o płatności</h1>
+<div mat-dialog-content>
+  <mat-form-field appearance="outline" class="fill-container">
+    <mat-label>Imię i nazwisko</mat-label>
+    <input type="text" [(ngModel)]="name" matInput>
+  </mat-form-field>
+  <ngx-stripe-card (change)="onChange($event)" [options]="cardOptions" [elementsOptions]="elementsOptions">
+  </ngx-stripe-card>
+  <br>
+  <button (click)="completedCardInfo()" mat-raised-button color="primary" class="center"
+    style="margin: 10px 0px 10px 0px;">Zatwierdź</button>
+</div>

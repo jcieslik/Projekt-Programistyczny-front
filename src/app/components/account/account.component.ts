@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateCommentDialogComponent } from 'src/app/dialogs/create-comment/create-comment-dialog.component';
 import { ConfirmationDialogComponent } from 'src/app/dialogs/dialog-confirmation/confirmation-dialog.component';
+import { DialogPaymentComponent } from 'src/app/dialogs/dialog-payment/dialog-payment.component';
 import { ConfirmationDialog } from 'src/app/enums/confirmation-dialog';
 import { OfferState } from 'src/app/enums/offer-state';
 import { OrderStatus } from 'src/app/enums/order-status';
@@ -273,5 +274,24 @@ export class AccountComponent implements OnInit {
         order.comment = result;
       }
     });
+  }
+
+  completePayment(order: Order) {
+    const dialogRef = this.dialog.open(DialogPaymentComponent, {
+      width: '600px',
+      height: '280px',
+      data: order,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        order.orderStatus = OrderStatus.Paid;
+      }
+    });
+  }
+
+  cancelOrder(order: Order) {
+    order.orderStatus = OrderStatus.Canceled;
+    this.orderService.changeStatus(order).subscribe();
   }
 }
