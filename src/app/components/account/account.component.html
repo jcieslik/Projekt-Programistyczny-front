@@ -49,6 +49,16 @@
         (click)="submit()">Zapisz</button>
     </mat-tab>
     <mat-tab label="Twoje oferty">
+      <mat-card class="offers-card">
+        <mat-select [(ngModel)]="selectedState" name="offerState" placeholder="Wybierz status oglądanych ogłoszeń" style="text-align: center;">
+          <mat-option [value]="null" style="text-align: center;">
+            {{translateState(null)}}
+          </mat-option>
+          <mat-option *ngFor="let offerState of offerStates" [value]="offerState" style="text-align: center;">
+            {{translateState(offerState)}}
+          </mat-option>
+        </mat-select>
+      </mat-card>
       <div *ngIf="offersPaginated && offersPaginated.items.length > 0; else noOffers">
         <mat-card class="offers-card" *ngFor="let offer of offersPaginated.items" style="display: flex;">
           <div class="container" style="flex-basis: 10%" [routerLink]="['/offer/'+offer.id]">
@@ -77,6 +87,13 @@
       </div>
     </mat-tab>
     <mat-tab label="Zakupione">
+      <mat-card class="offers-card">
+        <mat-select [(ngModel)]="selectedStatus" name="orderStatus" placeholder="Wybierz status oglądanych zamówień" style="text-align: center;">
+          <mat-option *ngFor="let orderStatus of orderStatuses" [value]="orderStatus" style="text-align: center;" (click)="getOrders()">
+            {{translateStatus(orderStatus)}}
+          </mat-option>
+        </mat-select>
+      </mat-card>
       <div *ngIf="ordersPaginated && ordersPaginated.items.length > 0; else noOrders">
         <mat-card class="offers-card" *ngFor="let order of ordersPaginated.items" style="display: flex;">
           <div class="container" style="flex-basis: 10%" [routerLink]="['/offer/'+order.offer.id]">
@@ -116,6 +133,13 @@
       </div>
     </mat-tab>
     <mat-tab label="Sprzedane">
+      <mat-card class="offers-card">
+        <mat-select [(ngModel)]="selectedStatus" name="orderStatus" placeholder="Wybierz status oglądanych zamówień" style="text-align: center;">
+          <mat-option *ngFor="let orderStatus of orderStatuses" [value]="orderStatus" style="text-align: center;" (click)="getOrdersSold()">
+            {{translateStatus(orderStatus)}}
+          </mat-option>
+        </mat-select>
+      </mat-card>
       <div *ngIf="ordersSoldPaginated && ordersSoldPaginated.items.length > 0; else noOrdersSold">
         <mat-card class="offers-card" *ngFor="let order of ordersSoldPaginated.items" style="display: flex;">
           <div class="container" style="flex-basis: 10%" [routerLink]="['/offer/'+order.offer.id]">

@@ -65,7 +65,63 @@ export class AccountComponent implements OnInit {
   paginationOrdersSold: PaginationProperties = new PaginationProperties();
   ordersSoldPaginated: PaginatedOrders;
 
+  selectedStatus: OrderStatus = OrderStatus.All;
+
+  orderStatuses: OrderStatus[] = [
+    OrderStatus.All,
+    OrderStatus.AwaitingForPayment,
+    OrderStatus.Paid,
+    OrderStatus.InDelivery,
+    OrderStatus.Delivered,
+    OrderStatus.Canceled,
+  ]
+
+
+  selectedState: OfferState = null;
+
+  offerStates: OfferState[] = [
+    OfferState.Awaiting,
+    OfferState.Outdated,
+    OfferState.Finished,
+    // OfferState.Hidden,
+    // OfferState.Banned,
+  ]
+
+  translateStatus(status: OrderStatus): string {
+    switch (status) {
+      case OrderStatus.AwaitingForPayment:
+        return "Oczekujące płatności";
+      case OrderStatus.Paid:
+        return "Opłacone";
+      case OrderStatus.InDelivery:
+        return "Wysłane"
+      case OrderStatus.Delivered:
+        return "Dostarczone"
+      case OrderStatus.Canceled:
+        return "Anulowane";
+      case OrderStatus.All:
+        return "Wszystkie";
+    }
+  }
+
+  translateState(state: OfferState): string {
+    switch (state) {
+      case OfferState.Awaiting:
+        return "Oczekujące";
+      case OfferState.Finished:
+        return "Ukończone"
+      case OfferState.Outdated:
+        return "Nieaktualne";
+      case null:
+        return "Wszystkie";
+      // case OfferState.Hidden:
+      //   return "Anulowane";
+      // case OfferState.Banned:
+      //   return "Zbanowane"
+    }
+  }
   ngOnInit(): void {
+    this.selectedStatus
     this.initModel();
 
     this.userService.getUserInfo(this.currentUser.id)
@@ -141,14 +197,14 @@ export class AccountComponent implements OnInit {
   }
 
   getOrders() {
-    this.orderService.getOrdersByCustomer(this.ordersModel)
+    this.orderService.getOrdersByCustomer(this.ordersModel, this.selectedStatus)
       .subscribe((result) => {
         this.ordersPaginated = result;
       });
   }
 
   getOrdersSold() {
-    this.orderService.getOrdersBySeller(this.ordersSoldModel)
+    this.orderService.getOrdersBySeller(this.ordersSoldModel, this.selectedStatus)
       .subscribe((result) => {
         this.ordersSoldPaginated = result;
       })
