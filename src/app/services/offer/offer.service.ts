@@ -11,6 +11,7 @@ import { SearchModel } from 'src/app/models/searchModel';
 import { PaginatedOffers } from 'src/app/models/paginatedOffers';
 import { DeliveryMethod } from 'src/app/models/delivery-method';
 import { PaginationProperties } from 'src/app/enums/pagination-properties';
+import { OfferState } from 'src/app/enums/offer-state';
 
 @Injectable({
   providedIn: 'root'
@@ -44,8 +45,8 @@ export class OfferService {
   }
 
 
-  getOffers(model: SearchModel) {
-    return this.http.post<PaginatedOffers>(`${environment.apiUrl}/api/Offer/GetOffers`, model, { withCredentials: true });
+  getOffers(model: SearchModel, state: OfferState = OfferState.All) {
+    return this.http.post<PaginatedOffers>(`${environment.apiUrl}/api/Offer/GetOffers?state=${state}`, model, { withCredentials: true });
   }
 
   updateOffer(offer: Offer) {

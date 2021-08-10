@@ -77,9 +77,10 @@ export class AccountComponent implements OnInit {
   ]
 
 
-  selectedState: OfferState = null;
+  selectedState: OfferState = OfferState.All;
 
   offerStates: OfferState[] = [
+    OfferState.All,
     OfferState.Awaiting,
     OfferState.Outdated,
     OfferState.Finished,
@@ -112,7 +113,7 @@ export class AccountComponent implements OnInit {
         return "Ukończone"
       case OfferState.Outdated:
         return "Nieaktualne";
-      case null:
+      case OfferState.All:
         return "Wszystkie";
       // case OfferState.Hidden:
       //   return "Anulowane";
@@ -190,7 +191,7 @@ export class AccountComponent implements OnInit {
   }
 
   getOffers() {
-    this.offerService.getOffers(this.offersModel)
+    this.offerService.getOffers(this.offersModel, this.selectedState)
       .subscribe((response) => {
         this.offersPaginated = response;
       });

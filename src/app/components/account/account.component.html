@@ -51,10 +51,7 @@
     <mat-tab label="Twoje oferty">
       <mat-card class="offers-card">
         <mat-select [(ngModel)]="selectedState" name="offerState" placeholder="Wybierz status oglądanych ogłoszeń" style="text-align: center;">
-          <mat-option [value]="null" style="text-align: center;">
-            {{translateState(null)}}
-          </mat-option>
-          <mat-option *ngFor="let offerState of offerStates" [value]="offerState" style="text-align: center;">
+          <mat-option *ngFor="let offerState of offerStates" [value]="offerState" style="text-align: center;" (click)="getOffers()">
             {{translateState(offerState)}}
           </mat-option>
         </mat-select>
