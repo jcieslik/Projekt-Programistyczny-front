@@ -56,4 +56,8 @@ export class OfferService {
   getOffersFromUserWishes(model: SearchModel) {
     return this.http.post<PaginatedOffers>(`${environment.apiUrl}/api/Offer/GetOffersFromActiveUserWishes`, model, { withCredentials: true });
   }
+
+  getUserBidOffers(model: PaginationProperties) {
+    return this.http.post<PaginatedOffers>(`${environment.apiUrl}/api/Offer/GetUserAciveBidOffers`, model, { withCredentials: true });
+  }
 }

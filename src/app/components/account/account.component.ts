@@ -84,8 +84,6 @@ export class AccountComponent implements OnInit {
     OfferState.Awaiting,
     OfferState.Outdated,
     OfferState.Finished,
-    // OfferState.Hidden,
-    // OfferState.Banned,
   ]
 
   translateStatus(status: OrderStatus): string {
@@ -115,10 +113,6 @@ export class AccountComponent implements OnInit {
         return "Nieaktualne";
       case OfferState.All:
         return "Wszystkie";
-      // case OfferState.Hidden:
-      //   return "Anulowane";
-      // case OfferState.Banned:
-      //   return "Zbanowane"
     }
   }
   ngOnInit(): void {

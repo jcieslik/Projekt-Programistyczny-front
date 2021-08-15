@@ -169,6 +169,9 @@
         </mat-paginator>
       </div>
     </mat-tab>
+    <mat-tab label="Aukcje">
+      <app-user-bids [userId]="this.user.id"></app-user-bids>
+    </mat-tab>
     <mat-tab label="Komentarze">
       <app-comments [userId]="this.user.id"></app-comments>
     </mat-tab>

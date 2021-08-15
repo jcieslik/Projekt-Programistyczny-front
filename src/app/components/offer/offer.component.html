@@ -26,12 +26,12 @@
         <div class="text">Lokalizacja: {{offer.province}}, {{offer.city}}</div>
         <button *ngIf="offer.offerType === offerType.BuyNow && offer.state === offerState.Awaiting" mat-raised-button
           color="primary" type="submit" class="buy-button" [routerLink]="['/checkout/'+offer.id]"
-          [disabled]="checkIfCanBuy()">Kup teraz</button>
+          [disabled]="checkIfBuyingDisabled()">Kup teraz</button>
         <button *ngIf="offer.offerType === offerType.BuyNow && offer.state === offerState.Awaiting" mat-raised-button
-          color="primary" type="submit" class="buy-button" [disabled]="checkIfCanBuy()" (click)="addToCart()">Dodaj do
+          color="primary" type="submit" class="buy-button" [disabled]="checkIfBuyingDisabled()" (click)="addToCart()">Dodaj do
           koszyka</button>
         <button *ngIf="offer.offerType === offerType.Auction && offer.state === offerState.Awaiting" mat-raised-button
-          color="primary" type="submit" class="buy-button" [disabled]="checkIfCanBuy()"
+          color="primary" type="submit" class="buy-button" [disabled]="checkIfBuyingDisabled()"
           (click)="makeBid()">Licytuj</button>
       </div>
     </div>

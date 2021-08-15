@@ -90,12 +90,12 @@ export class OfferComponent implements OnInit {
     this.cartService.addOfferToCart(this.offerId).subscribe();
   }
 
-  checkIfCanBuy(): boolean {
+  checkIfBuyingDisabled(): boolean {
     if (this.user) {
       if (this.offer.offerType === OfferType.BuyNow) {
         return this.offer.seller.id === this.user.id;
-      } else if (this.offer.offerType === OfferType.Auction && this.offer.bestBid) {
-        return this.offer.seller.id === this.user.id || this.offer.bestBid.bidderId === this.user.id;
+      } else if (this.offer.offerType === OfferType.Auction) {
+        return this.offer.seller.id === this.user.id || (this.offer.bestBid && this.offer.bestBid.bidderId === this.user.id);
       }
     }
     return true;

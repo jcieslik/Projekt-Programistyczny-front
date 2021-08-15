@@ -1,0 +1,26 @@
+<div *ngIf="bidsPaginated && bidsPaginated.items.length > 0; else noBids">
+  <mat-card class="offers-card" *ngFor="let offer of bidsPaginated.items" style="display: flex;">
+    <div class="container" style="flex-basis: 10%" [routerLink]="['/offer/'+offer.id]">
+      <img [src]="offer.image.imageData" class="image">
+    </div>
+    <div class="offer-information" style="flex-basis: 80%" [routerLink]="['/offer/'+offer.id]">
+      <h1>{{offer.title}}</h1>
+      <h4>Obecna stawka: {{offer.bestBid.value}}</h4>
+      <h2>Użytkownik z najwyższą stawką: {{offer.bestBid.bidderUsername}}</h2>
+    </div>
+    <div style="flex-basis: 10%">
+      <button mat-raised-button color="warn" type="submit" (click)="endAuction(offer)">Zakończ aukcję</button>
+    </div>
+  </mat-card>
+</div>
+<ng-template #noBids>
+  <mat-card class="mat-offers-card" style="text-align: center;">
+    <mat-card-content style="text-align: center;">Brak aukcji w których bierzesz udział</mat-card-content>
+  </mat-card>
+</ng-template>
+<div class="paginator" *ngIf="bidsPaginated && bidsPaginated.items.length > 0">
+  <mat-paginator #paginatorOrders [pageSize]="paginationBids.pageSize" [pageSizeOptions]="[5, 10, 20, 50]"
+    [length]="bidsPaginated.totalCount" [pageIndex]="paginationBids.pageIndex"
+    (page)="pageEvent = handlePageBids($event)">
+  </mat-paginator>
+</div>

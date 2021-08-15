@@ -81,6 +81,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { AngularInpostGeowidgetModule } from 'angular-inpost-geowidget';
 import { OfferStateTranslationComponent } from './enum-translations/offer-state-translation/offer-state-translation.component';
 import { DialogPaymentComponent } from './dialogs/dialog-payment/dialog-payment.component';
+import { UserBidsComponent } from './components/user-bids/user-bids.component';
 
 registerLocaleData(localePl);
 
@@ -122,7 +123,8 @@ registerLocaleData(localePl);
     CreateCommentDialogComponent,
     CreateBidComponent,
     OfferStateTranslationComponent,
-    DialogPaymentComponent
+    DialogPaymentComponent,
+    UserBidsComponent
   ],
   imports: [
     BrowserModule,
