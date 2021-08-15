@@ -336,7 +336,7 @@ export class AccountComponent implements OnInit {
   }
 
   completePayment(order: Order) {
-    if(order.offer.offerType === this.offerType.Auction) {
+    if(order.offer.offerType === this.offerType.Auction && !order.delivery) {
       this.summarizeOrderService.setOrder(order);
       this.router.navigateByUrl('/checkout');
     }
