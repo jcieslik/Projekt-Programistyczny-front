@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { PaginationProperties } from 'src/app/enums/pagination-properties';
-import { Bid } from 'src/app/models/bid';
 import { PaginatedOffers } from 'src/app/models/paginatedOffers';
+import { User } from 'src/app/models/user';
 import { OfferService } from 'src/app/services/offer/offer.service';
 
 @Component({
@@ -19,7 +19,7 @@ export class UserBidsComponent implements OnInit {
   paginationBids: PaginationProperties = new PaginationProperties();
   bidsPaginated: PaginatedOffers;
 
-  paginatedBids: PaginatedOffers;
+  user: User = JSON.parse(localStorage.getItem('user'));
 
   constructor(private offerService: OfferService) { }
 
@@ -41,7 +41,7 @@ export class UserBidsComponent implements OnInit {
   getOffers() {
     this.offerService.getUserBidOffers(this.model)
       .subscribe((result) => {
-        this.paginatedBids = result;
+        this.bidsPaginated = result;
       })
   }
 
@@ -50,5 +50,9 @@ export class UserBidsComponent implements OnInit {
     this.model.pageSize = e.pageSize;
 
     this.getOffers();
+  }
+
+  getRouterLink(id: number): string {
+    return id === this.user.id ? '/account/' : '/userProfile/' + id;
   }
 }

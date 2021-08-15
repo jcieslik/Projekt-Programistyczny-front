@@ -5,11 +5,12 @@
     </div>
     <div class="offer-information" style="flex-basis: 80%" [routerLink]="['/offer/'+offer.id]">
       <h1>{{offer.title}}</h1>
-      <h4>Obecna stawka: {{offer.bestBid.value}}</h4>
-      <h2>Użytkownik z najwyższą stawką: {{offer.bestBid.bidderUsername}}</h2>
+      <h4>Obecna stawka: {{offer.bestBid.value | currency:'':''}} zł</h4>
+      <h2>Użytkownik z najwyższą stawką: <a
+          [routerLink]="getRouterLink(offer.bestBid.bidderId)">{{offer.bestBid.bidderUsername}}</a></h2>
     </div>
     <div style="flex-basis: 10%">
-      <button mat-raised-button color="warn" type="submit" (click)="endAuction(offer)">Zakończ aukcję</button>
+
     </div>
   </mat-card>
 </div>
