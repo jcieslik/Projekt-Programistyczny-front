@@ -3,6 +3,7 @@ import { OfferType } from "../enums/offer-type";
 import { ProductState } from "../enums/product-state";
 import { Bid } from "./bid";
 import { Image } from "./image" 
+import { OfferDeliveryDTO } from "./offer-delivery-dto";
 import { User } from "./user";
 
 export class Offer {
@@ -24,4 +25,5 @@ export class Offer {
   images: Image[] = [];
   bestBid: Bid;
   minimalBid: number;
+  deliveryMethods: OfferDeliveryDTO[];
 }

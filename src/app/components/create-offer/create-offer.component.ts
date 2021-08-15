@@ -7,12 +7,12 @@ import { Province } from 'src/app/models/province';
 import { User } from 'src/app/models/user';
 import { OfferService } from 'src/app/services/offer/offer.service';
 import { DeliveryMethod } from 'src/app/models/delivery-method';
-import { DeliveryMethodWithOffer } from 'src/app/models/delivery-method-with-offer';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogCategoryComponent } from 'src/app/dialogs/dialog-category/dialog-category.component';
 import { OfferType } from 'src/app/enums/offer-type';
 import { ProductState } from 'src/app/enums/product-state';
+import { OfferDeliveryDTO } from 'src/app/models/offer-delivery-dto';
 
 @Component({
   selector: 'app-create-offer',
@@ -35,7 +35,7 @@ export class CreateOfferComponent implements OnInit {
 
   deliveryMethods: DeliveryMethod[] = [];
 
-  chosenDeliveryMethods: DeliveryMethodWithOffer[] = [];
+  chosenDeliveryMethods: OfferDeliveryDTO[] = [];
 
   today: Date = new Date();
 
@@ -99,7 +99,7 @@ export class CreateOfferComponent implements OnInit {
         this.categories = results[1];
         this.deliveryMethods = results[2];
         this.deliveryMethods.forEach(method => {
-          let deliveryMethod = new DeliveryMethodWithOffer();
+          let deliveryMethod = new OfferDeliveryDTO();
           deliveryMethod.deliveryMethodId = method.id;
           deliveryMethod.deliveryFullPrice = method.price;
           deliveryMethod.deliveryMethodName = method.name;
@@ -128,8 +128,7 @@ export class CreateOfferComponent implements OnInit {
       if (method.isSelected) {
         return method;
       }
-    })
-    console.log(this.offer.deliveryMethods)
+    });
 
     if (this.form.invalid) {
       alert("Wypełnij wszystkie wymagane pola!")
@@ -191,14 +190,14 @@ export class CreateOfferComponent implements OnInit {
   roundMinutes(date: Date) {
 
     date.setHours(date.getHours() + Math.round(date.getMinutes() / 60));
-    date.setMinutes(0, 0, 0); // Resets also seconds and milliseconds
+    date.setMinutes(0, 0, 0);
     date.setHours(date.getHours() + 1)
     return date;
   }
 
   getMinEndDate(): Date {
     let date = new Date(this.today)
-    date.setDate(this.f.startDate.value.getDate() + 1)
+    date.setDate(this.f.startDate.value.getDate())
     return date;
   }
 

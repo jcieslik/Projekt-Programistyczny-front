@@ -1,9 +1,8 @@
-import { Component, Inject, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { StripeCardElementOptions, StripeElementsOptions } from '@stripe/stripe-js';
 import { StripeCardComponent, StripeService } from 'ngx-stripe';
-import { OrderStatus } from 'src/app/enums/order-status';
 import { Order } from 'src/app/models/order';
 import { Payment } from 'src/app/models/payment';
 import { OrderService } from 'src/app/services/order/order.service';
@@ -14,7 +13,7 @@ import { PaymentService } from 'src/app/services/payment/payment.service';
   templateUrl: './dialog-payment.component.html',
   styleUrls: ['./dialog-payment.component.scss']
 })
-export class DialogPaymentComponent implements OnInit {
+export class DialogPaymentComponent {
   @ViewChild(StripeCardComponent) card: StripeCardComponent;
 
   name: string = '';
@@ -49,9 +48,6 @@ export class DialogPaymentComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-  }
-
   onChange(event: any) {
     this.stripeCardValid = event.complete;
     if (this.stripeCardValid && this.name) {
@@ -73,13 +69,8 @@ export class DialogPaymentComponent implements OnInit {
           paymentRequest.tokenId = result.token.id;
           paymentRequest.amount = Math.round(this.data.fullPrice * 100);
           paymentRequest.description = "ID Oferty: " + this.data.offer.id + "; Nazwa oferty: " + this.data.offer.title;
-          this.paymentService.makePayment(paymentRequest)
+          this.paymentService.makePayment(paymentRequest, this.data.id)
             .subscribe(() => {
-              this.data.paymentDate = new Date(Date.now());
-              this.data.orderStatus = OrderStatus.Paid;
-              this.orderService.changeStatus(this.data)
-                .subscribe((result) => {
-                });
             }, (error) => {
               alert("Wystąpił błąd płatności.");
             })

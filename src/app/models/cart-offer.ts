@@ -1,5 +1,4 @@
 import { OfferState } from "../enums/offer-state";
-import { DeliveryMethodWithOffer } from "./delivery-method-with-offer";
 import { Image } from "./image"
 import { OfferDeliveryDTO } from "./offer-delivery-dto";
 
@@ -13,8 +12,8 @@ export class CartOfferDTO {
   cartId: number;
   offerId: number;
   offerState: OfferState;
-  selectedDeliveryMethod : DeliveryMethodWithOffer = new DeliveryMethodWithOffer(); 
-  deliveryMethods: OfferDeliveryDTO;
+  selectedDeliveryMethod : OfferDeliveryDTO = new OfferDeliveryDTO(); 
+  deliveryMethods: OfferDeliveryDTO[];
   destinationCity: string;
   destinationStreet: string;
   destinationPostCode: string;

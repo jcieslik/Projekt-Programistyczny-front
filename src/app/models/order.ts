@@ -1,6 +1,6 @@
 import { OrderStatus } from "../enums/order-status";
-import { DeliveryMethodWithOffer } from "./delivery-method-with-offer";
 import { OfferWithBaseData } from "./offer-base-data";
+import { OfferDeliveryDTO } from "./offer-delivery-dto";
 import { UserComment } from "./user-comment";
 
 export class Order {
@@ -17,5 +17,5 @@ export class Order {
   cartOfferId: number;
   offer: OfferWithBaseData;
   comment: UserComment;
-  delivery: DeliveryMethodWithOffer;
+  delivery: OfferDeliveryDTO;
 }

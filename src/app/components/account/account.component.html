@@ -105,7 +105,7 @@
           <div style="flex-basis: 10%">
             <button *ngIf="order.orderStatus === orderStatus.AwaitingForPayment" mat-raised-button class="green-button"
               type="submit" (click)="completePayment(order)">Dokończ płatność</button>
-            <button *ngIf="order.orderStatus === orderStatus.AwaitingForPayment" mat-raised-button color="warn"
+            <button *ngIf="order.orderStatus === orderStatus.AwaitingForPayment && order.offer.offerType !== offerType.Auction" mat-raised-button color="warn"
               style="width: 145px; margin: 10px 0px 10px 0px" type="submit" (click)="cancelOrder(order)">Anuluj
               zamówienie</button>
             <button *ngIf="order.orderStatus === orderStatus.InDelivery" mat-raised-button color="primary" type="submit"

@@ -1,12 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { CreateCommentDialogComponent } from 'src/app/dialogs/create-comment/create-comment-dialog.component';
 import { ConfirmationDialogComponent } from 'src/app/dialogs/dialog-confirmation/confirmation-dialog.component';
 import { DialogPaymentComponent } from 'src/app/dialogs/dialog-payment/dialog-payment.component';
 import { ConfirmationDialog } from 'src/app/enums/confirmation-dialog';
 import { OfferState } from 'src/app/enums/offer-state';
+import { OfferType } from 'src/app/enums/offer-type';
 import { OrderStatus } from 'src/app/enums/order-status';
 import { PaginationProperties } from 'src/app/enums/pagination-properties';
+import { CartOfferDTO } from 'src/app/models/cart-offer';
 import { Offer } from 'src/app/models/offer';
 import { OfferWithBaseData } from 'src/app/models/offer-base-data';
 import { Order } from 'src/app/models/order';
@@ -20,6 +23,7 @@ import { UserInfo } from 'src/app/models/user-info';
 import { OfferService } from 'src/app/services/offer/offer.service';
 import { OrderService } from 'src/app/services/order/order.service';
 import { ProvinceService } from 'src/app/services/province/province.service';
+import { SummarizeOrderService } from 'src/app/services/summarize-order/summarize-order.service';
 import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
@@ -33,9 +37,13 @@ export class AccountComponent implements OnInit {
     private offerService: OfferService,
     private orderService: OrderService,
     private provinceService: ProvinceService,
+    private summarizeOrderService: SummarizeOrderService,
+    private router: Router,
     public dialog: MatDialog) { }
 
   orderStatus = OrderStatus;
+
+  offerType = OfferType;
 
   currentUser: User = JSON.parse(localStorage.getItem('user'));
 
@@ -328,17 +336,23 @@ export class AccountComponent implements OnInit {
   }
 
   completePayment(order: Order) {
-    const dialogRef = this.dialog.open(DialogPaymentComponent, {
-      width: '600px',
-      height: '280px',
-      data: order,
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        order.orderStatus = OrderStatus.Paid;
-      }
-    });
+    if(order.offer.offerType === this.offerType.Auction) {
+      this.summarizeOrderService.setOrder(order);
+      this.router.navigateByUrl('/checkout');
+    }
+    else {
+      const dialogRef = this.dialog.open(DialogPaymentComponent, {
+        width: '600px',
+        height: '280px',
+        data: order,
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        if (result) {
+          order.orderStatus = OrderStatus.Paid;
+        }
+      });
+    }
   }
 
   cancelOrder(order: Order) {

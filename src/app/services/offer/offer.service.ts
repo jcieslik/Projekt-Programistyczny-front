@@ -58,6 +58,6 @@ export class OfferService {
   }
 
   getUserBidOffers(model: PaginationProperties) {
-    return this.http.post<PaginatedOffers>(`${environment.apiUrl}/api/Offer/GetUserAciveBidOffers`, model, { withCredentials: true });
+    return this.http.post<PaginatedOffers>(`${environment.apiUrl}/api/Offer/GetUserActiveBidOffers`, model, { withCredentials: true });
   }
 }

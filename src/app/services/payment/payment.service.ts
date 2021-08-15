@@ -10,7 +10,7 @@ export class PaymentService {
 
   constructor(private http: HttpClient) { }
 
-  makePayment(paymentRequest: Payment) {
-    return this.http.post<Payment>(`${environment.apiUrl}/api/Payment/MakePayment`, paymentRequest, { withCredentials: true });
+  makePayment(paymentRequest: Payment, orderId: number) {
+    return this.http.post<Payment>(`${environment.apiUrl}/api/Payment/MakePayment?orderId=${orderId}`, paymentRequest, { withCredentials: true });
   }
 }

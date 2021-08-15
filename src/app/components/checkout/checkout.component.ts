@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-
 import { StripeService, StripeCardComponent } from 'ngx-stripe';
 import {
   StripeCardElementOptions,
@@ -9,7 +8,6 @@ import {
 import { PaymentService } from 'src/app/services/payment/payment.service';
 import { Payment } from 'src/app/models/payment';
 import { Router } from '@angular/router';
-import { DeliveryMethodWithOffer } from 'src/app/models/delivery-method-with-offer';
 import { OrderService } from 'src/app/services/order/order.service';
 import { Order } from 'src/app/models/order';
 import { User } from 'src/app/models/user';
@@ -19,7 +17,8 @@ import { SummarizeOrderService } from 'src/app/services/summarize-order/summariz
 import { AngularInpostGeowidgetService, GeoWidgetMapTypeEnum, GeowidgetTypeEnum } from 'angular-inpost-geowidget';
 import { UserInfo } from 'src/app/models/user-info';
 import { UserService } from 'src/app/services/user/user.service';
-import { OfferWithBaseData } from 'src/app/models/offer-base-data';
+import { OfferService } from 'src/app/services/offer/offer.service';
+import { OfferDeliveryDTO } from 'src/app/models/offer-delivery-dto';
 
 @Component({
   selector: 'app-checkout',
@@ -40,6 +39,8 @@ export class CheckoutComponent implements OnInit {
   mapType: GeoWidgetMapTypeEnum = GeoWidgetMapTypeEnum.GOOGLE_MAPS;
 
   name: string = '';
+
+  order: Order;
 
   public GeowidgetTypeEnum = GeowidgetTypeEnum;
 
@@ -70,6 +71,7 @@ export class CheckoutComponent implements OnInit {
     private orderService: OrderService,
     private summarizeOrderService: SummarizeOrderService,
     private userService: UserService,
+    private offerService: OfferService,
     public angularInpostGeowidgetService: AngularInpostGeowidgetService) {
     this.stripeForm = this.fb.group({
       done: ['', [Validators.required]]
@@ -80,23 +82,51 @@ export class CheckoutComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.summarizeOrderService.getOrderOffers().subscribe(d => {
-      if(d.length === 0) {
-        this.router.navigateByUrl('/home');
-      }
-      this.userService.getUserInfo(this.user.id)
-        .subscribe((result) => {
-          this.userInfo = result;
-          let offers: CartOfferDTO[] = [];
-          d.forEach((offer) => {
-            offer.destinationCity = this.userInfo.city;
-            offer.destinationStreet = this.userInfo.street;
-            offer.destinationPostCode = this.userInfo.postCode;
-            offers.push(offer);
-          })
-          this.offers = offers;
-        });
-    });
+    if (this.summarizeOrderService.order) {
+      this.order = this.summarizeOrderService.order.value;
+      this.offerService.getOffer(this.order.offer.id)
+        .subscribe((d) => {
+          this.userService.getUserInfo(this.user.id)
+            .subscribe((result) => {
+              this.userInfo = result;
+              let cartOffer = new CartOfferDTO();
+              cartOffer.offerId = d.id;
+              cartOffer.title = d.title;
+              cartOffer.offerState = d.state;
+              cartOffer.priceForOneProduct = d.bestBid.value;
+              cartOffer.productsCount = d.productCount;
+              cartOffer.destinationCity = this.userInfo.city;
+              cartOffer.destinationStreet = this.userInfo.street;
+              cartOffer.destinationPostCode = this.userInfo.postCode;
+              cartOffer.deliveryMethods = d.deliveryMethods;
+              console.log(cartOffer)
+              this.createOfferArray([cartOffer]);
+            });
+        })
+    }
+    else {
+      this.summarizeOrderService.getOrderOffers().subscribe(d => {
+        if (d.length === 0) {
+          this.router.navigateByUrl('/home');
+        }
+        this.userService.getUserInfo(this.user.id)
+          .subscribe((result) => {
+            this.userInfo = result;
+            this.createOfferArray(d);
+          });
+      });
+    }
+  }
+
+  createOfferArray(offers: CartOfferDTO[]) {
+    let cartOffers: CartOfferDTO[] = [];
+    offers.forEach((offer) => {
+      offer.destinationCity = this.userInfo.city;
+      offer.destinationStreet = this.userInfo.street;
+      offer.destinationPostCode = this.userInfo.postCode;
+      cartOffers.push(offer);
+    })
+    this.offers = cartOffers;
   }
 
   get f() { return this.deliveryMethods.controls; }
@@ -114,51 +144,64 @@ export class CheckoutComponent implements OnInit {
     this.deliveryMethods.setValue({ done: 'done' });
     return true;
   }
+
   createOrders(): void {
-    this.offers.forEach(offer => {
-      let order = new Order();
-      order.offerWithDeliveryId = offer.selectedDeliveryMethod.deliveryMethodId;
-      order.productCount = offer.productsCount;
-      order.customerId = this.user.id;
-      order.orderStatus = OrderStatus.AwaitingForPayment;
-      order.cartOfferId = offer.id;
-      order.fullPrice = offer.priceForOneProduct * order.productCount + offer.selectedDeliveryMethod.deliveryFullPrice;
-      order.destinationCity = offer.destinationCity;
-      order.destinationStreet = offer.destinationStreet;
-      order.destinationPostCode = offer.destinationPostCode;
-      this.orderService.createOrder(order)
+    if (this.order) {
+      let offer = this.offers[0];
+      this.order.offerWithDeliveryId = offer.selectedDeliveryMethod.deliveryMethodId;
+      this.order.fullPrice = offer.priceForOneProduct * offer.productsCount + offer.selectedDeliveryMethod.deliveryFullPrice;
+      this.order.destinationCity = offer.destinationCity;
+      this.order.destinationStreet = offer.destinationStreet;
+      this.order.destinationPostCode = offer.destinationPostCode;
+      this.orderService.changeStatus(this.order)
         .subscribe((response) => {
-          const name = this.name;
-          this.stripeService
-            .createToken(this.card.element, { name })
-            .subscribe((result) => {
-              if (result.token) {
-                let paymentRequest = new Payment();
-                paymentRequest.tokenId = result.token.id;
-                paymentRequest.amount = Math.round((offer.priceForOneProduct * offer.productsCount + offer.selectedDeliveryMethod.deliveryFullPrice) * 100);
-                paymentRequest.description = "ID Oferty: " + offer.id + "; Nazwa oferty: " + offer.title;
-                this.paymentService.makePayment(paymentRequest)
-                  .subscribe((result) => {
-                    order.id = response.id;
-                    order.paymentDate = new Date(Date.now());
-                    order.orderStatus = OrderStatus.Paid;
-                    this.orderService.changeStatus(order)
-                      .subscribe(() => {
-                        this.router.navigate(['account']);
-                      });
-                  }, (error) => {
-                    alert("Wystąpił błąd płatności.");
-                  })
-              }
-              else {
-                alert("Wystąpił błąd płatności.");
-              }
-            });
-        });
-    });
+          this.makePayment(response.id, offer);
+        })
+    }
+    else {
+      this.offers.forEach(offer => {
+        let order = new Order();
+        order.offerWithDeliveryId = offer.selectedDeliveryMethod.deliveryMethodId;
+        order.productCount = offer.productsCount;
+        order.customerId = this.user.id;
+        order.orderStatus = OrderStatus.AwaitingForPayment;
+        order.cartOfferId = offer.id;
+        order.fullPrice = offer.priceForOneProduct * order.productCount + offer.selectedDeliveryMethod.deliveryFullPrice;
+        order.destinationCity = offer.destinationCity;
+        order.destinationStreet = offer.destinationStreet;
+        order.destinationPostCode = offer.destinationPostCode;
+        this.orderService.createOrder(order)
+          .subscribe((response) => {
+            this.makePayment(response.id, offer);
+          });
+      });
+    }
   }
 
-  setOfferDeliveryMethod(offer: CartOfferDTO, deliveryMethod: DeliveryMethodWithOffer) {
+  makePayment(orderId: number, offer: CartOfferDTO) {
+    const name = this.name;
+    this.stripeService
+      .createToken(this.card.element, { name })
+      .subscribe((result) => {
+        if (result.token) {
+          let paymentRequest = new Payment();
+          paymentRequest.tokenId = result.token.id;
+          paymentRequest.amount = Math.round((offer.priceForOneProduct * offer.productsCount + offer.selectedDeliveryMethod.deliveryFullPrice) * 100);
+          paymentRequest.description = "ID Oferty: " + offer.id + "; Nazwa oferty: " + offer.title;
+          this.paymentService.makePayment(paymentRequest, orderId)
+            .subscribe((result) => {
+              this.router.navigate(['account']);
+            }, (error) => {
+              alert("Wystąpił błąd płatności.");
+            })
+        }
+        else {
+          alert("Wystąpił błąd płatności.");
+        }
+      });
+  }
+
+  setOfferDeliveryMethod(offer: CartOfferDTO, deliveryMethod: OfferDeliveryDTO) {
     offer.selectedDeliveryMethod = deliveryMethod;
     if (deliveryMethod.deliveryMethodName !== 'Paczkomaty InPost') {
       offer.destinationCity = this.userInfo.city;
