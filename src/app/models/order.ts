@@ -1,12 +1,16 @@
 import { OrderStatus } from "../enums/order-status";
-import { OfferWithBaseData } from "./offer-base-data";
-import { OfferDeliveryDTO } from "./offer-delivery-dto";
+import { DeliveryMethod } from "./delivery-method";
+import { Offer } from "./offer";
 import { UserComment } from "./user-comment";
 
 export class Order {
   id: number;
   customerId: number;
-  offerWithDeliveryId: number;
+  offer: Offer;
+  offerId: number;
+  deliveryMethod: DeliveryMethod;
+  deliveryMethodId: number;
+  deliveryFullPrice: number;
   orderStatus: OrderStatus;
   paymentDate: Date;
   productCount: number;
@@ -15,7 +19,5 @@ export class Order {
   destinationStreet: string;
   destinationPostCode: string;
   cartOfferId: number;
-  offer: OfferWithBaseData;
   comment: UserComment;
-  delivery: OfferDeliveryDTO;
 }
