@@ -1,2 +1,4 @@
+<button *ngIf="isChildrenCategories" mat-raised-button (click)="goBack()">Cofnij</button><br>
+
 <button *ngFor="let category of currentCategories; let i = index" mat-raised-button class="dialog-button"
     [color]="getButtonColor(i)" (click)="selectCategory(category)">{{category.name}}</button>

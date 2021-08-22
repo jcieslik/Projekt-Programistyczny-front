@@ -13,6 +13,8 @@ export class DialogCategoryComponent {
 
   childrenIds: number[] = [];
 
+  isChildrenCategories = false;
+
   constructor(
     public dialogRef: MatDialogRef<DialogCategoryComponent>,
     @Inject(MAT_DIALOG_DATA) public data: Category[]) {
@@ -39,6 +41,7 @@ export class DialogCategoryComponent {
   }
 
   selectCategory(category: Category) {
+    this.isChildrenCategories = true;
     if (category.childrenCategories.length > 0) {
       this.childrenIds = [];
       category.childrenCategories.forEach(cat => {
@@ -54,4 +57,10 @@ export class DialogCategoryComponent {
     }
   }
 
+  goBack() {
+    this.currentCategories = this.data.filter(category => {
+      return category.parentCategoryId == null;
+    })
+    this.isChildrenCategories = false;
+  }
 }
