@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryImageSize, NgxGalleryOptions } from '@kolkov/ngx-gallery';
 import { CreateBidComponent } from 'src/app/dialogs/create-bid/create-bid.component';
 import { OfferType } from 'src/app/enums/offer-type';
@@ -13,6 +13,11 @@ import { OfferService } from 'src/app/services/offer/offer.service';
 import { WishService } from 'src/app/services/wish/wish.service';
 import { MatDialog } from '@angular/material/dialog';
 import { OfferState } from 'src/app/enums/offer-state';
+import { SummarizeOrderService } from 'src/app/services/summarize-order/summarize-order.service';
+import { CartOfferDTO } from 'src/app/models/cart-offer';
+import { OrderService } from 'src/app/services/order/order.service';
+import { Order } from 'src/app/models/order';
+import { OrderStatus } from 'src/app/enums/order-status';
 
 @Component({
   selector: 'app-offer',
@@ -35,12 +40,17 @@ export class OfferComponent implements OnInit {
 
   user: User = JSON.parse(localStorage.getItem('user'))
 
+  productCount = 1;
+
   constructor(
     private offerService: OfferService,
     private cartService: CartService,
     private route: ActivatedRoute,
     private wishService: WishService,
     private bidService: BidService,
+    private orderService: OrderService,
+    private summarOrderService: SummarizeOrderService,
+    private router: Router,
     public dialog: MatDialog) { }
 
   isFavorite: boolean = true;
@@ -148,5 +158,37 @@ export class OfferComponent implements OnInit {
           });
       }
     });
+  }
+
+  incrementProductCount() {
+    if(this.productCount < this.offer.productCount) {
+      this.productCount += 1;
+    }
+  }
+
+  decrementProductCount() {
+    if(this.productCount > 1) {
+      this.productCount -= 1;
+    }
+  }
+
+  validateQuantity(){ 
+    return (this.productCount > 0 && this.productCount <= this.offer.productCount)
+  }
+
+  buyNow() {
+    if(this.productCount < 1 || this.productCount > this.offer.productCount) {
+      alert("Zła ilość produktów!");
+      return;
+    }
+    let cartOffer = new CartOfferDTO();
+    cartOffer.title = this.offer.title;
+    cartOffer.priceForOneProduct = this.offer.priceForOneProduct;
+    cartOffer.availableProducts = this.offer.productCount;
+    cartOffer.deliveryMethods = this.offer.deliveryMethods;
+    cartOffer.productsCount = this.productCount;
+    
+    this.summarOrderService.setOrderOffers([cartOffer]);
+    this.router.navigateByUrl('/checkout');
   }
 }

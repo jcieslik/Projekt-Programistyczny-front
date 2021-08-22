@@ -25,3 +25,15 @@ mat-card {
   display: flex;
   flex-wrap: wrap;
 }
+
+input[type=number] {
+  -moz-appearance: textfield;
+  text-align: center;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+  text-align: center;
+}
