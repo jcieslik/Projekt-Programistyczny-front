@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PaginationProperties } from 'src/app/enums/pagination-properties';
+import { Ban } from 'src/app/models/ban';
 import { CreateUser } from 'src/app/models/createUser';
 import { PaginatedUsers } from 'src/app/models/paginatedUsers';
 import { UpdateUser } from 'src/app/models/updateUser';
@@ -36,8 +37,8 @@ export class UserService {
     return this.http.post<PaginatedUsers>(`${environment.apiUrl}/api/User/GetAllUsers`, pagination, { withCredentials: true });
   }
 
-  banUser(banInfo: string, userId: number) {
-    return this.http.post(`${environment.apiUrl}/api/User/BanUser?userId=${userId}`, banInfo, { withCredentials: true });
+  banUser(ban: Ban) {
+    return this.http.post(`${environment.apiUrl}/api/User/BanUser`, ban, { withCredentials: true });
   }
 
   unbanUser(userId: number) {

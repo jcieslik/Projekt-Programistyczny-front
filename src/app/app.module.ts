@@ -83,6 +83,7 @@ import { OfferStateTranslationComponent } from './enum-translations/offer-state-
 import { DialogPaymentComponent } from './dialogs/dialog-payment/dialog-payment.component';
 import { UserBidsComponent } from './components/user-bids/user-bids.component';
 import { UsersComponent } from './components/users/users.component';
+import { BanUserComponent } from './dialogs/ban-user/ban-user.component';
 
 registerLocaleData(localePl);
 
@@ -126,7 +127,8 @@ registerLocaleData(localePl);
     OfferStateTranslationComponent,
     DialogPaymentComponent,
     UserBidsComponent,
-    UsersComponent
+    UsersComponent,
+    BanUserComponent
   ],
   imports: [
     BrowserModule,

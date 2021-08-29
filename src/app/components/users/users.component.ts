@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { BanUserComponent } from 'src/app/dialogs/ban-user/ban-user.component';
 import { PaginationProperties } from 'src/app/enums/pagination-properties';
+import { Ban } from 'src/app/models/ban';
 import { PaginatedUsers } from 'src/app/models/paginatedUsers';
+import { UserInfo } from 'src/app/models/user-info';
 import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
@@ -18,7 +22,8 @@ export class UsersComponent implements OnInit {
   paginationUsers: PaginationProperties = new PaginationProperties();
   paginatedUsers: PaginatedUsers;
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private userService: UserService, private router: Router, private cdRef: ChangeDetectorRef,
+    public dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.initModel();
@@ -54,11 +59,35 @@ export class UsersComponent implements OnInit {
     this.router.navigateByUrl(`/userProfile/${id}`);
   }
 
-  banUser(id: number) {
+  banUser(user: UserInfo) {
+    const dialogRef = this.dialog.open(BanUserComponent, {
+      width: "600px",
+      height: 'auto',
+      data: user
+    })
 
+    dialogRef.afterClosed().subscribe(result => {
+      if(result){
+        var resultMessage: string = result;
+        var ban: Ban = {
+          userId: user.id,
+          banInfo: resultMessage
+        }
+        this.userService.banUser(ban).subscribe(result => {
+            if(result){
+              user.isActive = false;
+            }
+          }
+        );
+      }
+    })
   }
 
-  unbanUser(id: number) {
-    
+  unbanUser(user: UserInfo) {
+    this.userService.unbanUser(user.id).subscribe(result => {
+      if(result){
+        user.isActive = true;
+      }
+    });
   }
 }
