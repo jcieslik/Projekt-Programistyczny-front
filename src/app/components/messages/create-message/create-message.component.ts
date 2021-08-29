@@ -122,6 +122,6 @@ export class CreateMessageComponent implements OnInit {
         return this.recipients[i];
       }
     }
-    return null
+    return null;
   }
 }

@@ -1,5 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { MailboxType } from 'src/app/enums/mailbox-type';
 import { CreateMessage } from 'src/app/models/create-message';
 import { Message } from 'src/app/models/message';
 import { User } from 'src/app/models/user';
@@ -20,6 +21,8 @@ export class DisplayMessageComponent implements OnInit {
   @Output()
   reply = new EventEmitter<CreateMessage>();
 
+  mailboxes: MailboxType;
+
   dateTimePipe: DatePipe = new DatePipe('pl');
 
   currentUser: User = JSON.parse(localStorage.getItem('user'));
@@ -32,8 +35,8 @@ export class DisplayMessageComponent implements OnInit {
         this.messagesService.getNumberOfUnreadMessages()
           .subscribe((result) => {
             this.messagesService.numberOfUnreadMessages.emit((result));
-          })
-      })
+          });
+      });
   }
 
   replyToMessage() {

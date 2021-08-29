@@ -17,6 +17,7 @@ import { ChangeUserInfoComponent } from './components/change-user-info/change-us
 import { UserRole } from './enums/user-role';
 import { NoPermissionComponent } from './components/no-permission/no-permission.component';
 import { SearchComponent } from './components/search/search.component';
+import { UsersComponent } from './components/users/users.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -32,13 +33,13 @@ const routes: Routes = [
   {
     path: 'messages', component: MessagesComponent, canActivate: [AuthGuard],
     data: {
-      userRoles: [UserRole.Customer]
+      userRoles: [UserRole.Customer, UserRole.Admin]
     }
   },
   {
     path: 'messages/:id', component: MessagesComponent, canActivate: [AuthGuard],
     data: {
-      userRoles: [UserRole.Customer]
+      userRoles: [UserRole.Customer, UserRole.Admin]
     }
   },
   {
@@ -73,6 +74,12 @@ const routes: Routes = [
     path: 'checkout', component: CheckoutComponent, canActivate: [AuthGuard],
     data: {
       userRoles: [UserRole.Customer]
+    }
+  },
+  {
+    path: 'users', component: UsersComponent, canActivate: [AuthGuard],
+    data: {
+      userRoles: [UserRole.Admin]
     }
   },
   { path: 'noPermission', component: NoPermissionComponent }

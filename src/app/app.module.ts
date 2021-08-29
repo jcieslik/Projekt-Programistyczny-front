@@ -82,6 +82,7 @@ import { AngularInpostGeowidgetModule } from 'angular-inpost-geowidget';
 import { OfferStateTranslationComponent } from './enum-translations/offer-state-translation/offer-state-translation.component';
 import { DialogPaymentComponent } from './dialogs/dialog-payment/dialog-payment.component';
 import { UserBidsComponent } from './components/user-bids/user-bids.component';
+import { UsersComponent } from './components/users/users.component';
 
 registerLocaleData(localePl);
 
@@ -124,7 +125,8 @@ registerLocaleData(localePl);
     CreateBidComponent,
     OfferStateTranslationComponent,
     DialogPaymentComponent,
-    UserBidsComponent
+    UserBidsComponent,
+    UsersComponent
   ],
   imports: [
     BrowserModule,

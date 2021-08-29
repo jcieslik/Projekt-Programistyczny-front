@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserRole } from 'src/app/enums/user-role';
 import { User } from 'src/app/models/user';
 import { MessagesService } from 'src/app/services/message/messages.service';
 import { AuthenticationService } from '../../services/authentication/authentication.service';
@@ -10,28 +11,42 @@ import { AuthenticationService } from '../../services/authentication/authenticat
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
- 
+
   expanded: boolean = false;
 
   searchText: string;
 
   user: User = JSON.parse(localStorage.getItem('user'));
 
+  isAdmin = false;
+
   messagesNumber: number = 0;
 
   constructor(private authenticationService: AuthenticationService, private router: Router, private messagesService: MessagesService) { }
 
   ngOnInit(): void {
+    this.authenticationService.user.subscribe((user) => {
+      if (user) {
+        console.log(user);
+        this.user = user;
+        if (user.role === UserRole.Admin) {
+          this.isAdmin = true;
+        }
+      }
+      else {
+        this.isAdmin = false;
+      }
+    })
     this.messagesService.numberOfUnreadMessages.subscribe((result) => {
       this.messagesNumber = result;
     })
   }
 
-  expandMenu(){
+  expandMenu() {
     this.expanded = !this.expanded;
   }
 
-  logout(){
+  logout() {
     this.authenticationService.logout();
   }
 
@@ -42,7 +57,7 @@ export class NavbarComponent implements OnInit {
   find() {
     if (this.searchText) {
       this.router.navigateByUrl('/search').then(() => {
-      this.router.navigate(['/home', {q: this.searchText}]);
+        this.router.navigate(['/home', { q: this.searchText }]);
       });
     }
     else this.gotoHome();

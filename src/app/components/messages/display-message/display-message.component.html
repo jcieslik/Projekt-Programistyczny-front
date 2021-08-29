@@ -5,10 +5,10 @@
   <button mat-mini-fab color="primary" style="margin-right: 8px;" (click)="deleteMessage()">
     <mat-icon>delete</mat-icon>
   </button>
-  <button mat-mini-fab color="primary" style="margin-right: 8px;" (click)="replyToMessage()">
+  <button *ngIf="message.mailboxType !== 1" mat-mini-fab color="primary" style="margin-right: 8px;" (click)="replyToMessage()">
     <mat-icon class="fa fa-reply"></mat-icon>
   </button>
-  <button mat-mini-fab color="primary" style="margin-right: 8px;" (click)="replyToMessageAll()">
+  <button *ngIf="message.mailboxType !== 1" mat-mini-fab color="primary" style="margin-right: 8px;" (click)="replyToMessageAll()">
     <mat-icon class="fa fa-reply-all"></mat-icon>
   </button>
   <hr>

@@ -8,12 +8,13 @@
     <mat-icon matSuffix class="fa fa-search" aria-hidden="true" (click)="find()"></mat-icon>
   </mat-form-field>
   <div class="spacer"></div>
-  <a mat-button [routerLink]="'./account'">Twoje konto</a>
+  <a *ngIf="!isAdmin" mat-button [routerLink]="'./account'">Twoje konto</a>
   <a mat-button [routerLink]="'./messages'" [matBadge]="getBadgeText()"
     matBadgeColor="accent">Wiadomości</a>
-  <a mat-button [routerLink]="'./favorites'">Ulubione</a>
-  <a mat-button [routerLink]="'./createOffer'">Dodaj ofertę</a>
-  <a mat-button [routerLink]="'./cart'">Koszyk</a>
+  <a *ngIf="!isAdmin" mat-button [routerLink]="'./favorites'">Ulubione</a>
+  <a *ngIf="!isAdmin" mat-button [routerLink]="'./createOffer'">Dodaj ofertę</a>
+  <a *ngIf="!isAdmin" mat-button [routerLink]="'./cart'">Koszyk</a>
+  <a *ngIf="isAdmin" mat-button [routerLink]="'./users'">Użytkownicy</a>
 
   <div *ngIf="!isLoggedIn(); else else_block">
     <button mat-icon-button>

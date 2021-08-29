@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { PaginationProperties } from 'src/app/enums/pagination-properties';
 import { CreateUser } from 'src/app/models/createUser';
+import { PaginatedUsers } from 'src/app/models/paginatedUsers';
 import { UpdateUser } from 'src/app/models/updateUser';
 import { UserInfo } from 'src/app/models/user-info';
 import { environment } from 'src/environments/environment';
@@ -28,5 +30,17 @@ export class UserService {
 
   getMessageRecipients() {
     return this.http.get<UserInfo[]>(`${environment.apiUrl}/api/User/GetAllMessageRecipients`, { withCredentials: true });
+  }
+
+  getUsersPaginated(pagination: PaginationProperties) {
+    return this.http.post<PaginatedUsers>(`${environment.apiUrl}/api/User/GetAllUsers`, pagination, { withCredentials: true });
+  }
+
+  banUser(banInfo: string, userId: number) {
+    return this.http.post(`${environment.apiUrl}/api/User/BanUser?userId=${userId}`, banInfo, { withCredentials: true });
+  }
+
+  unbanUser(userId: number) {
+    return this.http.post(`${environment.apiUrl}/api/User/UnbanUser?userId=${userId}`, null, { withCredentials: true });
   }
 }

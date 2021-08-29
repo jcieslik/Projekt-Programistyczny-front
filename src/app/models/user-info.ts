@@ -14,4 +14,5 @@ export class UserInfo {
   postCode: string;
   province: Province;
   bankAccountNumber: string;
+  isActive: boolean;
 }
