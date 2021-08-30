@@ -19,5 +19,6 @@ export class Order {
   destinationStreet: string;
   destinationPostCode: string;
   cartOfferId: number;
+  offerWithDeliveryId: number;
   comment: UserComment;
 }

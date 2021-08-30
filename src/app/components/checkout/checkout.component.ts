@@ -148,7 +148,7 @@ export class CheckoutComponent implements OnInit {
   createOrders(): void {
     if (this.order) {
       let offer = this.offers[0];
-      this.order.deliveryMethodId = offer.selectedDeliveryMethod.deliveryMethodId;
+      this.order.offerWithDeliveryId = offer.selectedDeliveryMethod.id;
       this.order.fullPrice = offer.priceForOneProduct * offer.productsCount + offer.selectedDeliveryMethod.deliveryFullPrice;
       this.order.destinationCity = offer.destinationCity;
       this.order.destinationStreet = offer.destinationStreet;
