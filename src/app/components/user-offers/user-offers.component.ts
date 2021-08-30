@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { OfferState } from 'src/app/enums/offer-state';
 import { PaginatedOffers } from 'src/app/models/paginatedOffers';
 import { SearchModel } from 'src/app/models/searchModel';
 import { OfferService } from 'src/app/services/offer/offer.service';
@@ -20,7 +21,7 @@ export class UserOffersComponent implements OnInit {
   ngOnInit(): void {
     this.userId = +this.route.snapshot.paramMap.get('id')
     this.initModel();
-    this.offerService.getOffers(this.model)
+    this.offerService.getOffers(this.model, OfferState.Awaiting)
       .subscribe((response) => {
         this.offers = response;
       })
@@ -31,7 +32,7 @@ export class UserOffersComponent implements OnInit {
     this.model.pageSize = e.pageSize;
     this.model.orderBy = e.orderBy;
 
-    this.offerService.getOffers(this.model)
+    this.offerService.getOffers(this.model, OfferState.Awaiting)
       .subscribe((response) => {
         this.offers = response;
       })
@@ -50,7 +51,7 @@ export class UserOffersComponent implements OnInit {
     else
       this.model.orderBy = e.orderBy;
 
-    this.offerService.getOffers(this.model)
+    this.offerService.getOffers(this.model, OfferState.Awaiting)
       .subscribe((response) => {
         this.offers = response;
       })

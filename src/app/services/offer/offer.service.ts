@@ -45,7 +45,7 @@ export class OfferService {
   }
 
 
-  getOffers(model: SearchModel, state: OfferState = OfferState.All) {
+  getOffers(model: SearchModel, state?: OfferState) {
     return this.http.post<PaginatedOffers>(`${environment.apiUrl}/api/Offer/GetOffers?state=${state}`, model, { withCredentials: true });
   }
 

@@ -45,6 +45,8 @@ export class AccountComponent implements OnInit {
 
   offerType = OfferType;
 
+  offerState = OfferState;
+
   currentUser: User = JSON.parse(localStorage.getItem('user'));
 
   provinces: Province[];

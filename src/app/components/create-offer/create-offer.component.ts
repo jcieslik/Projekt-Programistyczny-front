@@ -150,16 +150,20 @@ export class CreateOfferComponent implements OnInit {
       this.offer.minimalBid = this.f.minimalBid.value;
     }
 
+    console.log(this.f.startDate)
+
     this.offer.title = this.f.title.value;
     this.offer.description = this.f.description.value;
-    this.offer.startDate = this.f.startDate.value;
-    this.offer.endDate = this.f.endDate.value;
+    this.offer.startDate = new Date(this.f.startDate.value.getTime() - (this.f.startDate.value.getTimezoneOffset() * 60000)).toISOString();
+    this.offer.endDate = new Date(this.f.endDate.value.getTime() - (this.f.endDate.value.getTimezoneOffset() * 60000)).toISOString();
     this.offer.brand = this.f.selectedBrand.value;
     this.offer.city = this.f.selectedCity.value;
     this.offer.offerType = this.f.selectedType.value;
     this.offer.provinceId = (this.province.value as Province).id;
     this.offer.categoryId = (this.category.value as Category).id;
     this.offer.images[0].isMainProductImage = true;
+
+    console.log(this.offer)
 
     this.offerService.createOffer(this.offer)
       .subscribe((response) => {

@@ -63,11 +63,12 @@
           </div>
           <div class="offer-information" style="flex-basis: 80%" [routerLink]="['/offer/'+offer.id]">
             <h1>{{offer.title}}</h1>
+            <h2>Status: {{translateState(offerState)}}</h2>
             <h4>Pozostała ilość produktów: {{offer.productCount}}</h4>
             <h2>Cena za sztukę: {{offer.priceForOneProduct | currency:'':''}} zł</h2>
           </div>
           <div style="flex-basis: 10%">
-            <button mat-raised-button color="warn" type="submit" (click)="endAuction(offer)">Zakończ aukcję</button>
+            <button *ngIf="offer.state === offerState.Awaiting" mat-raised-button color="warn" type="submit" (click)="endAuction(offer)">Zakończ aukcję</button>
           </div>
         </mat-card>
       </div>
