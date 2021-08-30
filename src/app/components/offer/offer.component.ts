@@ -18,6 +18,9 @@ import { CartOfferDTO } from 'src/app/models/cart-offer';
 import { OrderService } from 'src/app/services/order/order.service';
 import { Order } from 'src/app/models/order';
 import { OrderStatus } from 'src/app/enums/order-status';
+import { BanOfferComponent } from 'src/app/dialogs/ban-offer/ban-offer.component';
+import { Ban } from 'src/app/models/ban';
+import { isObject } from 'rxjs/internal-compatibility';
 
 @Component({
   selector: 'app-offer',
@@ -40,6 +43,8 @@ export class OfferComponent implements OnInit {
 
   user: User = JSON.parse(localStorage.getItem('user'))
 
+  isAdmin = false;
+
   productCount = 1;
 
   constructor(
@@ -56,6 +61,7 @@ export class OfferComponent implements OnInit {
   isFavorite: boolean = true;
 
   ngOnInit(): void {
+    this.isAdmin = this.user.role === 1 ? true : false;
     this.offerId = +this.route.snapshot.paramMap.get('id')
     this.checkForUserWish();
     this.offerService.getOffer(this.offerId)
@@ -91,10 +97,12 @@ export class OfferComponent implements OnInit {
   }
 
   checkForUserWish() {
+    if(!this.isAdmin){
     this.wishService.checkForUserWish(this.offerId)
       .subscribe((result) => {
         this.isFavorite = result;
       })
+    }
   }
   addToCart() {
     this.cartService.addOfferToCart(this.offerId).subscribe();
@@ -190,5 +198,30 @@ export class OfferComponent implements OnInit {
     
     this.summarOrderService.setOrderOffers([cartOffer]);
     this.router.navigateByUrl('/checkout');
+  }
+
+  banOffer(){
+    const dialogRef = this.dialog.open(BanOfferComponent, {
+      width: "600px",
+      height: 'auto',
+      data: this.offer
+    })
+
+    dialogRef.afterClosed().subscribe(result => {
+
+      if(result){
+        var resultMessage: string = result;
+        var ban: Ban = {
+          id: this.offerId,
+          banInfo: resultMessage
+        }
+        this.offerService.banOffer(ban).subscribe(result => {
+            if(result){
+              this.offer.state = OfferState.Banned;
+            }
+          }
+        );
+      }
+    })
   }
 }

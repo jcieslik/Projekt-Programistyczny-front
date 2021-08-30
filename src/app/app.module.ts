@@ -85,6 +85,7 @@ import { UserBidsComponent } from './components/user-bids/user-bids.component';
 import { UsersComponent } from './components/users/users.component';
 import { BanUserComponent } from './dialogs/ban-user/ban-user.component';
 import { BanInfoDialogComponent } from './dialogs/ban-info-dialog/ban-info-dialog.component';
+import { BanOfferComponent } from './dialogs/ban-offer/ban-offer.component';
 
 registerLocaleData(localePl);
 
@@ -130,7 +131,8 @@ registerLocaleData(localePl);
     UserBidsComponent,
     UsersComponent,
     BanUserComponent,
-    BanInfoDialogComponent
+    BanInfoDialogComponent,
+    BanOfferComponent
   ],
   imports: [
     BrowserModule,

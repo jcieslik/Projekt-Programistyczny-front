@@ -1,4 +1,4 @@
-<mat-card class="main-card" *ngIf="user">
+<mat-card class="main-card" *ngIf="user && user.role != 1">
   <h1>{{user.username}}</h1>
   <h3>Imię: {{user.name}} {{user.surname}}</h3>
   <h3>Email: {{user.email}}</h3>
@@ -16,4 +16,10 @@
       <app-comments [userId]="user.id"></app-comments>
     </mat-tab>
   </mat-tab-group>
+</mat-card>
+<mat-card  class="main-card" *ngIf="user && user.role == 1">
+  <h1><b>Administrator</b></h1>
+  <h3>Imię: {{user.name}} </h3>
+  <h3>Email: {{user.email}}</h3>
+  <h3><a [routerLink]="['/messages/'+user.id]">Skontaktuj się z tym użytkownikiem</a></h3>
 </mat-card>

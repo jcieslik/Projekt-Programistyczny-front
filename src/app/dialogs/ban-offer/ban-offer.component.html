@@ -1,0 +1,13 @@
+<form [formGroup]="form">
+  <h1 mat-dialog-title>Zablokuj ogłoszenie: {{offer.title}}</h1>
+  <div mat-dialog-content>
+    <mat-form-field style="width: 100%;">
+      <textarea formControlName="comment" name="comment" placeholder="Powód blokady ogłoszenia" matInput rows="4"></textarea>
+      <mat-error *ngIf="f.comment.invalid">Wprowadź powód blokady ogłoszenia</mat-error>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-raised-button color="warn" (click)="submit('close')">Anuluj</button>
+    <button mat-raised-button (click)="submit('submit')">Zatwierdź</button>
+  </div>
+</form>

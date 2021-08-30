@@ -26,4 +26,5 @@ export class Offer {
   bestBid: Bid;
   minimalBid: number;
   deliveryMethods: OfferDeliveryDTO[];
+  banInfo?: null | string;
 }

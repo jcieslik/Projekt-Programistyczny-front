@@ -70,7 +70,7 @@ export class UsersComponent implements OnInit {
       if(result){
         var resultMessage: string = result;
         var ban: Ban = {
-          userId: user.id,
+          id: user.id,
           banInfo: resultMessage
         }
         this.userService.banUser(ban).subscribe(result => {

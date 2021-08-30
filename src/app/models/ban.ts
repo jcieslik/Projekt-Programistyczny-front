@@ -1,4 +1,4 @@
 export class Ban {
-  userId: number;
+  id: number;
   banInfo: string;
 }

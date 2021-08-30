@@ -12,6 +12,7 @@ import { PaginatedOffers } from 'src/app/models/paginatedOffers';
 import { DeliveryMethod } from 'src/app/models/delivery-method';
 import { PaginationProperties } from 'src/app/enums/pagination-properties';
 import { OfferState } from 'src/app/enums/offer-state';
+import { Ban } from 'src/app/models/ban';
 
 @Injectable({
   providedIn: 'root'
@@ -59,5 +60,13 @@ export class OfferService {
 
   getUserBidOffers(model: PaginationProperties) {
     return this.http.post<PaginatedOffers>(`${environment.apiUrl}/api/Offer/GetUserActiveBidOffers`, model, { withCredentials: true });
+  }
+
+  banOffer(ban: Ban) {
+    return this.http.put(`${environment.apiUrl}/api/Offer/BanOffer`, ban, { withCredentials: true });
+  }
+
+  unbanOffer(offerId: number) {
+    return this.http.put(`${environment.apiUrl}/api/Offer/UnbanOffer?offerId=${offerId}`, null, { withCredentials: true });
   }
 }
