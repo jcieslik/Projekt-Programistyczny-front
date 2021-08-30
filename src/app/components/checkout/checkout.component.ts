@@ -99,7 +99,6 @@ export class CheckoutComponent implements OnInit {
               cartOffer.destinationStreet = this.userInfo.street;
               cartOffer.destinationPostCode = this.userInfo.postCode;
               cartOffer.deliveryMethods = d.deliveryMethods;
-              console.log(cartOffer)
               this.createOfferArray([cartOffer]);
             });
         })
