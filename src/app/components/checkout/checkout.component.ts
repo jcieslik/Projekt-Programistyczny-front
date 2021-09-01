@@ -187,7 +187,7 @@ export class CheckoutComponent implements OnInit {
           let paymentRequest = new Payment();
           paymentRequest.tokenId = result.token.id;
           paymentRequest.amount = Math.round((offer.priceForOneProduct * offer.productsCount + offer.selectedDeliveryMethod.deliveryFullPrice) * 100);
-          paymentRequest.description = "ID Oferty: " + offer.id + "; Nazwa oferty: " + offer.title;
+          paymentRequest.description = "ID Oferty: " + offer.offerId + "; Nazwa oferty: " + offer.title;
           this.paymentService.makePayment(paymentRequest, orderId)
             .subscribe((result) => {
               this.router.navigate(['account']);
