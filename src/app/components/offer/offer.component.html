@@ -24,7 +24,8 @@
         <div class="text">Stan: <product-state-i18n [key]="offer.productState"></product-state-i18n>
         </div>
         <div class="text">Lokalizacja: {{offer.province}}, {{offer.city}}</div>
-        <mat-button-toggle-group *ngIf="!isAdmin && offer.offerType === offerType.BuyNow && offer.state === offerState.Awaiting"
+        <mat-button-toggle-group
+          *ngIf="!isAdmin && offer.offerType === offerType.BuyNow && offer.state === offerState.Awaiting"
           style="margin-top: 16px;">
           <mat-button-toggle (click)="decrementProductCount()">
             <mat-icon class="fas fa-minus"></mat-icon>
@@ -40,17 +41,20 @@
             <mat-icon class="fas fa-plus"></mat-icon>
           </mat-button-toggle>
         </mat-button-toggle-group>
-        <button *ngIf="isAdmin" mat-raised-button
-        color="primary" type="submit" class="buy-button" [disabled]="offer.state === offerState.Banned" (click)="banOffer()">Zablokuj ogłoszenie</button>
-        <button *ngIf="!isAdmin && offer.offerType === offerType.BuyNow && offer.state === offerState.Awaiting" mat-raised-button
-          color="primary" type="submit" class="buy-button" [disabled]="checkIfBuyingDisabled()" (click)="buyNow()">Kup
+        <button *ngIf="isAdmin && offer.state !== offerState.Banned" mat-raised-button color="primary" type="submit"
+          class="buy-button" (click)="banOffer()">Zablokuj ogłoszenie</button>
+        <button *ngIf="isAdmin && offer.state === offerState.Banned" mat-raised-button color="primary" type="submit"
+          class="buy-button" (click)="unbanOffer()">Odblokuj ogłoszenie</button>
+        <button *ngIf="!isAdmin && offer.offerType === offerType.BuyNow && offer.state === offerState.Awaiting"
+          mat-raised-button color="primary" type="submit" class="buy-button" [disabled]="checkIfBuyingDisabled()"
+          (click)="buyNow()">Kup
           teraz</button>
-        <button *ngIf="!isAdmin && offer.offerType === offerType.BuyNow && offer.state === offerState.Awaiting" mat-raised-button
-          color="primary" type="submit" class="buy-button" [disabled]="checkIfBuyingDisabled()"
+        <button *ngIf="!isAdmin && offer.offerType === offerType.BuyNow && offer.state === offerState.Awaiting"
+          mat-raised-button color="primary" type="submit" class="buy-button" [disabled]="checkIfBuyingDisabled()"
           (click)="addToCart()">Dodaj do
           koszyka</button>
-        <button *ngIf="!isAdmin && offer.offerType === offerType.Auction && offer.state === offerState.Awaiting" mat-raised-button
-          color="primary" type="submit" class="buy-button" [disabled]="checkIfBuyingDisabled()"
+        <button *ngIf="!isAdmin && offer.offerType === offerType.Auction && offer.state === offerState.Awaiting"
+          mat-raised-button color="primary" type="submit" class="buy-button" [disabled]="checkIfBuyingDisabled()"
           (click)="makeBid()">Licytuj</button>
       </div>
     </div>

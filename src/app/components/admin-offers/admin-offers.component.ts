@@ -25,7 +25,7 @@ export class AdminOffersComponent implements OnInit {
     if (this.searchText == undefined)
       this.searchText = "";
     this.model.searchText = this.searchText;
-    this.offerService.getOffers(this.model, OfferState.All)
+    this.offerService.getOffers(this.model, OfferState.AllForAdmin)
       .subscribe((response) => {
         this.offers = response;
       })
@@ -36,7 +36,7 @@ export class AdminOffersComponent implements OnInit {
     this.model.pageSize = e.pageSize;
     this.model.orderBy = e.orderBy;
 
-    this.offerService.getOffers(this.model, OfferState.All)
+    this.offerService.getOffers(this.model, OfferState.AllForAdmin)
       .subscribe((response) => {
         this.offers = response;
       })
@@ -55,7 +55,7 @@ export class AdminOffersComponent implements OnInit {
     else
       this.model.orderBy = e.orderBy;
 
-    this.offerService.getOffers(this.model, OfferState.All)
+    this.offerService.getOffers(this.model, OfferState.AllForAdmin)
       .subscribe((response) => {
         this.offers = response;
       })
