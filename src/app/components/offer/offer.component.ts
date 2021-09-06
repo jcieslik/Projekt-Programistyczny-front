@@ -107,7 +107,7 @@ export class OfferComponent implements OnInit {
     }
   }
   addToCart() {
-    this.cartService.addOfferToCart(this.offerId).subscribe(() => {
+    this.cartService.addOfferToCart(this.offerId, this.productCount).subscribe(() => {
       const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
         width: '360px',
         height: '200px',

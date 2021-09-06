@@ -11,8 +11,8 @@ export class CartService {
 
   constructor(private http: HttpClient) { }
 
-  addOfferToCart(offerId: number) {
-    return this.http.post(`${environment.apiUrl}/api/Cart/AddOfferToCart?offerId=${offerId}`, null,  { withCredentials: true });
+  addOfferToCart(offerId: number, amount: number) {
+    return this.http.post(`${environment.apiUrl}/api/Cart/AddOfferToCart?offerId=${offerId}&amount=${amount}`, null,  { withCredentials: true });
   }  
   
   getOffersFromCart() {
