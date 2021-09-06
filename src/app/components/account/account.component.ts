@@ -116,7 +116,7 @@ export class AccountComponent implements OnInit {
   translateState(state: OfferState): string {
     switch (state) {
       case OfferState.Awaiting:
-        return "Oczekujące";
+        return "Aktywne";
       case OfferState.Finished:
         return "Ukończone"
       case OfferState.Outdated:

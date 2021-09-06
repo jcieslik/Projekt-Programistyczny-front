@@ -152,6 +152,7 @@ export class CheckoutComponent implements OnInit {
       this.order.destinationCity = offer.destinationCity;
       this.order.destinationStreet = offer.destinationStreet;
       this.order.destinationPostCode = offer.destinationPostCode;
+      this.order.offerId = offer.offerId;
       this.orderService.changeStatus(this.order)
         .subscribe((response) => {
           this.makePayment(response.id, offer);
@@ -187,7 +188,7 @@ export class CheckoutComponent implements OnInit {
           let paymentRequest = new Payment();
           paymentRequest.tokenId = result.token.id;
           paymentRequest.amount = Math.round((offer.priceForOneProduct * offer.productsCount + offer.selectedDeliveryMethod.deliveryFullPrice) * 100);
-          paymentRequest.description = "ID Oferty: " + offer.id + "; Nazwa oferty: " + offer.title;
+          paymentRequest.description = "ID Oferty: " + offer.offerId + "; Nazwa oferty: " + offer.title;
           this.paymentService.makePayment(paymentRequest, orderId)
             .subscribe((result) => {
               this.router.navigate(['account']);

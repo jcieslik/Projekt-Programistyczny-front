@@ -6,6 +6,22 @@
         <a [routerLink]="['/userProfile/'+user.id]">Powróć do profilu użytkownika {{user.username}}</a>
       </h4>
 
+      <div style="margin-bottom: 16px;">
+        <h1 style="font-size: 1.5em"> Kategorie </h1>
+        <div *ngIf="currentCategory">
+          <div style="font-size:15px; margin-top:10px">
+            Wyniki dla kategorii: {{currentCategory.name}}
+          </div>
+          <div class="right-align" style="margin-bottom:-35px; margin-top: 3px">
+            <button class="category-button" (click)="onBackClick()">Cofnij</button>
+          </div>
+        </div>
+        <p></p>
+        <div style="margin-top:1px; font-size: 15px" *ngFor="let category of displayedCategories">
+          <button class="category-button" (click)="onCategoryClick(category)">{{category.name}}</button>
+        </div>
+      </div>
+
       <h1 style="margin-top:-10px">Cena</h1>
       <div class="price-range">
         <mat-form-field class="half-width" appearance="outline">
@@ -74,22 +90,6 @@
       <div style="margin-top: 10px">
         <button mat-raised-button color="primary" type="submit" class="left">Zastosuj</button>
         <button mat-raised-button (click)="reset()" class="right">Reset</button>
-      </div>
-
-      <div>
-        <h1 style="margin-top:30px; margin-bottom:-8px; font-size: 1.5em"> Kategorie </h1>
-        <div *ngIf="currentCategory">
-          <div style="font-size:15px; margin-top:10px">
-            Wyniki dla kategorii: {{currentCategory.name}}
-          </div>
-          <div class="right-align" style="margin-bottom:-35px; margin-top: 3px">
-            <button class="category-button" (click)="onBackClick()">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Cofnij</button>
-          </div>
-        </div>
-        <p></p>
-        <div style="margin-top:1px; font-size: 15px" *ngFor="let category of displayedCategories">
-          <button class="category-button" (click)="onCategoryClick(category)">{{category.name}}</button>
-        </div>
       </div>
     </div>
   </mat-card>

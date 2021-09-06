@@ -84,7 +84,7 @@ export class CreateOfferComponent implements OnInit {
     this.f.minimalBid.disable();
     let startDate = new Date();
     startDate.setSeconds(0)
-    startDate.setMinutes(startDate.getMinutes() + 2);
+    startDate.setMinutes(startDate.getMinutes() + 1);
     let endDate = new Date()
     endDate.setSeconds(0)
     endDate.setMinutes(startDate.getMinutes());
@@ -150,8 +150,6 @@ export class CreateOfferComponent implements OnInit {
       this.offer.minimalBid = this.f.minimalBid.value;
     }
 
-    console.log(this.f.startDate)
-
     this.offer.title = this.f.title.value;
     this.offer.description = this.f.description.value;
     this.offer.startDate = new Date(this.f.startDate.value.getTime() - (this.f.startDate.value.getTimezoneOffset() * 60000)).toISOString();
@@ -162,8 +160,6 @@ export class CreateOfferComponent implements OnInit {
     this.offer.provinceId = (this.province.value as Province).id;
     this.offer.categoryId = (this.category.value as Category).id;
     this.offer.images[0].isMainProductImage = true;
-
-    console.log(this.offer)
 
     this.offerService.createOffer(this.offer)
       .subscribe((response) => {
