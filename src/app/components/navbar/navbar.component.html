@@ -15,6 +15,7 @@
   <a *ngIf="!isAdmin" mat-button [routerLink]="'./createOffer'">Dodaj ofertę</a>
   <a *ngIf="!isAdmin" mat-button [routerLink]="'./cart'">Koszyk</a>
   <a *ngIf="isAdmin" mat-button [routerLink]="'./users'">Użytkownicy</a>
+  <a *ngIf="isAdmin" mat-button [routerLink]="'./adminOffers'">Oferty</a>
 
   <div *ngIf="!isLoggedIn(); else else_block">
     <button mat-icon-button>

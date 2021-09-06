@@ -18,6 +18,7 @@ import { UserRole } from './enums/user-role';
 import { NoPermissionComponent } from './components/no-permission/no-permission.component';
 import { SearchComponent } from './components/search/search.component';
 import { UsersComponent } from './components/users/users.component';
+import { AdminOffersComponent } from './components/admin-offers/admin-offers.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -82,7 +83,13 @@ const routes: Routes = [
       userRoles: [UserRole.Admin]
     }
   },
-  { path: 'noPermission', component: NoPermissionComponent }
+  { path: 'noPermission', component: NoPermissionComponent },
+  {
+    path: 'adminOffers', component: AdminOffersComponent, canActivate: [AuthGuard],
+    data: {
+      userRoles: [UserRole.Admin]
+    }
+  }
 ];
 
 @NgModule({
