@@ -38,7 +38,7 @@ export class NavbarComponent implements OnInit {
     })
     this.messagesService.numberOfUnreadMessages.subscribe((result) => {
       this.messagesNumber = result;
-    })
+    });
   }
 
   expandMenu() {
@@ -57,6 +57,7 @@ export class NavbarComponent implements OnInit {
     if (this.searchText) {
       this.router.navigateByUrl('/search').then(() => {
         this.router.navigate(['/home', { q: this.searchText }]);
+        this.searchText = '';
       });
     }
     else this.gotoHome();
