@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -13,6 +14,8 @@ import { AuthenticationService } from '../../services/authentication/authenticat
 export class LoginComponent implements OnInit {
 
   returnUrl: string;
+
+  loginError: boolean = false; 
 
   form: FormGroup = this.fb.group({    
     username: ['', Validators.required],
@@ -37,6 +40,7 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.authenticationService.login(this.f.username.value.trim(), this.f.password.value.trim())
       .subscribe((user) => {
+        this.loginError = false;
         if(!user.isActive) {
           const dialogRef = this.dialog.open(BanInfoDialogComponent, {
             width: "400px",
@@ -46,7 +50,8 @@ export class LoginComponent implements OnInit {
         }
         else {
           this.router.navigate([this.returnUrl]);
-        }
+        }}, () => { 
+            this.loginError = true;
       })
   }
 

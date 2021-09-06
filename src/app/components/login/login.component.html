@@ -6,6 +6,8 @@
         <mat-form-field class="full-width-input">
           <input matInput placeholder="User" formControlName="username">
         </mat-form-field>
+        <mat-error *ngIf="loginError">Wprowadzone dane logowania są błędne
+        </mat-error>
         <mat-form-field class="full-width-input">
           <input matInput type="password" placeholder="Password" formControlName="password">
         </mat-form-field>
