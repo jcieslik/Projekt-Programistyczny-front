@@ -152,6 +152,7 @@ export class CheckoutComponent implements OnInit {
       this.order.destinationCity = offer.destinationCity;
       this.order.destinationStreet = offer.destinationStreet;
       this.order.destinationPostCode = offer.destinationPostCode;
+      this.order.offerId = offer.offerId;
       this.orderService.changeStatus(this.order)
         .subscribe((response) => {
           this.makePayment(response.id, offer);

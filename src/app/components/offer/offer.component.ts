@@ -18,6 +18,8 @@ import { CartOfferDTO } from 'src/app/models/cart-offer';
 import { OrderService } from 'src/app/services/order/order.service';
 import { Order } from 'src/app/models/order';
 import { OrderStatus } from 'src/app/enums/order-status';
+import { ConfirmationDialogComponent } from 'src/app/dialogs/dialog-confirmation/confirmation-dialog.component';
+import { ConfirmationDialog } from 'src/app/enums/confirmation-dialog';
 
 @Component({
   selector: 'app-offer',
@@ -97,7 +99,19 @@ export class OfferComponent implements OnInit {
       })
   }
   addToCart() {
-    this.cartService.addOfferToCart(this.offerId).subscribe();
+    this.cartService.addOfferToCart(this.offerId).subscribe(() => {
+      const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+        width: '360px',
+        height: '200px',
+        data: ConfirmationDialog.AddToCart
+      });
+  
+      dialogRef.afterClosed().subscribe((result) => {
+        if(result) {
+          this.router.navigateByUrl('/cart');
+        }
+      });
+    });
   }
 
   checkIfBuyingDisabled(): boolean {
@@ -187,6 +201,7 @@ export class OfferComponent implements OnInit {
     cartOffer.availableProducts = this.offer.productCount;
     cartOffer.deliveryMethods = this.offer.deliveryMethods;
     cartOffer.productsCount = this.productCount;
+    cartOffer.offerId = this.offerId;
     
     this.summarOrderService.setOrderOffers([cartOffer]);
     this.router.navigateByUrl('/checkout');

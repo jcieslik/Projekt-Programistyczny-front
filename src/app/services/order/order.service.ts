@@ -28,4 +28,6 @@ export class OrderService {
   getOrdersBySeller(pagination: PaginationProperties, status: OrderStatus) {
     return this.http.post<PaginatedOrders>(`${environment.apiUrl}/api/Order/GetOrdersBySeller?status=${status}`, pagination, { withCredentials: true })
   }
+
+  
 }
