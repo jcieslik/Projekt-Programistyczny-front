@@ -4,5 +4,6 @@ export enum OfferState {
   Outdated = 2,
   Hidden = 3,
   Banned = 4,
-  All = 5
+  All = 5,
+  AllForAdmin = 6
 }

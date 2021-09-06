@@ -239,4 +239,12 @@ export class OfferComponent implements OnInit {
       }
     })
   }
+
+  unbanOffer() {
+    this.offerService.unbanOffer(this.offerId).subscribe(result => {
+      if(result) {
+        this.offer.state = OfferState.Awaiting;
+      }
+    })
+  }
 }

@@ -67,6 +67,6 @@ export class OfferService {
   }
 
   unbanOffer(offerId: number) {
-    return this.http.put(`${environment.apiUrl}/api/Offer/UnbanOffer?offerId=${offerId}`, null, { withCredentials: true });
+    return this.http.put(`${environment.apiUrl}/api/Offer/UnbanOffer`, offerId, { withCredentials: true });
   }
 }
