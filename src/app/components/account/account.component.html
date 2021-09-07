@@ -153,6 +153,7 @@
             <h4 *ngIf="order.delivery">Sposób dostawy: {{order.delivery.name}}</h4>
             <h4 *ngIf="!order.delivery">Oczekiwanie na dokończenie zamówienia</h4>
             <h2 *ngIf="order.delivery">Cena zamówienia: {{order.fullPrice | currency:'':''}} zł</h2>
+            <h2>Liczba produktów: {{order.productCount}}</h2>
           </div>
           <div style="flex-basis: 10%">
             <button *ngIf="order.orderStatus === orderStatus.Paid" mat-raised-button color="primary" type="submit"
